@@ -1,0 +1,152 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
+    />
+    <title>Untitled</title>
+    <link
+      rel="stylesheet"
+      href="{% static 'assets_admin_add_item/bootstrap/css/bootstrap.min.css' %}"
+    />
+  </head>
+
+  <body>
+    <header></header>
+    <div>
+      <form
+        action="{% url 'add_item' %}"
+        method="post"
+        class="d-flex flex-column"
+        enctype="multipart/form-data"
+        style="
+          width: 50%;
+          text-align: center;
+          margin-top: 25%;
+          margin-bottom: 25%;
+          margin-right: auto;
+          margin-left: auto;
+          border-style: solid;
+          border-color: rgb(139, 144, 149);
+          padding: 10px;
+        "
+      >
+      {% csrf_token %}
+        <div class="row">
+          <div
+            class="col d-flex flex-column align-items-center"
+            style="text-align: center"
+          >
+            <img
+              id="item_image"
+              style="width: auto; height: 140px; margin-bottom: 10px"
+              src="{% static 'assets_admin_add_item/img/login-logo.svg' %} "
+            /><input
+              class="form-control"
+              type="file"
+              id="file_input"
+              name="file_input"
+              style="display: none"
+              onchange="displaySelectedImage(event)"
+            /><button class="btn btn-primary" id="borwse_pic" type="button" onclick="document.getElementById('file_input').click()">
+              انتخاب عکس
+            </button>
+          </div>
+          <div class="col">
+            <input
+              class="form-control"
+              type="text"
+              id="item_name"
+              name="item_name"
+              placeholder="نام ایتم"
+              style="
+                text-align: right;
+                width: 50%;
+                margin-right: auto;
+                margin-left: auto;
+                margin-bottom: 10px;
+              "
+            /><input
+              class="form-control"
+              type="text"
+              id="item_price"
+              name="item_price"
+              placeholder="قیمت واحد"
+              style="
+                text-align: right;
+                width: 50%;
+                margin-right: auto;
+                margin-left: auto;
+                margin-bottom: 10px;
+              "
+            /><input
+              class="form-control"
+              type="text"
+              id="item_info"
+              placeholder="توضیحات"
+              style="
+                text-align: right;
+                width: 50%;
+                margin-right: auto;
+                margin-left: auto;
+                margin-bottom: 10px;
+              "
+            />
+            <div class="dropdown">
+              <button
+                class="btn btn-primary dropdown-toggle"
+                aria-expanded="false"
+                data-bs-toggle="dropdown"
+                type="button"
+                style="
+                  background: var(--bs-btn-disabled-color);
+                  color: rgb(0, 0, 0);
+                  border-color: rgb(206, 212, 218);
+                  width: 50%;
+                  margin-bottom: 10px;
+                "
+              >
+              <span id="selectedItem">دسته بندی&nbsp;</span>
+              </button>
+              <div class="dropdown-menu">
+                {% for item in categories %}
+                <a class="dropdown-item" href="#" onclick="changeText('{{ item }}')">{{item}}</a
+                >
+                {% endfor %}
+                <input type="hidden" id="selected_category" name="selected_category" value="">
+              </div>
+            </div>
+          </div>
+        </div>
+        <button class="btn btn-primary" id="add_item_btn" type="submit">
+          افزودن ایتم
+        </button>
+      </form>
+    </div>
+    <script>
+      function displaySelectedImage(event) {
+        const selectedFile = event.target.files[0];
+        const imgElement = document.getElementById("item_image");
+        imgElement.style.display = "block";
+
+        const reader = new FileReader();
+        reader.onload = function () {
+          imgElement.src = reader.result;
+        };
+        reader.readAsDataURL(selectedFile);
+        imgElement.style.width = "100%";
+      }
+      function changeText(selectedItem) {
+        document.getElementById('selectedItem').innerText = selectedItem;
+    }
+    function changeText(selectedItem) {
+      document.getElementById("selectedItem").innerText = selectedItem;
+      document.getElementById("selected_category").value = selectedItem;
+    }
+    </script>
+    <script src="{% static 'assets_admin_add_item/bootstrap/js/bootstrap.min.js' %}"></script>
+  </body>
+</html>
