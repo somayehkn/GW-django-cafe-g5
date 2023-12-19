@@ -25,8 +25,8 @@
         style="
           width: 50%;
           text-align: center;
-          margin-top: 25%;
-          margin-bottom: 25%;
+          margin-top: 10%;
+          
           margin-right: auto;
           margin-left: auto;
           border-style: solid;
@@ -34,7 +34,7 @@
           padding: 10px;
         "
       >
-      {% csrf_token %}
+        {% csrf_token %}
         <div class="row">
           <div
             class="col d-flex flex-column align-items-center"
@@ -51,7 +51,12 @@
               name="file_input"
               style="display: none"
               onchange="displaySelectedImage(event)"
-            /><button class="btn btn-primary" id="borwse_pic" type="button" onclick="document.getElementById('file_input').click()">
+            /><button
+              class="btn btn-primary"
+              id="borwse_pic"
+              type="button"
+              onclick="document.getElementById('file_input').click()"
+            >
               انتخاب عکس
             </button>
           </div>
@@ -109,14 +114,23 @@
                   margin-bottom: 10px;
                 "
               >
-              <span id="selectedItem">دسته بندی&nbsp;</span>
+                <span id="selectedItem">دسته بندی&nbsp;</span>
               </button>
               <div class="dropdown-menu">
                 {% for item in categories %}
-                <a class="dropdown-item" href="#" onclick="changeText('{{ item }}')">{{item}}</a
+                <a
+                  class="dropdown-item"
+                  href="#"
+                  onclick="changeText('{{ item }}')"
+                  >{{item}}</a
                 >
                 {% endfor %}
-                <input type="hidden" id="selected_category" name="selected_category" value="">
+                <input
+                  type="hidden"
+                  id="selected_category"
+                  name="selected_category"
+                  value=""
+                />
               </div>
             </div>
           </div>
@@ -125,6 +139,17 @@
           افزودن ایتم
         </button>
       </form>
+    </div>
+    <div class="text-center" style="margin-top: 10px">
+      <button
+      {% comment %} ToDo: change target to correct link {% endcomment %}
+        onclick="location.href = 'target'"
+        class="btn btn-primary"
+        type="button"
+        style="width: 575.2734px; background: #666d70"
+      >
+        بازگشت
+      </button>
     </div>
     <script>
       function displaySelectedImage(event) {
@@ -140,12 +165,12 @@
         imgElement.style.width = "100%";
       }
       function changeText(selectedItem) {
-        document.getElementById('selectedItem').innerText = selectedItem;
-    }
-    function changeText(selectedItem) {
-      document.getElementById("selectedItem").innerText = selectedItem;
-      document.getElementById("selected_category").value = selectedItem;
-    }
+        document.getElementById("selectedItem").innerText = selectedItem;
+      }
+      function changeText(selectedItem) {
+        document.getElementById("selectedItem").innerText = selectedItem;
+        document.getElementById("selected_category").value = selectedItem;
+      }
     </script>
     <script src="{% static 'assets_admin_add_item/bootstrap/js/bootstrap.min.js' %}"></script>
   </body>
