@@ -22,6 +22,8 @@ from . import views
 
 urlpatterns = [
     path('add_item', views.add_items, name = 'add_item'),
+    path("login/",views.login,name="login"),
+    path("dashboard",views.dashboard,name="dashboard"),
     
 ]
 if settings.DEBUG:
