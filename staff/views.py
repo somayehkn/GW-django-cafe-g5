@@ -61,10 +61,10 @@ def login(request):
                 messages.add_message(request,messages.SUCCESS,f"welcome{username}")
                 return redirect(reverse("dashboard"))
             messages.add_message(request,messages.ERROR,f"user {username} was not found!")
-    return render(request,'login.html',context={"form":form})
+    return render(request,'staff/login.html',context={"form":form})
 
 def dashboard(request):
-    return render(request,'dashboard.html',context={})
+    return render(request,'staff/dashboard.html',context={})
     
 def logout(request):
     django_logout(request)
