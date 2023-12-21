@@ -2,6 +2,7 @@ from django.shortcuts import render
 from .models import Category, Item
 
 # Create your views here.
+
 def home (request):
     records = Category.objects.all()
     context = [[]]
@@ -19,3 +20,12 @@ def menu(request):
     category_items = Item.objects.filter(category=category)
     records = Category.objects.all()
     return render(request, 'menu.html', {'category_items':category_items,'categories':records})
+
+
+def shoping_cart(request):
+    return render(request,'customer/shoping-cart.html',context={})
+
+def table_rigester(request):
+    return render(request,'customer/table-rigester.html',context={})
+
+
