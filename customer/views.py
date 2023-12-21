@@ -7,3 +7,4 @@ def shoping_cart(request):
 
 def table_rigester(request):
     return render(request,'customer/table-rigester.html',context={})
+
