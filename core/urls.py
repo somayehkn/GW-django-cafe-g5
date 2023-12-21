@@ -22,7 +22,9 @@ from customer import urls as customer_urls
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('customer/',include(customer_urls)),
+    path('', include('customer.urls'))
+
 ]
 
-urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) #new
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
