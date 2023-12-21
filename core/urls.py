@@ -20,9 +20,6 @@ from django.conf import settings
 from django.conf.urls.static import static
 from customer import urls as customer_urls
 
-
-
-
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('customer/',include(customer_urls)),
