@@ -1,0 +1,70 @@
+{% load  static %}
+<!DOCTYPE html>
+<html data-bs-theme="light" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>checkout_page</title>
+    <link rel="stylesheet" href="{% static 'assests_checkout_page/bootstrap/css/bootstrap.min.css'%}">
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Allan&amp;display=swap"
+    />
+</head>
+
+<body>
+    <header></header>
+    <div class="table-responsive" style="margin-right: auto;margin-top: 5%;margin-bottom: 10%;margin-left: auto;">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th class="fs-4">Checout</th>
+                    <th class="fs-4">Details</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr style="margin-top: auto;margin-right: 25%;margin-bottom: auto;margin-left: 25%;">
+                    <td style="margin-top: auto;margin-right: 25%;margin-bottom: auto;margin-left: 25%;background: url({% static 'assets_checkout_page/img/images%20.jpg' %}) no-repeat;background-size: cover;"><img class="img-fluid" id="checkout_img" style="width: auto;height: 25%;margin-top: auto;margin-right: 25%;margin-bottom: auto;margin-left: 25%;" width="atuo" height="50%" src="{% static 'assets_checkout_page/img/images%20.jpg' %}"></td>
+                    <td class="text-center" id="checkout_item_name">Item</td>
+                    <td class="text-center" id="checkout_price">Price</td>
+                    <td class="text-center" id="checkout_quantity">Quntity</td>
+                    <td id="checkout_total_price_item">Total</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="table-responsive" style="margin-top: -10%;margin-right: auto;margin-bottom: 10%;margin-left: 45%;padding-top: 0;padding-right: inherit;padding-bottom: 0;padding-left: inherit;">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th id="checkout_discount" style="margin-right: auto;margin-left: auto;">
+                       discount
+                    </th>
+                    <th id="checkout_total_price" style="margin-top: auto;margin-bottom: auto;margin-right: 0;margin-left: 0;">Total Price</th>
+                </tr>
+            </thead>
+            <tbody style="margin-top: auto;margin-right: 20%;margin-bottom: auto;margin-left: 25%;">
+                <tr>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td><button 
+                        onclick="location.href = 'shoping_cart.html?cat={{ item.name }}'"
+                        class= "btn btn-primary btn-lg fs-5 text-center" type="button">Back&nbsp; &nbsp;&nbsp;</button></td>
+                    <td style="margin-right: auto;margin-left: auto;"><button 
+                        onclick= "alert('سفارش شما تایید شد')"
+                        class="btn btn-primary btn-lg fs-5" type="button">Confirm</button></td>
+                </tr>
+            </tbody>
+        </table>
+        
+    </div>
+    
+
+    <script src="{% static 'assests_checkout_page/bootstrap/css/bootstrap.min.css'%}"></script>
+    
+</body>
+
+</html>
