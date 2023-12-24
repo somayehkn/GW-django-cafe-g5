@@ -1,0 +1,13 @@
+.fit-cover {
+  object-fit: cover;
+}
+
+.fas.fa-minus {
+  padding-bottom: 15px;
+  margin-bottom: 0px;
+}
+
+#plus-btn {
+  font-size: 44px;
+}
+
