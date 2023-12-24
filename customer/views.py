@@ -19,7 +19,7 @@ def menu(request):
     category = Category.objects.get(name=category)
     category_items = Item.objects.filter(category=category)
     records = Category.objects.all()
-    return render(request, 'menu.html', {'category_items':category_items,'categories':records})
+    return render(request, 'menu.html', {'category_items':category_items,'categories':records, 'selected_category':category})
 
 
 def shoping_cart(request):
