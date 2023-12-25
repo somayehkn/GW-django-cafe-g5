@@ -1,0 +1,64 @@
+{% load static %}
+<!DOCTYPE html>
+<html data-bs-theme="light" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no" />
+    <title>category</title>
+    <link rel="stylesheet" href="{% static 'static\assets_add_category\bootstrap\css\bootstrap.min.css' %} " />
+  </head>
+
+  <body style="padding-top: 5%;padding-right: 0;padding-bottom: 5%;padding-left: 0;border-style: none;">
+    <form method="POST" action="{% url 'add-category' %}" enctype="multipart/form-data" style="margin-top: auto;margin-right: 25%;margin-bottom: auto;margin-left: 25%;padding-top: 0;border: 1px groove var(--bs-tertiary-color);border-right: 1px solid rgb(12,62,112);">
+      {% csrf_token %}
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6" style="border-width: 0px;border-style: solid;">
+            {{form}}
+            <input type="submit" value="submit">
+            {% comment %} <input class="form-control" type="img" name="category_img" id="category_img" style="border: 1px solid var(--bs-emphasis-color) ;border-right-width: 0px;border-right-color: var(--bs-emphasis-color);" />
+            {% comment %} <img src="" alt="تصویر بارگذاری شده" style="width: 100px;" /> {% endcomment %}
+            {% comment %} <input type="submit"  value = "انتخاب عکس"/> {% endcomment %} 
+          </div>
+          
+
+          {% comment %} {% if category_img %}
+            <img src="{{ category_img.url }}" alt="تصویر بارگذاری شده" style="width: 100px;" />
+          {% endif %} {% endcomment %}
+
+          <div class="col-md-6">
+            <div class="row">
+              <div class="col">
+                <div class="row">
+                  {% comment %} <div class="col" style="border-color: var(--bs-emphasis-color);">
+                    <input class="form-control" type="text" id="category_name" style="border-style: ridge;border-color: var(--bs-secondary-color);" placeholder="نام دسته" />
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xl-12" style="border-color: var(--bs-body-color);">
+                    <input class="form-control" type="text" id="category_description" style="border-style: solid;border-color: var(--bs-secondary-color);" placeholder="توضیحات" /> {% endcomment %}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% comment %} <button class="btn btn-primary" type="submit" style="margin-top: auto;margin-right: 25%;margin-bottom: auto;margin-left: 45%;background: var(--bs-btn-disabled-color);border-style: ridge;border-color: var(--bs-emphasis-color);"><span style="color: rgb(1, 1, 1);">افزودن</span></button> {% endcomment %}
+    </form>
+    {% comment %} <button class="btn btn-primary" type="submit" style="margin-top: auto;margin-right: 50%;margin-bottom: auto;margin-left: 25%;background: var(--bs-btn-disabled-color);border-color: var(--bs-black);"><span style="color: rgb(7, 6, 6);">بازگشت</span></button> {% endcomment %}
+    
+    {%if previous_url%}
+      <button type ="button" class="btn btn-primary" onclick = "window.location.href = '{{previous_url}}'" >back</button>
+    {% endif %}
+    {% comment %} <script>
+      const button = document.querySelector('button.btn-primary')
+      
+      button.addEventListener('click', () => {
+      window.location.href = '/staff/add-category/'
+      })
+    </script> {% endcomment %}
+
+    <script src=" {% static 'static\assets_add_category\bootstrap\js\bootstrap.min.js' %}"></script>
+  </body>
+</html>
