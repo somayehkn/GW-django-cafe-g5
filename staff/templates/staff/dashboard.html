@@ -95,7 +95,7 @@
                   /><button class="btn btn-primary py-0" type="button">
                     <i class="fas fa-search"></i>
                   </button>
-                </div> 
+                </div>
               </form>
               <ul class="navbar-nav flex-nowrap ms-auto">
                 <li class="nav-item dropdown d-sm-none no-arrow">
@@ -105,10 +105,12 @@
                     data-bs-toggle="dropdown"
                     href="#"
                     ><i class="fas fa-search"></i
-                  ></a> <div
+                  ></a>
+                  <div
                     class="dropdown-menu dropdown-menu-end p-3 animated--grow-in"
                     aria-labelledby="searchDropdown"
-                  > <form class="me-auto navbar-search w-100">
+                  >
+                    <form class="me-auto navbar-search w-100">
                       <div class="input-group">
                         <input
                           class="bg-light form-control border-0 small"
@@ -121,7 +123,7 @@
                           </button>
                         </div>
                       </div>
-                    </form> 
+                    </form>
                   </div>
                 </li>
                 <li class="nav-item dropdown no-arrow mx-1">
@@ -364,43 +366,183 @@
               <h3 class="text-dark mb-0">سفارشات</h3>
             </div>
             <div class="row">
-            {% for customer_order in customer_orders %}
-              <div class="col-md-6 col-xl-3 mb-4">
-                <div class="card shadow border-start-primary py-2" style="width:500px">
-                  <div class="card-body">
-                    <table style="border:1px solid black;width:100%;margin-bottom:15px">
-                        <tr>
-                            <th style="border:1px solid black;width:40%;text-align: center;background-color: #f2f2f2;">زمان ثبت سفارش</th>
-                            <th style="border:1px solid black;width:50%;text-align: center;background-color: #f2f2f2;">توضیحات</th>
-                            <th style="border:1px solid black;width:10%;text-align: center;background-color: #f2f2f2;">میز</th>
-                        </tr>
-                        <tr>
-                            <th style="border:1px solid black;width:40%;text-align: center">{{ customer_order.timestamp }}</th>
-                            <th style="border:1px solid black;width:50%;text-align: center">{{ customer_order.description }}</th>
-                            <th style="border:1px solid black;width:10%;text-align: center">{{customer_order.table_number.table_number}}</th>
-                        </tr>
-                    </table>
-                    <table style="border:1px solid black;width:100%;margin-bottom:15px">
-                        <tr>
-                            <th style="border:1px solid black;width:40%;text-align: center;background-color: #f2f2f2;">عنوان</th>
-                            <th style="border:1px solid black;width:40%;text-align: center;background-color: #f2f2f2;">قیمت واحد</th>
-                            <th style="border:1px solid black;width:20%;text-align: center;background-color: #f2f2f2;">تعداد</th>
-                        </tr>
-                        {% for order_item in customer_order.order_item_set.all %}
-                            <tr>
-                                <th style="border:1px solid black;width:40%;text-align: center">{{ order_item.item.name }}</th>
-                                <th style="border:1px solid black;width:40%;text-align: center">{{ order_item.item.unitprice }}</th>
-                                <th style="border:1px solid black;width:20%;text-align: center">{{ order_item.count }}</th>
-                            </tr>
-                        {% endfor %}
-                        
-                        <th style="border:1px solid black;width:30%;text-align: center;background-color: #f2f2f2;">جمع کل</th>
-                        <th style="border:1px solid black;width:70%;text-align: center;"colspan="2">{{ customer_order.total_price }}</th>
-                    </table>
+              {% for customer_order in customer_orders %} 
+              
+                <div class="col">
+                  <div class="col-md-6 col-xl-3" style="">
+                    <div class="card shadow border-start-primary py-2" style="width: 500px">
+                      <div class="card-body">
+                        <table
+                          style="
+                            border: 1px solid black;
+                            width: 100%;
+                            margin-bottom: 15px;
+                          "
+                        >
+                          <tr>
+                            <th
+                              style="
+                                border: 1px solid black;
+                                width: 40%;
+                                text-align: center;
+                                background-color: #f2f2f2;
+                              "
+                            >
+                              زمان ثبت سفارش
+                            </th>
+                            <th
+                              style="
+                                border: 1px solid black;
+                                width: 50%;
+                                text-align: center;
+                                background-color: #f2f2f2;
+                              "
+                            >
+                              توضیحات
+                            </th>
+                            <th
+                              style="
+                                border: 1px solid black;
+                                width: 10%;
+                                text-align: center;
+                                background-color: #f2f2f2;
+                              "
+                            >
+                              میز
+                            </th>
+                          </tr>
+                          <tr>
+                            <th
+                              style="
+                                border: 1px solid black;
+                                width: 40%;
+                                text-align: center;
+                              "
+                            >
+                              {{ customer_order.timestamp }}
+                            </th>
+                            <th
+                              style="
+                                border: 1px solid black;
+                                width: 50%;
+                                text-align: center;
+                              "
+                            >
+                              {{ customer_order.description }}
+                            </th>
+                            <th
+                              style="
+                                border: 1px solid black;
+                                width: 10%;
+                                text-align: center;
+                              "
+                            >
+                              {{customer_order.table_number.table_number}}
+                            </th>
+                          </tr>
+                        </table>
+                        <table
+                          style="
+                            border: 1px solid black;
+                            width: 100%;
+                            margin-bottom: 15px;
+                          "
+                        >
+                          <tr>
+                            <th
+                              style="
+                                border: 1px solid black;
+                                width: 40%;
+                                text-align: center;
+                                background-color: #f2f2f2;
+                              "
+                            >
+                              عنوان
+                            </th>
+                            <th
+                              style="
+                                border: 1px solid black;
+                                width: 40%;
+                                text-align: center;
+                                background-color: #f2f2f2;
+                              "
+                            >
+                              قیمت واحد
+                            </th>
+                            <th
+                              style="
+                                border: 1px solid black;
+                                width: 20%;
+                                text-align: center;
+                                background-color: #f2f2f2;
+                              "
+                            >
+                              تعداد
+                            </th>
+                          </tr>
+                          {% for order_item in customer_order.order_item_set.all%}
+                          <tr>
+                            <th
+                              style="
+                                border: 1px solid black;
+                                width: 40%;
+                                text-align: center;
+                              "
+                            >
+                              {{ order_item.item.name }}
+                            </th>
+                            <th
+                              style="
+                                border: 1px solid black;
+                                width: 40%;
+                                text-align: center;
+                              "
+                            >
+                              {{ order_item.item.unitprice }}
+                            </th>
+                            <th
+                              style="
+                                border: 1px solid black;
+                                width: 20%;
+                                text-align: center;
+                              "
+                            >
+                              {{ order_item.count }}
+                            </th>
+                          </tr>
+                          {% endfor %}
+
+                          <th
+                            style="
+                              border: 1px solid black;
+                              width: 30%;
+                              text-align: center;
+                              background-color: #f2f2f2;
+                            "
+                          >
+                            جمع کل
+                          </th>
+                          <th
+                            style="
+                              border: 1px solid black;
+                              width: 70%;
+                              text-align: center;
+                            "
+                            colspan="2"
+                          >
+                            {{ customer_order.total_price }}
+                          </th>
+                        </table>
+                    </div>
+                    </div>
                   </div>
                 </div>
-              </div>
-              {% endfor %}
+                {% if forloop.counter|divisibleby:2 %}
+            </div>
+            <div class="row">
+                {% endif %}
+                
+            {% endfor %}
             </div>
           </div>
         </div>
