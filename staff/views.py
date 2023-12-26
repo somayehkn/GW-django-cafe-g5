@@ -1,6 +1,6 @@
 
 from django.core.files.storage import FileSystemStorage
-from customer.models import Category, Item
+from customer.models import Category, Item, Customer_order, Order_item
 import shutil
 from django.views.decorators.csrf import requires_csrf_token
 from django.shortcuts import render,redirect
@@ -64,7 +64,9 @@ def login(request):
     return render(request,'staff/login.html',context={"form":form})
 
 def dashboard(request):
-    return render(request,'staff/dashboard.html',context={})
+    customer_orders = Customer_order.objects.all()
+    
+    return render(request,'staff/dashboard.html',context={'customer_orders': customer_orders})
     
 def logout(request):
     django_logout(request)
