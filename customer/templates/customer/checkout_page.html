@@ -45,7 +45,7 @@
                 <td rowspan="2">
                     <img class="img-fluid" height="50%" id="checkout_img" src="{% static 'assests_checkout_page/img/images.jpg' %}" style="width:auto;height:25%;" width="auto">
                 </td>
-                {% comment %} {% for item in items %}
+                 {% for item in items %}
                     <tr>
                         
                         <td class="text-center" id="checkout_item_name">{{ item.title }}</td>
@@ -56,17 +56,9 @@
                     <tr>
                         <td colspan="4"></td>
                     </tr>
-                {% endfor %} {% endcomment %}
-                <tr>
-                        
-                    <td class="text-center" id="checkout_item_name">fff</td>
-                    <td class="text-center" id="checkout_price">23</td>
-                    <td class="text-center" id="checkout_quantity">3</td>
-                    <td id="checkout_total_price_item">444</td>
-                </tr>
-                <tr>
-                    <td colspan="4"></td>
-                </tr>
+                {% endfor %} 
+                
+                
             </tbody>
         </table>
     </div>
