@@ -44,15 +44,10 @@ class Customer_order(models.Model):
     table_number = models.ForeignKey(Table, null=True, on_delete=models.CASCADE)
     total_price = models.DecimalField(max_digits=12, decimal_places=2)
 
-    def __str__(self) -> str:
-        return f"{self.customer.first_name} {self.customer.last_name}"
-
 
 class Order_item(models.Model):
     item: Item = models.ForeignKey(Item, on_delete=models.CASCADE)
     count = models.IntegerField(default=1)
     customer_order: Customer_order = models.ForeignKey(Customer_order, on_delete=models.CASCADE)
 
-    def __str__(self):
-        customer = self.customer_order.customer
-        return f"{customer.first_name} {customer.last_name} {self.item.name}"
+
