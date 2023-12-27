@@ -1,11 +1,142 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Menu</title>
+    <link rel="stylesheet" href="{% static 'assets_menu_page/bootstrap/css/bootstrap.min.css'%}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Allan&amp;display=swap">
+    <link rel="stylesheet" href="{% static 'assets_menu_page/css/Font-Awesome-5-Brands.css'%}">
+    <link rel="stylesheet" href="{% static 'assets_menu_page/css/Font-Awesome-5-Free.css'%}">
+    <link rel="stylesheet" href="{% static 'assets_menu_page/fonts/fontawesome-all.min.css'%}">
+    <link rel="stylesheet" href="{% static 'assets_menu_page/css/bootstrap.min.css'%}">
+    <link rel="stylesheet" href="{% static 'assets_menu_page/css/Articles-Cards-images.css'%}">
+    <link rel="stylesheet" href="{% static 'assets_menu_page/css/Navbar-With-Button-icons.css'%}">
 </head>
-<body>
+
+<body class="text-center flex-column d-flex" style="background: linear-gradient(0deg, black 0%, rgb(64,16,16) 13%, rgb(97,24,24) 37%, rgb(124,31,31) 82%, #8b2323 100%), #8b2323;border-style: none;border-color: #c4d8e2;border-radius: 0;transform-style: preserve-3d;transition: ease;">
+    <header style="background: #e2d3d6;transform: translate(0px);border-radius: 26px;border-bottom-right-radius: 25px;border-bottom-left-radius: 25px;color: rgb(255,255,255);border-top-left-radius: 0;border-top-right-radius: 0;margin-bottom: 70px;position: relative;width: 100%;">
+        <nav class="navbar navbar-light navbar-expand-md d-flex float-start flex-row flex-fill justify-content-end align-items-end" style="width: 95%;color: rgb(255, 255, 255);padding-left: 17px;">
+            <div class="container-fluid"><button data-bs-toggle="collapse" data-bs-target="#navcol-1" class="navbar-toggler"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button><a class="navbar-brand" href="#" style="font-family: Allan, serif;font-size: 36px;margin-right: 123px;color: #8b2323;text-shadow: -5px 3px rgba(139,35,35,0.17);">Cafe Project</a>
+                <div class="collapse navbar-collapse" id="navcol-2">
+                    <ul class="navbar-nav me-auto">
+                        {% for category in categories %}
+                        {% if category == selected_category %}
+                        <li class="nav-item">
+                            <button class="nav-link active" onclick="redirectToCat('{{category.name}}')">{{category.name}}</button>
+                        </li>
+                        {% else %}
+                        <li class="nav-item">
+                            <button class="nav-link" onclick="redirectToCat('{{category.name}}')">{{category.name}}</button>
+                        </li>
+                        {% endif %}
+                        {% endfor %}
+                    </ul>
+                </div><button class="btn btn-primary" type="button" style="background: #FFF1CF;color: var(--bs-gray-900);font-weight: bold;width: 118px;height: 67px;font-size: 26px;margin: auto;border-style: none;border-radius: 17px;" onclick="sendToCheckout(&#39;{{item.name}}&#39;)"><i class="fas fa-shopping-cart"></i></button>
+            </div>
+        </nav>
+    </header>
+    <div class="container py-4 py-xl-5">
+        <div class="row mb-5">
+            <div class="col-md-8 col-xl-6 text-center mx-auto">
+                <h2 style="color: var(--bs-white);font-weight: bold;">{{selected_category.name}}</h2>
+                <p style="color: var(--bs-white);">{{selected_category.description}}</p>
+            </div>
+        </div>
+        <div class="row gy-4 row-cols-1 row-cols-md-2 row-cols-xl-3 justify-content-center">
+            {% for item in category_items %}
+            <div class="col" id="{{item.name}}">
+                <div class="card" style="border-radius: 10px;"><img class="card-img-top w-100 d-block card-img-top w-100 fit-cover" style="height: 200px;" src="{% static item.image %}">
+                    <div class="card-body p-4" style="border-color: var(--bs-border-color-translucent);background: #e2d3d6;border-radius: 10px;">
+                        <h4 class="card-title" style="color: #000000;font-weight: bold;"><span style="color: rgb(83, 83, 83);">{{item.name}}</span></h4>
+                        <p class="card-text" style="color: #141619;font-weight: bold;font-size: 18px;">Price:&nbsp;<span id="unitprice_{{item.name}}" style="font-weight: bold;">{{item.unitprice}}</span>&nbsp;T</p>
+                        <div class="d-flex justify-content-center align-items-center" style="padding-left: 0px;font-size: 18px;">
+                            <p style="font-weight: bold;font-size: 18px;padding-bottom: 0px;margin-bottom: 0px;">Count:&nbsp;</p>
+                            <div></div>
+                            <ul class="list-group list-group-horizontal" style="font-size: 18px;">
+                                <li class="list-group-item" onclick="incrementQuantity(&#39;{{item.name}}&#39;)"><i class="fas fa-plus-circle"></i></li>
+                                <li class="list-group-item"><span id="quantity_{{item.name}}">0</span></li>
+                                <li class="list-group-item" onclick="decrementQuantity(&#39;{{item.name}}&#39;)"><i class="fas fa-minus-circle"></i></li>
+                            </ul>
+                        </div>
+                        <p class="card-text" style="color: #141619;font-weight: bold;padding-top: 9px;">Total:&nbsp;<span id="total_price_{{item.name}}" class="total_price" style="font-weight: bold;">0</span>&nbsp;T</p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+            
+        </div>
+    </div>
+    <script>
+
+        function redirectToCheckout(){
+            let data = createJson();
+            SendToServer(data);
+            window.location.href = "checkout";
+        }
+
+        function redirectToCat(cat){
+            let data = createJson();
+            SendToServer(data);
+            redirect(`menu?cat=${cat}`);
+        }
     
+        function createJson() {
+            let dataToSend = {};
+            let elements = document.querySelectorAll(".col");        
+            elements.forEach(element => {
+                let item_name = element.id;
+                let item_unit_price = parseFloat(document.getElementById("unitprice_" + item_name).textContent);
+                let item_quantity = parseInt(document.getElementById("quantity_"+ item_name).textContent, 10);
+                let item_total_price = item_unit_price * item_quantity;
+        
+                dataToSend[item_name] = {
+                    item_unit_price: item_unit_price,
+                    item_quantity: item_quantity,
+                    item_total_price: item_total_price
+                };
+            });     
+            return dataToSend;
+        }
+    
+        function SendToServer(jsonData){
+            const csrfToken = getCookie('csrftoken');
+            let requestOptions = {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': csrfToken,
+                },
+                body: JSON.stringify(jsonData) 
+            };
+    
+            
+            fetch('change_category', requestOptions)
+                .then(response => response.json()) 
+                .then(data => {
+                    console.log('Response: ', data);
+                })
+                .catch(error => {
+                    console.error('Response error: ', error);
+                });         
+        }
+    
+        function redirect(url) {
+            let redirectURL = url;
+            window.location.href = redirectURL;
+        }
+    
+        function getCookie(name) {
+            const value = `; ${document.cookie}`;
+            const parts = value.split(`; ${name}=`);
+            if (parts.length === 2) return parts.pop().split(';').shift();
+            } 
+    </script>
+    <script src="{% static 'assets_menu_page/bootstrap/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'assets_menu_page/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'assets_menu_page/js/menu.js' %}"></script>
 </body>
+
 </html>
