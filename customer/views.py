@@ -21,16 +21,20 @@ def home (request):
     return render(request, 'index.html', {'data_from_db':context})
 
 def menu(request):
-    if  request.session['items_json_data']:
-        data = request.session['items_json_data']
     category = request.GET.get('cat')
     category = Category.objects.get(name=category)
     category_items = Item.objects.filter(category=category)
     records = Category.objects.all()
-    return render(request, 'menu.html', {'category_items':category_items,
+    if  'items_json_data' in request.session:
+        data = request.session['items_json_data']
+        return render(request, 'menu.html', {'category_items':category_items,
                                          'categories':records,
                                          'selected_category':category,
                                          'data': data})
+    return render(request, 'menu.html', {'category_items':category_items,
+                                         'categories':records,
+                                         'selected_category':category,
+                                         })
 
 def change_category(request):
     if request.method == 'POST':
