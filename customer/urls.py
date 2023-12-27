@@ -23,9 +23,11 @@ from . import views
 
 urlpatterns = [
     path('', views.home, name='home'),
-    path('menu.html', views.menu, name='menu'),
-    path("shoping-cart",views.shoping_cart,name="shoping-cart"),
-    path("table-rigester",views.table_rigester,name="table-rigester"),
+    path('menu', views.menu, name='menu'),
+    path('change_category', views.change_category, name='change_category'),
+    path("shoping-cart",views.shoping_cart, name="shoping-cart"),
+    path("table-rigester",views.table_rigester, name="table-rigester"),
+    # path("checkout",views.checkout, name="checkout"),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) #new
