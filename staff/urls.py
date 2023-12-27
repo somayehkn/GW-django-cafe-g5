@@ -18,12 +18,13 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings  
 from django.conf.urls.static import static  
-from staff import urls as staff_urls
-
+from . import views
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('staff/', include(staff_urls)),
+    path('add_item', views.add_items, name = 'add_item'),
+    path("login/",views.login,name="login"),
+    path("dashboard",views.dashboard,name="dashboard"),
+    
 ]
-
-urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
