@@ -1,0 +1,48 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" >
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>category</title>
+    <link rel="stylesheet" href="{% static 'static/css/styles.css' %}">
+    
+  </head>
+
+  <body>
+    <header></header>
+    <div>
+    <form method="POST"  class="d-flex flex-column" action="{% url 'add-category' %}" enctype="multipart/form-data"  
+    style="
+    width: 50%;
+    text-align: center;
+    margin-top: 10%;
+    
+    margin-right: auto;
+    margin-left: auto;
+    border-style: solid;
+    border-color: rgb(139, 144, 149);
+    padding: 10px;
+  "
+>
+      <div class="container">
+        <div class="row"  >
+            {{ form }}
+            <input type="submit" value="ثبت" />
+        </div>
+        
+      </div>
+    </div>
+      
+    </form>
+    
+
+    {% if previous_url %}
+      <button type="button" class="btn btn-primary" onclick="window.location.href = '{{ previous_url }}'">'بازگشت'</button>
+    {% endif %}
+    
+
+    <script src=" {% static 'static/assets_add_category/bootstrap/js/bootstrap.min.js' %}"></script>
+    
+  </body>
+</html>

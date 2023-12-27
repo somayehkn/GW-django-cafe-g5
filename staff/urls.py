@@ -1,3 +1,4 @@
+
 """
 URL configuration for core project.
 
@@ -19,12 +20,17 @@ from django.urls import path, include
 from django.conf import settings  
 from django.conf.urls.static import static  
 from . import views
-
+from .views import TestView
 urlpatterns = [
     path('add_item', views.add_items, name = 'add_item'),
     path("login/",views.login,name="login"),
     path("dashboard",views.dashboard,name="dashboard"),
-    
+    path('', views.home, name='home'),
+    path('menu.html', views.menu, name='menu'),
+    path("shoping-cart",views.shoping_cart,name="shoping-cart"),
+    path("table-rigester",views.table_rigester,name="table-rigester"),
+    path('add-category/', TestView.as_view(), name = 'add-category'),
 ]
+
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

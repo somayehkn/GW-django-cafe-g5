@@ -1,9 +1,6 @@
 from django.db import models
 
 # Create your models here.
-from django.db import models
-
-# Create your models here.
 class Table(models.Model):
     table_number = models.IntegerField()
     capacity = models.IntegerField()
@@ -47,12 +44,10 @@ class Customer_order(models.Model):
     table_number = models.ForeignKey(Table, null=True, on_delete=models.CASCADE)
     total_price = models.DecimalField(max_digits=12, decimal_places=2)
 
-    
-
 
 class Order_item(models.Model):
     item: Item = models.ForeignKey(Item, on_delete=models.CASCADE)
     count = models.IntegerField(default=1)
     customer_order: Customer_order = models.ForeignKey(Customer_order, on_delete=models.CASCADE)
 
-    
+
