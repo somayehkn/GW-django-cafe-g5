@@ -1,4 +1,3 @@
-
 """
 URL configuration for core project.
 
@@ -15,6 +14,7 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+
 from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings  
@@ -22,20 +22,19 @@ from django.conf.urls.static import static
 from . import views
 
 urlpatterns = [
-<<<<<<<< HEAD:staff/urls.py
     path('add_item', views.add_items, name = 'add_item'),
     path("login/",views.login,name="login"),
     path("dashboard",views.dashboard,name="dashboard"),
+    path('', views.home, name='home'),
+    path('menu', views.menu, name='menu'),
+    path('change_category', views.change_category, name='change_category'),
+    path("shoping-cart",views.shoping_cart, name="shoping-cart"),
+    path("table-rigester",views.table_rigester, name="table-rigester"),
+    path('customer/checkout_page', views.checkout_page, name='checkout_page'),
     
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-========
-    path('', views.home, name='home'),
-    path('menu.html', views.menu, name='menu'),
-    path("shoping-cart",views.shoping_cart,name="shoping-cart"),
-    path("table-rigester",views.table_rigester,name="table-rigester"),
-]
 
-urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) #new
->>>>>>>> origin/category:customer/urls.py
+
+
