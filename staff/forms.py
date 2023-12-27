@@ -1,4 +1,6 @@
 from django import forms
+
+from django import forms
 import django
 django.setup()
 from .models import User
@@ -50,3 +52,5 @@ class VerifyCodeForm(forms.Form):
 class LoginForm(forms.Form):
     phone = forms.CharField(max_length=11)
     password = forms.CharField(max_length=10,widget=forms.PasswordInput)
+
+    
