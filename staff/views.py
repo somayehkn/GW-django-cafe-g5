@@ -84,7 +84,7 @@ def login(request):
 @login_required    
 def logout(request):
     django_logout(request)
-    return redirect(reverse("index")) 
+    return redirect(reverse("login")) 
 
 class registerview(View):
     form_class = UserRegister
