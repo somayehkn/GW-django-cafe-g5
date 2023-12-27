@@ -1,36 +1,32 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="en" style="background: #8b2323;">
+<html lang="en" >
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>category</title><link rel="stylesheet" href="{% static 'static/assets_home_page/assets/bootstrap/css/bootstrap.min.css'%}">
+    <title>category</title>
     <link rel="stylesheet" href="{% static 'static/css/styles.css' %}">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Allan&amp;display=swap">
+    
   </head>
 
-  <body class="text-center d-flex flex-column" style="margin-top: 0px;background: linear-gradient(0deg, black 0%, rgb(64,16,16) 13%, rgb(97,24,24) 37%, rgb(124,31,31) 82%, #8b2323 100%), #8b2323;border-style: none;border-color: #c4d8e2;border-radius: 0;transform-style: preserve-3d;transition: ease;margin-right: 0px;margin-bottom: 0px;">
-    <header style="background: #e2d3d6;transform: translate(0px);border-radius: 26px;border-bottom-right-radius: 25px;border-bottom-left-radius: 25px;color: rgb(255,255,255);border-top-left-radius: 0;border-top-right-radius: 0;margin-bottom: 70px;">
-      <nav class="navbar navbar-light navbar-expand-md d-flex float-start flex-row flex-fill justify-content-end align-items-end" style="width: 95%;color: rgb(255, 255, 255);padding-left: 17px;">
-        <div class="container-fluid">
-          <a class="navbar-brand" href="#" style="font-family: Allan, serif;font-size: 36px;margin-right: 123px;color: #8b2323;text-shadow: -5px 3px rgba(139,35,35,0.17);">Cafe Project</a>
-          {% comment %} <div class="collapse navbar-collapse" id="navcol-1"> {% endcomment %}
-            <ul class="navbar-nav d-flex flex-fill justify-content-end">
-              <li class="nav-item text-center">
-                {% comment %} <label class="form-label" style="color: rgb(0,0,0);margin-right: 50px;margin-top: 5px;"></label> {% endcomment %}
-              </li>
-            </ul>
-          {% comment %} </div> {% endcomment %}
-        </div>
-      </nav>
-    </header>
-    <div class="d-flex" style="margin-bottom: 50px;">
-        <button class=" d-flex justify-content-between" 
-        type="button" style="background: #fff1cf;color: rgb(0,0,0);width: 50%;margin-left: 10px;border-radius: 15px;margin-right: 5px;padding-right: 50px;">
-    <form method="POST" action="{% url 'add-category' %}" enctype="multipart/form-data" style="margin-top: auto;margin-right: 50%;margin-bottom: auto;margin-left: 50%;padding-top: 0;border-right: 1px solid rgb(12,62,112);">
-      {% csrf_token %}
+  <body>
+    <header></header>
+    <div>
+    <form method="POST"  class="d-flex flex-column" action="{% url 'add-category' %}" enctype="multipart/form-data"  
+    style="
+    width: 50%;
+    text-align: center;
+    margin-top: 10%;
+    
+    margin-right: auto;
+    margin-left: auto;
+    border-style: solid;
+    border-color: rgb(139, 144, 149);
+    padding: 10px;
+  "
+>
       <div class="container">
-        <div class="row" >
+        <div class="row"  >
             {{ form }}
             <input type="submit" value="ثبت" />
         </div>
@@ -42,11 +38,11 @@
     
 
     {% if previous_url %}
-      <button type="button" class="btn btn-primary" onclick="window.location.href = '{{ previous_url }}'">back</button>
+      <button type="button" class="btn btn-primary" onclick="window.location.href = '{{ previous_url }}'">'بازگشت'</button>
     {% endif %}
     
 
     <script src=" {% static 'static/assets_add_category/bootstrap/js/bootstrap.min.js' %}"></script>
-    <script src=" {% static 'static/assets_home_page/assets/bootstrap/js/bootstrap.min.js' %}"></script>
+    
   </body>
 </html>
