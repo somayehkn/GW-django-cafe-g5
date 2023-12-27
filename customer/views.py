@@ -5,6 +5,10 @@ from django.http import JsonResponse
 
 # Create your views here.
 
+def checkout_page (request):
+       
+    return render(request, 'customer/checkout_page.html',context ={} )
+
 def home (request):
     records = Category.objects.all()
     context = [[]]
@@ -51,5 +55,6 @@ def shoping_cart(request):
 
 def table_rigester(request):
     return render(request,'customer/table-rigester.html',context={})
+
 
 
