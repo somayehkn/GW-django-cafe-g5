@@ -23,7 +23,6 @@ def menu(request):
     category = Category.objects.get(name=category)
     category_items = Item.objects.filter(category=category)
     records = Category.objects.all()
-    print("MyData:  ",data)
     return render(request, 'menu.html', {'category_items':category_items,
                                          'categories':records,
                                          'selected_category':category,
@@ -38,6 +37,8 @@ def change_category(request):
                 request.session['items_json_data'].update(json_data)
             else:
                 request.session['items_json_data'] = json_data
+
+            print(request.session['items_json_data'])
 
             return JsonResponse({'success': True})
         except json.JSONDecodeError as e:
