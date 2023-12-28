@@ -23,7 +23,7 @@ from staff import urls as staff_urls
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('staff/', include(staff_urls)),
+    path('', include(staff_urls)),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
