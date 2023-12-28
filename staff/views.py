@@ -32,24 +32,20 @@ def add_items(request):
     if request.method == 'POST':
         image = request.FILES['file_input']
         fs = FileSystemStorage()
-
-        # save the image on MEDIA_ROOT folder
         file_name = fs.save(image.name, image)
-
-        # get file url with respect to `MEDIA_URL`
-        file_url = f"uploads/{image}"
-        # shutil.copy(file_url, destination_path)
-        
+        old_media_url = f"uploads/{image}"
+        new_file_path = f"static/assets_menu_page/img/{image}"
+        shutil.copy(old_media_url, new_file_path)
+        os.remove(old_media_url)
+        new_file_path = f"assets_menu_page/img/{image}"
         
         item_name = request.POST.get('item_name')
         item_price = request.POST.get('item_price')
         item_info = request.POST.get('item_info')
-        image = file_url
+        image = new_file_path
         category = request.POST.get('selected_category')
         category = Category.objects.get(name=category)
         category_id = category.id
-        
-        # ساخت یک شیء جدید از مدل Item
         new_item = Item(
             name=item_name,
             unitprice=item_price,
