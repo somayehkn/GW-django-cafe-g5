@@ -76,7 +76,7 @@ def login(request):
             if user is not None:
                 django_login(request,user)
                 messages.add_message(request,messages.SUCCESS,f"welcome{username}")
-                return redirect(reverse("index"))
+                return redirect(reverse("dashboard"))
             messages.add_message(request,messages.ERROR,f"user {username} was not found!")
     return render(request,'staff/login.html',context={"form":form})
 
@@ -199,10 +199,6 @@ class UserRegisterVerifyCodeView(View):
                 return redirect(reverse("verify_code"))
             
         return redirect(reverse("register"))
-
-
-def index(request):
-    return render(request,'staff/index.html',context={})
 
 
 def table(request):

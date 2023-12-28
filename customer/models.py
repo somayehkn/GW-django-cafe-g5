@@ -43,7 +43,8 @@ class Customer_order(models.Model):
     description = models.TextField(null=True)
     table_number = models.ForeignKey(Table, null=True, on_delete=models.CASCADE)
     total_price = models.DecimalField(max_digits=12, decimal_places=2)
-
+    # isdeleted = models.BooleanField(default=False)
+    # status
 
 class Order_item(models.Model):
     item: Item = models.ForeignKey(Item, on_delete=models.CASCADE)
