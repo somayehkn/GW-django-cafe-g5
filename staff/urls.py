@@ -26,6 +26,13 @@ urlpatterns = [
     path("login/",views.login,name="login"),
     path("dashboard",views.dashboard,name="dashboard"),
     path('add-category/', TestView.as_view(), name = 'add-category'),
+    path("register" , views.registerview.as_view(),name = "register"),
+    path("verify" , views.UserRegisterVerifyCodeView.as_view(),name="verify_code"),
+    path("index",views.index,name="index"),
+    path("table",views.table,name="table"),
+    path("list_user",views.list_user.as_view(),name="list_user"),
+    path("delete_user/<int:pk>/",views.DeleteUser.as_view(),name="delete_user"),
+    path("logout",views.logout,name="logout")
 ]
 
 if settings.DEBUG:

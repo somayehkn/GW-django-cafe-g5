@@ -1,4 +1,6 @@
 from django import forms
+
+from django import forms
 import django
 django.setup()
 from .models import User
@@ -52,7 +54,6 @@ class LoginForm(forms.Form):
     phone = forms.CharField(max_length=11)
     password = forms.CharField(max_length=10,widget=forms.PasswordInput)
 
-
 class Form_Category(forms.ModelForm):
     name = forms.CharField(label='نام دسته', widget=forms.TextInput(attrs={'placeholder': 'نام دسته را وارد کنید'}))
     description = forms.CharField(label='توضیحات', widget=forms.Textarea(attrs={'placeholder': 'توضیحات را وارد کنید'}))
@@ -61,4 +62,5 @@ class Form_Category(forms.ModelForm):
     class Meta:
         model = Category
         fields = ["name","description", "image"]
+
 
