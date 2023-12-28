@@ -83,7 +83,7 @@ def dashboard(request):
     
 def logout(request):
     django_logout(request)
-    return redirect(reverse("index")) 
+    return redirect(reverse("dashboard")) 
 
 class TestView(View):
     def get(self,request):
@@ -211,5 +211,5 @@ class DeleteUser(SuccessMessageMixin,DeleteView):
     model = User
     template_name = "staff/remove.html"
     success_message = 'User as been deleted'
-    success_url = reverse_lazy("index")
+    success_url = reverse_lazy("dashboard")
     
