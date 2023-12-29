@@ -56,9 +56,11 @@
             </li>
             <li class="nav-item"></li>
             <li class="nav-item">
+              {% if request.user.is_admin %}
               <a class="nav-link" href="list_user"
                 ><i class="fas fa-user-circle"></i
                 ><span>ثبت نیروی جدید</span></a
+              {% endif %}
               >
             </li>
           </ul>
