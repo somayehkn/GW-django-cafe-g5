@@ -45,20 +45,17 @@
                 <td rowspan="2">
                     <img class="img-fluid" height="50%" id="checkout_img" src="{% static 'assests_checkout_page/img/images.jpg' %}" style="width:auto;height:25%;" width="auto">
                 </td>
-                 {% for item in items %}
+                 {% for key, value in context.items %}
                     <tr>
-                        
-                        <td class="text-center" id="checkout_item_name">{{ item.title }}</td>
-                        <td class="text-center" id="checkout_price">{{ item.price }}</td>
-                        <td class="text-center" id="checkout_quantity">{{ item.quantity }}</td>
-                        <td id="checkout_total_price_item">{{ item.total }}</td>
+                        <td class="text-center" id="checkout_item_name">{{ key }}</td>
+                        <td class="text-center" id="checkout_price">{{ value.item_unit_price }}</td>
+                        <td class="text-center" id="checkout_quantity">{{ value.item_quantity }}</td>
+                        <td id="checkout_total_price_item">{{ value.item_total_price }}</td>
                     </tr>
                     <tr>
                         <td colspan="4"></td>
                     </tr>
                 {% endfor %} 
-                
-                
             </tbody>
         </table>
     </div>
@@ -79,7 +76,7 @@
                         <button onclick="location.href = 'shoping_cart.html?cat={{ item.name }}'" class="btn btn-primary btn-lg fs-5 text-center" type="button">بازگشت</button>
                     </td>
                     <td style="text-align: center;">
-                        <button onclick="alert('سفارش شما تایید شد')" class="btn btn-primary btn-lg fs-5" type="button">ثبت نهایی</button>
+                        <button onclick="redirect('table-rigester')" class="btn btn-primary btn-lg fs-5" type="button">ثبت نهایی</button>
                     </td>
                 </tr>
             </tbody>
@@ -87,8 +84,8 @@
         
     </div>
     
-
     <script src="{% static 'assests_checkout_page/bootstrap/css/bootstrap.min.css'%}"></script>
+    <script src="{% static 'commonFunctions.js' %}"></script>
     
 </body>
 

@@ -1,4 +1,6 @@
 from django.db import models
+from django.utils import timezone
+
 
 # Create your models here.
 class Table(models.Model):
@@ -43,6 +45,11 @@ class Customer_order(models.Model):
     description = models.TextField(null=True)
     table_number = models.ForeignKey(Table, null=True, on_delete=models.CASCADE)
     total_price = models.DecimalField(max_digits=12, decimal_places=2)
+
+    def save(self, *args, **kwargs):
+        if not self.timestamp:
+            self.timestamp = timezone.now()
+        super().save(*args, **kwargs)
 
 
 class Order_item(models.Model):

@@ -25,10 +25,12 @@ urlpatterns = [
     
     path('', views.home, name='home'),
     path('menu', views.menu, name='menu'),
-    path('change_category', views.change_category, name='change_category'),
+    path('save-items-to-sesion', views.save_items_to_session, name='save-items-to-sesion'),
     path("shoping-cart",views.shoping_cart, name="shoping-cart"),
     path("table-rigester",views.table_rigester, name="table-rigester"),
-    path('customer/checkout_page', views.checkout_page, name='checkout_page'),
+    path('checkout_page', views.checkout_page, name='checkout_page'),
+    path('register-order', views.register_order, name='register_order'),
+
     
 ]
 if settings.DEBUG:
