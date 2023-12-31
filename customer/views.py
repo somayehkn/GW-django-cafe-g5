@@ -62,13 +62,9 @@ def shoping_cart(request):
 def table_rigester(request):
     return render(request,'customer/table-rigester.html',context={})
 
-class DeleteOrder(View):
-    def get(self,request):
-        order=Customer_order()
-        order.is_deleted=True
-        print(order.is_deleted)
-
-        return render(request,'staff/delete_order.html',context={})
+def delete_order(request,del_id):
+    del_order = Customer_order.objects.get(pk = del_id)
+    return render(request,"staff/dashboard.html" , context={"del_order":del_order.delete()})
     
         
         

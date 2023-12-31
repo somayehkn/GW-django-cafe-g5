@@ -216,7 +216,7 @@ class DeleteUser(SuccessMessageMixin,DeleteView):
     
 
 def update_order(request,order_id):
-    order=Customer_order.objects.get(pk= order_id)
+    order=Customer_order.objects.get(pk=order_id)
     form=order_table(request.POST or None , instance=order)
     if form.is_valid():
         form.save()

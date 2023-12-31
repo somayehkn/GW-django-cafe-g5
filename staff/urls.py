@@ -21,7 +21,7 @@ from django.conf import settings
 from django.conf.urls.static import static  
 from . import views
 from customer import views as customer_views
-from customer.views import DeleteOrder 
+from customer.views import delete_order
 from .views import TestView
 urlpatterns = [
     path('add_item', views.add_items, name = 'add_item'),
@@ -35,7 +35,7 @@ urlpatterns = [
     path("delete_user/<int:pk>/",views.DeleteUser.as_view(),name="delete_user"),
     path("logout",views.logout,name="logout"),
     path("update_order/<order_id>",views.update_order,name="update_order"),
-    path("delete_table",customer_views.DeleteOrder.as_view(),name="delete_table"),
+    path("delete_table/<del_id>",customer_views.delete_order,name="delete_table"),
 
 ]
 
