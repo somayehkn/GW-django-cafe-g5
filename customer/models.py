@@ -43,10 +43,11 @@ class Customer_order(soft):
     description = models.TextField(null=True)
     table_number = models.ForeignKey(Table, null=True, on_delete=models.CASCADE)
     total_price = models.DecimalField(max_digits=12, decimal_places=2)
+    is_deleted = models.BooleanField(default=False)
     
     
     def __str__(self) -> str:
-        return str(self.table_number)
+        return str(self.timestamp)
 
 class Order_item(models.Model):
     item: Item = models.ForeignKey(Item, on_delete=models.CASCADE)
