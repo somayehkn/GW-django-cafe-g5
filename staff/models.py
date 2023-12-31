@@ -29,13 +29,6 @@ class User(AbstractBaseUser,PermissionsMixin):
     def is_staff(self):
         return self.is_admin
     
-class OTPCODE(models.Model):
-    phone_number = models.CharField(max_length=11)
-    code = models.PositiveSmallIntegerField()
-    created = models.DateTimeField(auto_now=True)
-    
-    def __str__(self) -> str:
-        return f"{self.phone_number} - {self.code} - {self.created}"
 class staff_user(models.Model):
     name = models.CharField(max_length=255)
     email = models.EmailField(max_length=255)
@@ -49,4 +42,12 @@ class Staff(models.Model):
 
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
+    
+class OTPCODE(models.Model):
+    phone_number = models.CharField(max_length=11)
+    code = models.PositiveSmallIntegerField()
+    created = models.DateTimeField(auto_now=True)
+    
+    def __str__(self) -> str:
+        return f"{self.phone_number} - {self.code} - {self.created}"
 
