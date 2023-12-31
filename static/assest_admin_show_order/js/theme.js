@@ -1,4 +1,5 @@
 (function() {
+  
   "use strict"; // Start of use strict
 
   var sidebar = document.querySelector('.sidebar');
@@ -11,6 +12,7 @@
     var sidebarCollapseList = collapseElementList.map(function (collapseEl) {
       return new bootstrap.Collapse(collapseEl, { toggle: false });
     });
+    
 
     for (var toggle of sidebarToggles) {
 

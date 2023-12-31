@@ -1,13 +1,12 @@
 from django import forms
-
-from django import forms
+from django.forms import ModelForm
 import django
 django.setup()
 from .models import User
 from django.core.exceptions import ValidationError
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
 from customer.models import Category
-
+from customer.models import Customer_order,Table,Item
 
 class UserCreationForm(forms.ModelForm):
     password1 = forms.CharField(label="password", widget=forms.PasswordInput)
@@ -64,3 +63,19 @@ class Form_Category(forms.ModelForm):
         fields = ["name","description", "image"]
 
 
+
+    
+class order_table(ModelForm):
+    class Meta:
+        model=Customer_order
+        fields = '__all__'
+
+
+        
+        
+        
+    # timestamp = models.DateTimeField()
+    # description = models.TextField(null=True)
+    # table_number = models.ForeignKey(Table, null=True, on_delete=models.CASCADE)
+    # total_price = models.DecimalField(max_digits=12, decimal_places=2)
+    # is_deleted = models.BooleanField(default=False)

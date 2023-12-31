@@ -1,7 +1,9 @@
-from django.shortcuts import render
-from .models import Category, Item
+from django.shortcuts import render,redirect
+from .models import Category, Item,Customer_order
 import json
 from django.http import JsonResponse
+from django.views import View
+from django.urls import reverse
 
 # Create your views here.
 
@@ -60,5 +62,13 @@ def shoping_cart(request):
 def table_rigester(request):
     return render(request,'customer/table-rigester.html',context={})
 
+class DeleteOrder(View):
+    def get(self,request):
+        order=Customer_order()
+        order.is_deleted=True
+        print(order.is_deleted)
 
-
+        return render(request,'staff/delete_order.html',context={})
+    
+        
+        

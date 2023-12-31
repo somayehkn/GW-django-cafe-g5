@@ -1,0 +1,8 @@
+{% load static %}
+<h1>update order</h1>
+<form action="" method=POST>
+    {% csrf_token %}
+    {{ form.as_p }}   
+    <br/>
+    <input type="submit" value="update"
+    class="btn btn_secondary">

@@ -10,7 +10,7 @@ from django.contrib.auth import authenticate,login as django_login,logout as dja
 from django.contrib import messages
 from django.urls import reverse
 from django.views import View
-from .forms import  Form_Category,UserRegister,VerifyCodeForm,LoginForm
+from .forms import  Form_Category,UserRegister,VerifyCodeForm,LoginForm,order_table,Item
 import os
 from .models import User
 import random
@@ -78,8 +78,9 @@ def login(request):
 
 def dashboard(request):
     customer_orders = Customer_order.objects.all()
-    
-    return render(request,'staff/dashboard.html',context={'customer_orders': customer_orders})
+    order=Customer_order()
+    order.is_deleted=False
+    return render(request,'staff/dashboard.html',context={'customer_orders': customer_orders,"order":order})
     
 def logout(request):
     django_logout(request)
@@ -213,3 +214,15 @@ class DeleteUser(SuccessMessageMixin,DeleteView):
     success_message = 'User as been deleted'
     success_url = reverse_lazy("dashboard")
     
+
+def update_order(request,order_id):
+    order=Customer_order.objects.get(pk= order_id)
+    form=order_table(request.POST or None , instance=order)
+    if form.is_valid():
+        form.save()
+        return redirect(reverse("dashboard"))
+    return render(request,"staff/update_order.html",context={"order":order,"form":form})
+
+
+
+
