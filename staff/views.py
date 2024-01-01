@@ -77,9 +77,7 @@ def login(request):
     return render(request,'staff/login.html',context={"form":form})
 
 def dashboard(request):
-    customer_orders = Customer_order.objects.all()
-    order=Customer_order()
-    order.is_deleted=False
+    customer_orders = Customer_order.objects.filter(is_deleted = False)
     return render(request,'staff/dashboard.html',context={'customer_orders': customer_orders,"order":order})
     
 def logout(request):
