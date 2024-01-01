@@ -5,32 +5,7 @@ from .managers import UserManager
 from django.utils import timezone
 from django.db.models.query import QuerySet
 from django.db.models import Manager
-# custom user
-
-class SofeQuerySet(QuerySet):
-    def delete(self):
-        return self.update(is_deleted=True,deleted_at=timezone.now())
-
-class SoftManager(Manager):
-    def get_queryset(self):
-        return SofeQuerySet(self.model,self._db).filter(is_deleted=False)
-
-class soft(models.Model):
-    is_deleted = models.BooleanField(null=True,blank=True,editable=False,default=False)
-    deleted_at=models.DateTimeField(null=True,blank=True,editable=False)
-    
-    objects = SoftManager()
-
-    class Meta:
-        abstract = True
-
-    def delete(self) -> tuple[int, dict[str, int]]:
-        self.is_deleted = True
-        self.deleted_at = timezone.now()
-        self.save()
-    
-    
-    
+ 
 class User(AbstractBaseUser,PermissionsMixin):
     email = models.EmailField(max_length=255, unique=True)
     phone_number = models.CharField(max_length=11, unique=True)

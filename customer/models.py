@@ -1,5 +1,4 @@
 from django.db import models
-from staff.models import soft
 # Create your models here.
 class Table(models.Model):
     table_number = models.IntegerField()
@@ -38,12 +37,22 @@ class Item(models.Model):
     def __str__(self) -> str:
         return self.name
     
-class Customer_order(soft):
+class Customer_order(models.Model):
+    STATUS_CHOICES = [
+        ('Pending','Pending'),
+        ('Confirmed', 'Confirmed'),
+        ('Cooking', 'Cooking'),
+        ('Ready Delivery', 'Ready Delivery'),
+        ('Deliverd','Deliverd'),
+        ('Checked Out','Checked Out'),
+    ]
     timestamp = models.DateTimeField()
     description = models.TextField(null=True)
     table_number = models.ForeignKey(Table, null=True, on_delete=models.CASCADE)
     total_price = models.DecimalField(max_digits=12, decimal_places=2)
     is_deleted = models.BooleanField(default=False)
+    deleted_at=models.DateTimeField(null=True,blank=True,editable=False)
+    status = models.CharField(max_length=300, choices=STATUS_CHOICES)
     
     
     def __str__(self) -> str:
