@@ -36,6 +36,8 @@ urlpatterns = [
     path("logout",views.logout,name="logout"),
     path("update_order/<order_id>",views.update_order,name="update_order"),
     path("delete_table/<del_id>",customer_views.delete_order,name="delete_table"),
+    path("change_status/<status_id>",customer_views.change_status,name="change_status"),
+
 
 ]
 

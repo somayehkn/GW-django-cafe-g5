@@ -78,7 +78,7 @@ def login(request):
 
 def dashboard(request):
     customer_orders = Customer_order.objects.filter(is_deleted = False)
-    return render(request,'staff/dashboard.html',context={'customer_orders': customer_orders,"order":order})
+    return render(request,'staff/dashboard.html',context={'customer_orders': customer_orders,"order":customer_orders})
     
 def logout(request):
     django_logout(request)

@@ -69,6 +69,8 @@ class order_table(ModelForm):
     class Meta:
         model=Customer_order
         fields = '__all__'
+        
+        
 
 
         

@@ -63,8 +63,12 @@ def table_rigester(request):
     return render(request,'customer/table-rigester.html',context={})
 
 def delete_order(request,del_id):
-    del_order = Customer_order.objects.get(pk = del_id)
-    return render(request,"staff/dashboard.html" , context={"del_order":del_order.delete()})
+    del_order = Customer_order.objects.filter(pk = del_id).update(is_deleted=True)
+    return render(request,"staff/dashboard.html" , context={"del_order":del_order})
     
+def change_status(request,status_id):
+    status_list=['Pending','Confirmed','Cooking','Ready Delivery','Deliverd','Checked Out']
+    status_order = Customer_order.objects.filter(pk=status_id)
+    return render(request,"staff/dashboard.html" , context={"change":status_order,"status_list":status_list})
         
         

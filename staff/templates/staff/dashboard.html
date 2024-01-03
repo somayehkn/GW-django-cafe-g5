@@ -307,12 +307,14 @@
                           background-color: #f2f2f2;>">
                           <button><a href={% url "delete_table" customer_order.id %}>delete</a></button>
                           </th>
-                          <th style="border: 1px solid black;
+                          <th style="
+                          border: 1px solid black;
                           width: 20%;
                           text-align: center;
                           background-color: #f2f2f2;>">
-                          <input onclick="change()" type="button" value="Open Curtain" id="myButton1"></input>
-                        </th>
+                          <button><a href={% url "change_status" customer_order.id %}>{{status_list[status_list.index(customer_order.status)+1]}}</a></button>
+                           
+                        </th>                         
                         </table>
                     </div>
                     </div>
@@ -330,7 +332,6 @@
         <footer class="bg-white sticky-footer">
           <div class="container my-auto">
             <div class="text-center my-auto copyright">
-              <span>Copyright © Brand 2023</span>
             </div>
           </div>
         </footer>
@@ -339,13 +340,6 @@
         ><i class="fas fa-angle-up"></i
       ></a>
     </div>
-    <script>function change() // no ';' here
-      {
-          var elem = document.getElementById("myButton1");
-          if (elem.value=="Close Curtain") elem.value = "Open Curtain";
-          else elem.value = "Close Curtain";
-      }
-    </script>
     <script src="{%static 'assest_admin_show_order/bootstrap/js/bootstrap.min.js'%}"></script>
     <script src="{%static 'assest_admin_show_order/js/theme.js'%}"></script>
   </body>

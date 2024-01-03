@@ -5,7 +5,7 @@ class Table(models.Model):
     capacity = models.IntegerField()
 
     def __str__(self) -> str:
-        return self.table_number
+        return str(self.table_number)
 
 
 class Customer(models.Model):
@@ -55,8 +55,7 @@ class Customer_order(models.Model):
     status = models.CharField(max_length=300, choices=STATUS_CHOICES)
     
     
-    def __str__(self) -> str:
-        return str(self.timestamp)
+
 
 class Order_item(models.Model):
     item: Item = models.ForeignKey(Item, on_delete=models.CASCADE)
