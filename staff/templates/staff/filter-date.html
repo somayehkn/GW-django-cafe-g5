@@ -1,0 +1,36 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Order List</title>
+    <link rel="stylesheet" href="{% static 'css\styles.status.css' %}">
+</head>
+<body>
+    <form method="get">
+        <label for="order_date">انتخاب تاریخ سفارش:</label>
+        <input type="date" name="order_date" id="order_date" value="{% if selected_order_date %}{{ selected_order_date }}{% endif %}">
+        <button type="submit">اعمال فیلتر</button>
+    </form>
+
+    <table>
+        <thead>
+            <tr>
+                <th>تاریخ سفارش</th>
+                <th>شماره میز</th>
+                <th>وضعیت سفارش</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for order in orders %}
+                <tr>
+                    <td>{{ order.order_date }}</td>
+                    <td>{{ order.table_number }}</td>
+                    <td>{{ order.status }} </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
