@@ -22,8 +22,8 @@ from django.conf.urls.static import static
 from . import views
 
 urlpatterns = [
-    
     path('', views.home, name='home'),
+    path('home', views.home, name='home'),
     path('menu', views.menu, name='menu'),
     path('save-items-to-sesion', views.save_items_to_session, name='save-items-to-sesion'),
     path("shoping-cart",views.shoping_cart, name="shoping-cart"),

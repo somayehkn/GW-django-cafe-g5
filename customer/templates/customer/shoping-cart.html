@@ -15,14 +15,14 @@
   <body>
     <div class="container px-3 my-5 clearfix">
       <div class="card">
-        <div class="card-header text-center">
+        <div class="card-header text-center" style="background-color:rgb(226, 211, 214)" >
           <h2>لیست خرید</h2>
         </div>
-        <div class="card-body">
+        <div class="card-body" style="background-color:rgb(127, 32, 32) ">
           <div class="table-responsive">
             <table class="table table-bordered m-0">
               <thead>
-                <tr>
+                <tr >
                   <th class="text-center py-3 px-4" style="min-width: 400px">
                     عنوان 
                   </th>
@@ -51,14 +51,14 @@
               </thead>
               <tbody>
                 {% for key,value in data.items %}
-                  <tr>
+                  <tr style="background-color:rgb(255, 241, 207)">
                   <td class="p-4">
                     <div class="media align-items-center">
-                      <img
+                      {% comment %} <img
                         src="images/image1.jpg"
-                        class="d-block ui-w-40 ui-bordered mr-4"
+                        class="d-block ui-w-40 ui-bordered mr-1"
                         alt
-                      />
+                      /> {% endcomment %}
                       <div class="media-body">
                         {{key}}
                     
@@ -93,7 +93,7 @@
             </table>
           </div>
 
-          <div class="float-right">
+          <div class="flex-container" style ="display: flex; justify-content: space-between;">
             <button
               type="button"
               class="btn btn-lg btn-default md-btn-flat mt-2 mr-3"
@@ -101,7 +101,14 @@
             >
                 پرداخت 
             </button>
-            <a href="ادرس-صفحه-اصلی" class="btn btn-lg btn-primary mt-2">صفحه اصلی</a>
+
+            <button 
+              type="button"
+              class="btn btn-lg btn-default mt-2 mr-0"
+              onclick="redirect('home')" 
+              >صفحه اصلی
+              
+              </a>
           </div>
         </div>
       </div>

@@ -81,7 +81,6 @@ WSGI_APPLICATION = 'core.wsgi.application'
 
 
 from decouple import config
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',

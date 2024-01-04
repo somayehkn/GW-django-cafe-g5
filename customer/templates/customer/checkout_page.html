@@ -30,11 +30,14 @@
             </div>
         </nav>
     </header>
-    <div class="table-responsive" style="margin-right: auto; margin-top: 5%; margin-bottom: 10%; margin-left: auto;">
+    <div class="table-responsive" style="margin-right: auto; margin-top: 5%; margin-bottom:9%; margin-left: auto; width: 50%;">
         <table class="table table-bordered">
             <thead>
                 <tr>
-                    <th class="fs-4">فاکتور نهایی</th>
+                    <th colspan="5" class="text-center fs-4">فاکتور نهایی</th>
+                </tr>
+                <tr>
+                    <th style="font-family:IranNastaliq; font-size: 30px;pading-top:10px;">کافه ایرانی</th>
                     <th>عنوان</th>
                     <th>قیمت</th>
                     <th>تعداد</th>
@@ -42,24 +45,27 @@
                 </tr>
             </thead>
             <tbody>
-                <td rowspan="2">
-                    <img class="img-fluid" height="50%" id="checkout_img" src="{% static 'assests_checkout_page/img/images.jpg' %}" style="width:auto;height:25%;" width="auto">
-                </td>
+                <tr>
+                    <td rowspan="{{ context|length|default_if_none:"0"|add:"1" }}">
+                        <img class="img-fluid" height="50%" id="checkout_img" src="{% static 'assests_checkout_page/img/images.jpg' %}" style="width:auto;height:25%;" width="auto">
+                    </td>
                  {% for key, value in context.items %}
-                    <tr>
+                    <tr >
                         <td class="text-center" id="checkout_item_name">{{ key }}</td>
                         <td class="text-center" id="checkout_price">{{ value.item_unit_price }}</td>
                         <td class="text-center" id="checkout_quantity">{{ value.item_quantity }}</td>
                         <td id="checkout_total_price_item">{{ value.item_total_price }}</td>
                     </tr>
-                    <tr>
+                    {% comment %} <tr>
                         <td colspan="4"></td>
-                    </tr>
-                {% endfor %} 
+                    </tr> {% endcomment %}
+                 {% endfor %} 
+                </tr>
+
             </tbody>
         </table>
     </div>
-    <div class="table-responsive" style="margin-top: -10%; margin-right: auto; margin-bottom: 10%; margin-left: 45%; padding-top: 0; padding-right: inherit; padding-bottom: 0; padding-left: inherit;">
+    <div class="table-responsive" style="margin-top: -10%; margin-right: auto; margin-bottom: 10%; margin-left: auto; padding-top: 0; padding-right: inherit; padding-bottom: 0; padding-left: inherit; width: 50%;">
         <table class="table table-bordered">
             <thead>
                 <tr>
@@ -73,10 +79,10 @@
                 </tr>
                 <tr>
                     <td>
-                        <button onclick="location.href = 'shoping_cart.html?cat={{ item.name }}'" class="btn btn-primary btn-lg fs-5 text-center" type="button">بازگشت</button>
+                        <button onclick="location.href = 'shoping_cart.html?cat={{ item.name }}'" class="btn btn-primary btn-lg fs-5 text-center" style="background-color:rgb(122, 30, 30)" type="button">بازگشت</button>
                     </td>
                     <td style="text-align: center;">
-                        <button onclick="redirect('table-rigester')" class="btn btn-primary btn-lg fs-5" type="button">ثبت نهایی</button>
+                        <button onclick="redirect('table-rigester')" class="btn btn-primary btn-lg fs-5" style="background-color:rgb(122, 30, 30)" type="button">ثبت نهایی</button>
                     </td>
                 </tr>
             </tbody>
