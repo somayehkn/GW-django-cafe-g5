@@ -23,6 +23,11 @@ from django.urls import reverse_lazy
 from django.contrib.auth.decorators import user_passes_test
 from django.utils.decorators import method_decorator
 
+def reports(request):
+    earning_monthly = earning_annual = today_orders = pending_orders = 0
+    sell_in_month_perday = {}
+    return render(request,'staff/report.html',context={})
+
 def is_cashier(user):
     return user.is_admin
 

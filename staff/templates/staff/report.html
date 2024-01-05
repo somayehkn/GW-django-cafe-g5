@@ -1,0 +1,443 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+      <meta charset="utf-8" />
+      <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
+      />
+      <title>Dashboard - Brand</title>
+      <link rel="stylesheet" href="{% static 'assest_admin_report/bootstrap/css/bootstrap.min.css' %}" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i&amp;display=swap"
+    />
+    <link rel="stylesheet" href="{% static 'assest_admin_report/fonts/fontawesome-all.min.css' %}" />
+    </head>
+
+    <body id="page-top">
+      <div id="wrapper">
+        <nav
+          class="navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0"
+        >
+          <div class="container-fluid d-flex flex-column p-0">
+            <a
+              class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0"
+              href="#"
+            >
+              <div class="sidebar-brand-icon rotate-n-15">
+                <i class="fas fa-coffee"></i>
+              </div>
+              <div class="sidebar-brand-text mx-3"><span>پنل مدیریت</span></div>
+            </a>
+            <hr class="sidebar-divider my-0" />
+            <ul class="navbar-nav text-light" id="accordionSidebar">
+              <li class="nav-item dropdown">
+                <a
+                  class="dropdown-toggle nav-link"
+                  aria-expanded="false"
+                  data-bs-toggle="dropdown"
+                  href="#"
+                  ><i class="fas fa-utensils"></i>سفارشات
+                </a>
+                <div class="dropdown-menu">
+                  <a
+                    class="dropdown-item"
+                    href="http://127.0.0.1:8000/staff/dashboard"
+                    >تمام سفارشات</a
+                  ><a class="dropdown-item" href="#">Second Item</a
+                  ><a class="dropdown-item" href="#">Third Item</a>
+                </div>
+              </li>
+
+              <li class="nav-item">
+                <a class="nav-link" href="http://127.0.0.1:8000/staff/add_item"
+                  ><i class="fas fa-plus"></i><span>افزودن ایتم</span></a
+                >
+              </li>
+              <li class="nav-item">
+                <a
+                  class="nav-link"
+                  href="http://127.0.0.1:8000/staff/add-category"
+                  ><i class="fas fa-plus"></i><span>افزودن دسته</span></a
+                >
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="http://127.0.0.1:8000/staff/list_user"
+                  ><i class="fas fa-user-circle"></i
+                  ><span>مدیریت پرسنل</span></a
+                >
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active" href="http://127.0.0.1:8000/staff/reports"
+                  ><i class="fas fa-tachometer-alt"></i> <span>گزارشات</span></a
+                >
+              </li>
+            </ul>
+            <div class="text-center d-none d-md-inline">
+              <button
+                class="btn rounded-circle border-0"
+                id="sidebarToggle"
+                type="button"
+              ></button>
+            </div>
+          </div>
+        </nav>
+        <div class="d-flex flex-column" id="content-wrapper">
+          <div id="content">
+            <nav
+              class="navbar navbar-light navbar-expand bg-white shadow mb-4 topbar static-top"
+            >
+              <div class="container-fluid">
+                <button
+                  class="btn btn-link d-md-none rounded-circle me-3"
+                  id="sidebarToggleTop"
+                  type="button"
+                >
+                  <i class="fas fa-bars"></i>
+                </button>
+
+                <ul class="navbar-nav flex-nowrap ms-auto">
+                  <div class="d-none d-sm-block topbar-divider"></div>
+                  <li class="nav-item dropdown no-arrow">
+                    <div class="nav-item dropdown no-arrow">
+                      <a
+                        class="dropdown-toggle nav-link"
+                        aria-expanded="false"
+                        data-bs-toggle="dropdown"
+                        href="#"
+                        ><span
+                          class="d-none d-lg-inline me-2 text-gray-600 small"
+                          >Valerie Luna</span
+                        ><img
+                          class="border rounded-circle img-profile"
+                          src="{%static 'assest_admin_show_order/img/avatars/avatar1.jpeg'%}"
+                      /></a>
+                      <div
+                        class="dropdown-menu shadow dropdown-menu-end animated--grow-in"
+                      >
+                        <a class="dropdown-item" href="#"
+                          ><i
+                            class="fas fa-sign-out-alt fa-sm fa-fw me-2 text-gray-400"
+                          ></i
+                          >&nbsp;Logout</a
+                        >
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </nav>
+            <div class="container-fluid">
+              <div
+                class="d-sm-flex justify-content-between align-items-center mb-4"
+              >
+                <h3 class="text-dark mb-0">Dashboard</h3>
+                <a
+                  class="btn btn-primary btn-sm d-none d-sm-inline-block"
+                  role="button"
+                  href="#"
+                  ><i class="fas fa-download fa-sm text-white-50"></i
+                  >&nbsp;Generate Report</a
+                >
+              </div>
+              <div class="row">
+                <div class="col-md-6 col-xl-3 mb-4">
+                  <div class="card shadow border-start-primary py-2">
+                    <div class="card-body">
+                      <div class="row align-items-center no-gutters">
+                        <div class="col me-2">
+                          <div
+                            class="text-uppercase text-primary fw-bold text-xs mb-1"
+                          >
+                            <span>Earnings (monthly)</span>
+                          </div>
+                          <div class="text-dark fw-bold h5 mb-0">
+                            <span id="monthly_earning">$40,000</span>
+                          </div>
+                        </div>
+                        <div class="col-auto">
+                          <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6 col-xl-3 mb-4">
+                  <div class="card shadow border-start-success py-2">
+                    <div class="card-body">
+                      <div class="row align-items-center no-gutters">
+                        <div class="col me-2">
+                          <div
+                            class="text-uppercase text-success fw-bold text-xs mb-1"
+                          >
+                            <span>Earnings (annual)</span>
+                          </div>
+                          <div class="text-dark fw-bold h5 mb-0">
+                            <span id="anual_earning">$215,000</span>
+                          </div>
+                        </div>
+                        <div class="col-auto">
+                          <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6 col-xl-3 mb-4">
+                  <div class="card shadow border-start-info py-2">
+                    <div class="card-body">
+                      <div class="row align-items-center no-gutters">
+                        <div class="col me-2">
+                          <div
+                            class="text-uppercase text-info fw-bold text-xs mb-1"
+                          >
+                            <span>Todays orders</span>
+                          </div>
+                          <div class="row g-0 align-items-center">
+                            <div class="col-auto">
+                              <div class="text-dark fw-bold h5 mb-0 me-3">
+                                <span id="today_orders">50</span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-auto">
+                          <i
+                            class="fas fa-clipboard-list fa-2x text-gray-300"
+                          ></i>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6 col-xl-3 mb-4">
+                  <div class="card shadow border-start-warning py-2">
+                    <div class="card-body">
+                      <div class="row align-items-center no-gutters">
+                        <div class="col me-2">
+                          <div
+                            class="text-uppercase text-warning fw-bold text-xs mb-1"
+                          >
+                            <span>pending orders</span>
+                          </div>
+                          <div
+                            class="text-dark fw-bold h5 mb-0"
+                            id="pending_orders"
+                          >
+                            <span>18</span>
+                          </div>
+                        </div>
+                        <div class="col-auto">
+                          <i class="fas fa-comments fa-2x text-gray-300"></i>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-7 col-xl-8">
+                  <div class="card shadow mb-4">
+                    <div
+                      class="card-header d-flex justify-content-between align-items-center"
+                    >
+                      <h6 class="text-primary fw-bold m-0">
+                        میزان فروش در روز(یک ماهه)
+                      </h6>
+                      <div class="dropdown no-arrow">
+                        <button
+                          class="btn btn-link btn-sm dropdown-toggle"
+                          aria-expanded="false"
+                          data-bs-toggle="dropdown"
+                          type="button"
+                        >
+                          <i class="fas fa-ellipsis-v text-gray-400"></i>
+                        </button>
+                        <div
+                          class="dropdown-menu shadow dropdown-menu-end animated--fade-in"
+                        >
+                          <p class="text-center dropdown-header">
+                            dropdown header:
+                          </p>
+                          <a class="dropdown-item" href="#">&nbsp;Action</a
+                          ><a class="dropdown-item" href="#"
+                            >&nbsp;Another action</a
+                          >
+                          <div class="dropdown-divider"></div>
+                          <a class="dropdown-item" href="#"
+                            >&nbsp;Something else here</a
+                          >
+                        </div>
+                      </div>
+                    </div>
+                    <div class="card-body">
+                      <div id="monthly_earning_per_day" class="chart-area">
+                        <canvas
+                          data-bss-chart='{"type":"line","data":{"labels":["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug"],"datasets":[{"label":"Earnings","fill":true,"data":["0","10000","5000","15000","10000","20000","15000","25000"],"backgroundColor":"rgba(78, 115, 223, 0.05)","borderColor":"rgba(78, 115, 223, 1)"}]},"options":{"maintainAspectRatio":false,"legend":{"display":false,"labels":{"fontStyle":"normal"}},"title":{"fontStyle":"normal"},"scales":{"xAxes":[{"gridLines":{"color":"rgb(234, 236, 244)","zeroLineColor":"rgb(234, 236, 244)","drawBorder":false,"drawTicks":false,"borderDash":["2"],"zeroLineBorderDash":["2"],"drawOnChartArea":false},"ticks":{"fontColor":"#858796","fontStyle":"normal","padding":20}}],"yAxes":[{"gridLines":{"color":"rgb(234, 236, 244)","zeroLineColor":"rgb(234, 236, 244)","drawBorder":false,"drawTicks":false,"borderDash":["2"],"zeroLineBorderDash":["2"]},"ticks":{"fontColor":"#858796","fontStyle":"normal","padding":20}}]}}}'
+                        ></canvas>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-5 col-xl-4">
+                  <div class="card shadow mb-4">
+                    <div
+                      class="card-header d-flex justify-content-between align-items-center"
+                    >
+                      <h6 class="text-primary fw-bold m-0">ایتم های پر فروش</h6>
+                      <div class="dropdown no-arrow">
+                        <button
+                          class="btn btn-link btn-sm dropdown-toggle"
+                          aria-expanded="false"
+                          data-bs-toggle="dropdown"
+                          type="button"
+                        >
+                          <i class="fas fa-ellipsis-v text-gray-400"></i>
+                        </button>
+                        <div
+                          class="dropdown-menu shadow dropdown-menu-end animated--fade-in"
+                        >
+                          <p class="text-center dropdown-header">
+                            dropdown header:
+                          </p>
+                          <a class="dropdown-item" href="#">&nbsp;Action</a
+                          ><a class="dropdown-item" href="#"
+                            >&nbsp;Another action</a
+                          >
+                          <div class="dropdown-divider"></div>
+                          <a class="dropdown-item" href="#"
+                            >&nbsp;Something else here</a
+                          >
+                        </div>
+                      </div>
+                    </div>
+                    <div class="card-body">
+                      <div id="popular_items" class="chart-area">
+                        <canvas
+                          data-bss-chart='{"type":"doughnut","data":{"labels":["Direct","Social","Referral"],"datasets":[{"label":"","backgroundColor":["#4e73df","#1cc88a","#36b9cc"],"borderColor":["#ffffff","#ffffff","#ffffff"],"data":["50","30","15"]}]},"options":{"maintainAspectRatio":false,"legend":{"display":false,"labels":{"fontStyle":"normal"}},"title":{"fontStyle":"normal"}}}'
+                        ></canvas>
+                      </div>
+                      <div class="text-center small mt-4">
+                        <span class="me-2"
+                          ><i class="fas fa-circle text-primary"></i
+                          >&nbsp;Direct</span
+                        ><span class="me-2"
+                          ><i class="fas fa-circle text-success"></i
+                          >&nbsp;Social</span
+                        ><span class="me-2"
+                          ><i class="fas fa-circle text-info"></i
+                          >&nbsp;Refferal</span
+                        >
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-6 mb-4">
+                  <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                      <h6 class="text-primary fw-bold m-0">
+                        میزان فروش هر ایتم
+                      </h6>
+                    </div>
+                    <div class="card-body">
+                      <h4 class="small fw-bold">
+                        Server migration<span class="float-end">20%</span>
+                      </h4>
+                      <div class="progress mb-4">
+                        <div
+                          class="progress-bar bg-danger"
+                          aria-valuenow="20"
+                          aria-valuemin="0"
+                          aria-valuemax="100"
+                          style="width: 20%"
+                        >
+                          <span class="visually-hidden">20%</span>
+                        </div>
+                      </div>
+                      <h4 class="small fw-bold">
+                        Sales tracking<span class="float-end">40%</span>
+                      </h4>
+                      <div class="progress mb-4">
+                        <div
+                          class="progress-bar bg-warning"
+                          aria-valuenow="40"
+                          aria-valuemin="0"
+                          aria-valuemax="100"
+                          style="width: 40%"
+                        >
+                          <span class="visually-hidden">40%</span>
+                        </div>
+                      </div>
+                      <h4 class="small fw-bold">
+                        Customer Database<span class="float-end">20%</span>
+                      </h4>
+                      <div class="progress mb-4">
+                        <div
+                          class="progress-bar bg-primary"
+                          aria-valuenow="20"
+                          aria-valuemin="0"
+                          aria-valuemax="100"
+                          style="width: 20%"
+                        >
+                          <span class="visually-hidden">20%</span>
+                        </div>
+                      </div>
+                      <h4 class="small fw-bold">
+                        Payout Details<span class="float-end">20%</span>
+                      </h4>
+                      <div class="progress mb-4">
+                        <div
+                          class="progress-bar bg-info"
+                          aria-valuenow="20"
+                          aria-valuemin="0"
+                          aria-valuemax="100"
+                          style="width: 20%"
+                        >
+                          <span class="visually-hidden">20%</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col" style="width: 446px">
+                  <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                      <h6 class="text-primary fw-bold m-0">
+                        ساعت های پیک کاری بر اساس تعداد سفارش
+                      </h6>
+                    </div>
+                    <div class="card-body">
+                      <div id="peek_hours_by_order_count" style="width: 406px">
+                        <canvas
+                          data-bss-chart='{"type":"bar","data":{"labels":["9 - 10","10 - 11","11 - 12","12 - 13","13 - 14","14 - 15","15 - 16","16 - 17","17 - 18","18 - 19","20 - 21","21 - 22","22 - 23"],"datasets":[{"label":"Revenue","backgroundColor":"#4e73df","borderColor":"#4e73df","data":["2","20","16","30","9","1"]}]},"options":{"maintainAspectRatio":true,"legend":{"display":false,"labels":{"fontStyle":"normal"}},"title":{"fontStyle":"bold"},"scales":{"xAxes":[{"ticks":{"fontStyle":"normal"}}],"yAxes":[{"ticks":{"fontStyle":"normal"}}]}}}'
+                        ></canvas>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <footer class="bg-white sticky-footer">
+            <div class="container my-auto">
+              <div class="text-center my-auto copyright">
+                <span>Copyright © Brand 2024</span>
+              </div>
+            </div>
+          </footer>
+        </div>
+        <a class="border rounded d-inline scroll-to-top" href="#page-top"
+          ><i class="fas fa-angle-up"></i
+        ></a>
+      </div>
+      <script src="{% static 'assest_admin_report/bootstrap/js/bootstrap.min.js'%}"></script>
+      <script src="{% static 'assest_admin_report/js/chart.min.js'%}"></script>
+      <script src="{% static 'assest_admin_report/js/bs-init.js'%}"></script>
+      <script src="{% static 'assest_admin_report/js/theme.js'%}"></script>
+    </body>
+  </html>
+</html>

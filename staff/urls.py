@@ -30,6 +30,7 @@ urlpatterns = [
     path("verify" , views.UserRegisterVerifyCodeView.as_view(),name="verify_code"),
     path("table",views.table,name="table"),
     path("list_user",views.list_user.as_view(),name="list_user"),
+    path("reports",views.reports,name="reports"),
     path("delete_user/<int:pk>/",views.DeleteUser.as_view(),name="delete_user"),
     path("logout",views.logout,name="logout")
 ]
