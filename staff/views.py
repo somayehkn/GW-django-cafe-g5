@@ -1,11 +1,11 @@
-
+from django.http import HttpResponse
 from django.core.files.storage import FileSystemStorage
-from customer.models import Category, Item, Customer_order, Order_item
+from customer.models import Category, Item, Customer_order, Order_item,Table
 import shutil
 from typing import Any
 from django.http.response import HttpResponse as HttpResponse
 from django.views.decorators.csrf import requires_csrf_token
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect, get_object_or_404
 from django.contrib.auth import authenticate,login as django_login,logout as django_logout
 from django.contrib import messages
 from django.urls import reverse
@@ -217,4 +217,54 @@ class DeleteUser(SuccessMessageMixin,DeleteView):
     template_name = "staff/remove.html"
     success_message = 'User as been deleted'
     success_url = reverse_lazy("dashboard")
+
+
     
+def order_detail(request, order_id):
+    order = get_object_or_404(Customer_order, id=order_id)
+    order_items = Order_item.objects.filter(customer_order=order)
+    return render(request, 'staff/order_detail.html', {'order': order, 'order_items': order_items}) 
+
+def order_list(request):
+    orders_status = Customer_order.objects.all().order_by('status')
+    return render(request,'staff\status.html', {'orders_status': orders_status })
+
+
+    
+def order_list_date(request):
+    timestamp = Customer_order.objects.all().order_by('timestamp')
+    print(timestamp)
+    return render(request,'staff\date.html', { 'timestamp':timestamp})
+
+
+
+def order_list_filter_status(request):
+    orders = []
+    
+    status = request.GET.get('status', '')
+    print(status)
+    
+    if status:
+      orders = Customer_order.objects.filter(status= status)
+      print(orders)
+     
+    context = {'orders': orders }
+    return render(request, 'staff/filter-status.html', context)
+
+
+
+
+def order_list_filter_table_number(request):
+    orders = []
+
+    table_number = request.GET.get('table_number', '')
+    print(table_number)
+
+    if table_number:
+        orders = Customer_order.objects.filter(table_number = table_number)
+        print(orders)
+
+    context = {'orders': orders}
+    return render(request, 'staff/filter-table.html', context)
+
+

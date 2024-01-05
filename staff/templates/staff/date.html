@@ -1,0 +1,175 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
+    />
+    <title>Dashboard - Brand</title>
+    <link
+      rel="stylesheet"
+      href="{% static 'assest_admin_show_order/bootstrap/css/bootstrap.min.css'%}"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i&amp;display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="{%static 'assest_admin_show_order/fonts/fontawesome-all.min.css'%}"
+    />
+  </head>
+
+  <body id="page-top">
+    <div id="wrapper">
+      <nav
+        class="navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0"
+      >
+        <div class="container-fluid d-flex flex-column p-0">
+          <a
+            class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0"
+            href="#"
+          >
+            <div class="sidebar-brand-icon rotate-n-15">
+              <i class="fas fa-coffee"></i>
+            </div>
+            <div class="sidebar-brand-text mx-3"><span>پنل مدیریت</span></div>
+          </a>
+          <hr class="sidebar-divider my-0" />
+          <ul class="navbar-nav text-light" id="accordionSidebar">
+
+            <li class="nav-item dropdown"><a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown" href="#"><i class="fas fa-utensils"></i>سفارشات </a>
+              <div class="dropdown-menu"><a class="dropdown-item" href="http://127.0.0.1:8000/staff/dashboard">تمام سفارشات</a><a class="dropdown-item" href="#">Second Item</a><a class="dropdown-item" href="#">Third Item</a></div>
+          </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="http://127.0.0.1:8000/staff/add_item"
+                ><i class="fas fa-plus"></i><span>افزودن ایتم</span></a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="http://127.0.0.1:8000/staff/add-category"
+                ><i class="fas fa-plus"></i><span>افزودن دسته</span></a
+              >
+            </li>
+            <li class="nav-item"></li>
+            <li class="nav-item">
+              <a class="nav-link" href="http://127.0.0.1:8000/staff/list_user"
+                ><i class="fas fa-user-circle"></i
+                ><span>مدیریت پرسنل</span></a
+              >
+            </li>
+          </ul>
+          <div class="text-center d-none d-md-inline">
+            <button
+              class="btn rounded-circle border-0"
+              id="sidebarToggle"
+              type="button"
+            ></button>
+          </div>
+        </div>
+      </nav>
+      <div class="d-flex flex-column" id="content-wrapper">
+        <div id="content">
+          <nav
+            class="navbar navbar-light navbar-expand bg-white shadow mb-4 topbar static-top"
+          >
+            <div class="container-fluid">
+              <button
+                class="btn btn-link d-md-none rounded-circle me-3"
+                id="sidebarToggleTop"
+                type="button"
+              >
+                <i class="fas fa-bars"></i>
+              </button>
+              
+              <ul class="navbar-nav flex-nowrap ms-auto">
+                <div class="d-none d-sm-block topbar-divider"></div>
+                <li class="nav-item dropdown no-arrow">
+                  <div class="nav-item dropdown no-arrow">
+                    <a
+                      class="dropdown-toggle nav-link"
+                      aria-expanded="false"
+                      data-bs-toggle="dropdown"
+                      href="#"
+                      ><span class="d-none d-lg-inline me-2 text-gray-600 small"
+                        >Valerie Luna</span
+                      ><img
+                        class="border rounded-circle img-profile"
+                        src="{%static 'assest_admin_show_order/img/avatars/avatar1.jpeg'%}"
+                    /></a>
+                    <div
+                      class="dropdown-menu shadow dropdown-menu-end animated--grow-in"
+                    >
+                      
+                      <a class="dropdown-item" href="#"
+                        ><i
+                          class="fas fa-sign-out-alt fa-sm fa-fw me-2 text-gray-400"
+                        ></i
+                        >&nbsp;Logout</a
+                      >
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </nav>
+
+                    <style>
+                        table {
+                          width: 100%;
+                          border-collapse: collapse;
+                        }
+                      
+                        th, td {
+                          border: 1px solid #ddd;
+                          padding: 8px;
+                          text-align: center;
+                        }
+                      </style>
+              <table>
+                <thead>
+                    <tr>
+                        <tr>
+                            <th>تاریخ سفارش</th>
+                            <th>شماره میز</th>
+                            <th>وضعیت سفارش</th>
+                            <th>جزییات سفارش</th>
+                        </tr>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                    {% for order in timestamp %}
+                        <tr>
+                            <td>{{ order.timestamp}}</td>
+                            <td>{{ order.table_number }}</td>
+                            <td>{{ order.status }} </td>
+                            <td><a href="{% url 'order_detail' order.id %}">جزئیات</a></td>
+                            
+                        </tr>
+                    {% endfor %}       
+                    
+                </tbody>
+                </table>
+
+            </div>
+            <footer class="bg-white sticky-footer">
+              <div class="container my-auto">
+                <div class="text-center my-auto copyright">
+                  <span>Copyright © Brand 2023</span>
+                </div>
+              </div>
+            </footer>
+          </div>
+          <a class="border rounded d-inline scroll-to-top" href="#page-top"
+            ><i class="fas fa-angle-up"></i
+          ></a>
+        </div>
+        <script src="{%static 'assest_admin_show_order/bootstrap/js/bootstrap.min.js'%}"></script>
+        <script src="{%static 'assest_admin_show_order/js/theme.js'%}"></script>
+      </body>
+    </html>
+    
