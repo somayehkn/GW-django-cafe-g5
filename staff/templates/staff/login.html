@@ -1,31 +1,103 @@
 {% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
+    />
+    <title>Login - Brand</title>
+    <link
+      rel="stylesheet"
+      href="{% static 'assets/bootstrap/css/bootstrap.min.css' %}"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i&amp;display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="{% static 'assets/fonts/fontawesome-all.min.css' %}"
+    />
+  </head>
 
-<!DOCTYPE html><html lang="en" style="background: #8b2323;"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no"><title>Untitled</title><link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Allan&amp;display=swap"><link rel="stylesheet" href="{% static 'css/Login-Form-Basic.css' %}"</head><body class="text-center d-flex flex-column" style="margin-top: 0px;background: linear-gradient(0deg, black 0%, rgb(64,16,16) 13%, rgb(97,24,24) 37%, rgb(124,31,31) 82%, #8b2323 100%), #8b2323;border-style: none;border-color: #c4d8e2;border-radius: 0;transform-style: preserve-3d;transition: ease;margin-right: 0px;margin-bottom: 0px;"><header style="background: #e2d3d6;transform: translate(0px);border-radius: 26px;border-bottom-right-radius: 25px;border-bottom-left-radius: 25px;color: rgb(255,255,255);border-top-left-radius: 0;border-top-right-radius: 0;margin-bottom: 70px;"><nav class="navbar navbar-light navbar-expand-md d-flex float-start flex-row flex-fill justify-content-end align-items-end" style="width: 95%;color: rgb(255, 255, 255);padding-left: 17px;"><div class="container-fluid"><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button><a class="navbar-brand" href="#" style="font-family: Allan, serif;font-size: 36px;margin-right: 123px;color: #8b2323;text-shadow: -5px 3px rgba(139,35,35,0.17);">Cafe Project</a><div class="collapse navbar-collapse" id="navcol-1"><ul class="navbar-nav d-flex flex-fill justify-content-end"><li class="nav-item text-center"><label class="form-label" style="color: rgb(0,0,0);margin-right: 30px;margin-top: 5px;"></label></li><li class="nav-item text-center"><button class="btn btn-primary" type="button" style="background: rgba(249,232,20,0);border-radius: 14px;border-style: none;box-shadow: inset 0px -1px 3px #d36b9e;color: #000000;">Sign In</button></li></ul></div></div></nav></header></html>
-    <section class="position-relative py-4 py-xl-5">
-        <div class="container">
-            <div class="row mb-5"></div>
-            <div class="row d-flex justify-content-center">
-                <div class="col-md-6 col-xl-4">
-                    <div class="card mb-5">
-                        <div class="card-body bg-danger d-flex flex-column align-items-center">
-                            <div class="bs-icon-xl bs-icon-circle bs-icon-primary bg-warning bs-icon my-4"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 16 16" class="bi bi-person">
-                                    <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"></path>
-                                </svg></div>
-                            <form action="{% url 'login' %}" class="text-center" method="post">
-                                {% csrf_token %}
-                                {% for field in form %}                        
-                                  {{field.label_tag}}
-                                  {{field}}
-                                  {{field.help_text}}
-                                  {{field.errors}}
-                                {% endfor %}
-                                <br>
-                                <div class="mb-3"><button class="btn btn-primary bg-warning d-block w-100" type="submit" style="width: 10px;">Login</button></div>
-                                <p class="text-warning">Forgot your password?</p>
-                            </form>
-                        </div>
-                    </div>
+  <body class="bg-gradient-primary">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-md-9 col-lg-12 col-xl-10">
+          <div class="card shadow-lg o-hidden border-0 my-5">
+            <div class="card-body p-0">
+              <div class="row">
+                <div class="col-lg-6 d-none d-lg-flex">
+                  <div
+                    class="flex-grow-1 bg-login-image"
+                    style="background-image: url('assets/img/dogs/image3.jpeg')"
+                  ></div>
                 </div>
+                <div class="col-lg-6">
+                  <div class="p-5">
+                    <div class="text-center">
+                      <h4 class="text-dark mb-4">Welcome Back!</h4>
+                    </div>
+                    <form class="user" cation="" method="post">
+                      {% csrf_token %} {{form.as_p}}
+                      <div class="mb-3">
+                        <div class="custom-control custom-checkbox small">
+                          <div class="form-check">
+                            <input
+                              class="form-check-input custom-control-input"
+                              type="checkbox"
+                              id="formCheck-1"
+                            /><label
+                              class="form-check-label custom-control-label"
+                              for="formCheck-1"
+                              >Remember Me</label
+                            >
+                          </div>
+                        </div>
+                      </div>
+                      <button
+                        class="btn btn-primary d-block btn-user w-100"
+                        type="submit"
+                      >
+                        Login
+                      </button>
+                      <hr />
+                      <a
+                        class="btn btn-primary d-block btn-google btn-user w-100 mb-2"
+                        role="button"
+                        ><i class="fab fa-google"></i>&nbsp; Login with
+                        Google</a
+                      ><a
+                        class="btn btn-primary d-block btn-facebook btn-user w-100"
+                        role="button"
+                        ><i class="fab fa-facebook-f"></i>&nbsp; Login with
+                        Facebook</a
+                      >
+                      <hr />
+                    </form>
+                    <div class="text-center">
+                      <a
+                        class="small"
+                        href="{% static 'forgot-password.html' %}"
+                        >Forgot Password?</a
+                      >
+                    </div>
+                    <div class="text-center">
+                      <a class="small" href="{% static 'register.html' %}"
+                        >Create an Account!</a
+                      >
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
+          </div>
         </div>
-    </section>
+      </div>
+    </div>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="assets/js/theme.js"></script>
+  </body>
+</html>

@@ -1,0 +1,121 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+
+    <title>لیست خرید</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="{% static 'css/style.min.css' %}" />
+  </head>
+  <body>
+    <div class="container px-3 my-5 clearfix">
+      <div class="card">
+        <div class="card-header text-center" style="background-color:rgb(226, 211, 214)" >
+          <h2>لیست خرید</h2>
+        </div>
+        <div class="card-body" style="background-color:rgb(127, 32, 32) ">
+          <div class="table-responsive">
+            <table class="table table-bordered m-0">
+              <thead>
+                <tr >
+                  <th class="text-center py-3 px-4" style="min-width: 400px">
+                    عنوان 
+                  </th>
+                  <th class="text-right py-3 px-4" style="width: 100px">
+                    قیمت
+                  </th>
+                  <th class="text-center py-3 px-4" style="width: 120px">
+                    تعداد
+                  </th>
+                  <th class="text-right py-3 px-4" style="width: 100px">
+                    جمع
+                  </th>
+                  <th
+                    class="text-center align-middle py-3 px-0"
+                    style="width: 40px"
+                  >
+                    <a
+                      href="#"
+                      class="shop-tooltip float-none text-light"
+                      title
+                      data-original-title="Clear cart"
+                      ><i class="ino ion-md-trash"></i
+                    ></a>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for key,value in data.items %}
+                  <tr style="background-color:rgb(255, 241, 207)">
+                  <td class="p-4">
+                    <div class="media align-items-center">
+                      {% comment %} <img
+                        src="images/image1.jpg"
+                        class="d-block ui-w-40 ui-bordered mr-1"
+                        alt
+                      /> {% endcomment %}
+                      <div class="media-body">
+                        {{key}}
+                    
+                      </div>
+                    </div>
+                  </td>
+                  <td class="text-right font-weight-semibold align-middle p-4">
+                    {{value.item_unit_price}}
+                  </td>
+                  <td class="align-middle p-4">
+                    <input
+                      type="number"
+                      class="form-control text-center"
+                      value= {{value.item_quantity}}
+                    />
+                  </td>
+                  <td class="text-right font-weight-semibold align-middle p-4">
+                    {{value.item_total_price}}
+                  </td>
+                  <td class="text-center align-middle px-0">
+                    <a
+                      href="#"
+                      class="shop-tooltip close float-none text-danger"
+                      title
+                      data-original-title="Remove"
+                      >×</a
+                    >
+                  </td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+
+          <div class="flex-container" style ="display: flex; justify-content: space-between;">
+            <button
+              type="button"
+              class="btn btn-lg btn-default md-btn-flat mt-2 mr-3"
+              onclick="redirect('checkout_page')"
+            >
+                پرداخت 
+            </button>
+
+            <button 
+              type="button"
+              class="btn btn-lg btn-default mt-2 mr-0"
+              onclick="redirect('home')" 
+              >صفحه اصلی
+              
+              </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{% static 'commonFunctions.js' %}"></script>
+    <script type="text/javascript"></script>
+  </body>
+</html>
