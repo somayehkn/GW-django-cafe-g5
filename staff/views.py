@@ -49,6 +49,7 @@ def add_items(request):
         item_info = request.POST.get('item_info')
         image = new_file_path
         category = request.POST.get('selected_category')
+        print(category)
         category = Category.objects.get(name=category)
         category_id = category.id
         new_item = Item(

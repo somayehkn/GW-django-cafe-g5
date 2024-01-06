@@ -415,18 +415,21 @@
                     class="form-control"
                     type="text"
                     id="item_name"
+                    name="item_name"
                     style="width: 100%; margin: 5px; text-align: right"
                     placeholder="نام ایتم"
                   /><input
                     class="form-control"
                     type="text"
                     id="item_price"
+                    name="item_price"
                     style="width: 100%; margin: 5px; text-align: right"
                     placeholder="قیمت واحد"
                   /><input
                     class="form-control"
                     type="text"
                     id="item_info"
+                    name="item_info"
                     style="width: 100%; margin: 5px; text-align: right"
                     placeholder="توضیحات"
                   />
@@ -445,7 +448,7 @@
                         text-align: right;
                       "
                     >
-                      دسته بندی&nbsp;
+                    <span id="selectedItem">دسته بندی&nbsp;</span>
                     </button>
                     <div class="dropdown-menu">
                       {% for item in categories %}
