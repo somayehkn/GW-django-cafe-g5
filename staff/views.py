@@ -34,6 +34,7 @@ def reports(request):
     
     # income info boxes
     today = timezone.now().date()
+    print (today)
     today_checked_out_orders = total_earnings = today_earnings = today_other_orders = 0
     for order in checked_out_orders:
         total_earnings += order.total_price
@@ -93,12 +94,6 @@ def reports(request):
         }
     }
     peek_hour_chart = json.dumps(chart_data)
-    
-    # create pdf file
-    table_data = [
-        ['Total Income', 'Today Income', 'Today Orders', 'Pending Orders'],
-        [f'{total_earnings}', f'{today_earnings}', f'{today_checked_out_orders}', f'{today_other_orders}'],
-    ]
     
     return render(request,'staff/report.html',
                   context={
