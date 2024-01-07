@@ -45,15 +45,15 @@ class Customer_order(models.Model):
         ('Deliverd','Deliverd'),
         ('Confirmed', 'Confirmed'),
         ('Cooking', 'Cooking'),
-        ('Ready Delivery', 'Ready Delivery')
+        ('Ready Delivery', 'Ready Delivery'),
+        ('Checked Out', 'Checked Out')
      ]
-    
-    
     timestamp = models.DateTimeField()
     description = models.TextField(null=True)
     table_number = models.ForeignKey(Table, null=True, on_delete=models.CASCADE)
     total_price = models.DecimalField(max_digits=12, decimal_places=2)
-    status = models.CharField(max_length=20, choices=STATUS_CHOICES)
+    is_deleted = models.BooleanField(default=False)
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='Confirmed')
     
     def save(self, *args, **kwargs):
         if not self.timestamp:

@@ -1,32 +1,124 @@
 from django.http import HttpResponse
-from django.core.files.storage import FileSystemStorage
-from customer.models import Category, Item, Customer_order, Order_item,Table
-import shutil
-from typing import Any
 from django.http.response import HttpResponse as HttpResponse
-from django.views.decorators.csrf import requires_csrf_token
-from django.shortcuts import render,redirect, get_object_or_404
-from django.contrib.auth import authenticate,login as django_login,logout as django_logout
-from django.contrib import messages
-from django.urls import reverse
-from django.views import View
-from .forms import  Form_Category,UserRegister,VerifyCodeForm,LoginForm
-import os
-from .models import User
-import random
-from utils import send_otp_code
-from .models import OTPCODE
-from django.contrib.auth.decorators import login_required
+from django.core.files.storage import FileSystemStorage
+from django.db.models.functions import TruncHour,ExtractHour
+from django.db.models import Sum, Count
+from django.contrib.auth.decorators import login_required, user_passes_test
 from django.views.generic import DeleteView
 from django.contrib.messages.views import SuccessMessageMixin
+from django.contrib.auth import authenticate,login as django_login,logout as django_logout
+from django.contrib import messages
 from django.urls import reverse_lazy
-from django.contrib.auth.decorators import user_passes_test
 from django.utils.decorators import method_decorator
+from django.utils import timezone
+from django.views.decorators.csrf import requires_csrf_token
+from django.views import View
+from django.shortcuts import render,redirect, get_object_or_404
+from django.urls import reverse
+from typing import Any
+from customer.models import Category, Item, Customer_order, Order_item,Table
+from .models import User, OTPCODE
+from .forms import  Form_Category,UserRegister,VerifyCodeForm,LoginForm
+from utils import send_otp_code
+from datetime import datetime, timedelta
+import shutil
+import os
+import random
+import json
 
 def reports(request):
-    earning_monthly = earning_annual = today_orders = pending_orders = 0
-    sell_in_month_perday = {}
-    return render(request,'staff/report.html',context={})
+    # get all orders
+    all_orders = Customer_order.objects.filter(is_deleted=False)
+    checked_out_orders = Customer_order.objects.filter(is_deleted=False, status='Checked Out')
+    other_orders = Customer_order.objects.filter(is_deleted=False).exclude(status='Checked Out')
+    
+    # income info boxes
+    today = timezone.now().date()
+    today_checked_out_orders = total_earnings = today_earnings = today_other_orders = 0
+    for order in checked_out_orders:
+        total_earnings += order.total_price
+        if today == order.timestamp.date():
+            today_checked_out_orders += 1
+            today_earnings += order.total_price
+    for order in other_orders:
+        if today == order.timestamp.date():
+            today_other_orders += 1
+            
+    # first chart (monthly sales)
+    one_month_ago = timezone.now() - timezone.timedelta(days=30)
+    orders = Customer_order.objects.filter(timestamp__gte=one_month_ago, is_deleted=False)
+    daily_earnings = orders.filter(status='Checked Out').values('timestamp__date').annotate(earnings=Sum('total_price'))
+    first_chart_labels = [entry['timestamp__date'].strftime('%d') for entry in daily_earnings]
+    first_chart_data = [entry['earnings'] if entry['earnings'] else 0 for entry in daily_earnings]
+    
+    # second chart (top sales products)
+    popular_items = Order_item.objects.values('item__name').annotate(total_orders=Count('item')).order_by('-total_orders')[:5]
+    second_chart_labels = [item['item__name'] for item in popular_items]
+    second_chart_data = [item['total_orders'] for item in popular_items]
+    
+    # third chart (product sales percentages)
+    all_items = Item.objects.filter(is_exist=True)
+    total_sales = Order_item.objects.count()
+    items_sales_percentage = []
+    for item in all_items:
+        item_sales_count = Order_item.objects.filter(item=item).count()
+        percentage = (item_sales_count / total_sales) * 100 if total_sales > 0 else 0
+        items_sales_percentage.append({'name': item.name, 'percentage': int(percentage)})
+    
+    # fourth chart (work peek hours)
+    orders_by_hour = Customer_order.objects.filter(is_deleted=False).annotate(hour=ExtractHour('timestamp')).values('hour').annotate(order_count=Count('id')).order_by('hour')
+    labels = [f"{hour} - {hour + 1}" for hour in range(9, 23)]
+    data = [0] * 14
+
+    for order in orders_by_hour:
+        data[order['hour'] - 9] = order['order_count']
+
+    chart_data = {
+        "type": "bar",
+        "data": {
+            "labels": labels,
+            "datasets": [
+                {
+                    "label": "Order Counts",
+                    "backgroundColor": "#4e73df",
+                    "borderColor": "#4e73df",
+                    "data": data
+                }
+            ]
+        },
+        "options": {
+            "maintainAspectRatio": True,
+            "legend": {"display": False},
+            "title": {"fontStyle": "bold"}
+        }
+    }
+    peek_hour_chart = json.dumps(chart_data)
+    
+    # create pdf file
+    table_data = [
+        ['Total Income', 'Today Income', 'Today Orders', 'Pending Orders'],
+        [f'{total_earnings}', f'{today_earnings}', f'{today_checked_out_orders}', f'{today_other_orders}'],
+    ]
+    
+    return render(request,'staff/report.html',
+                  context={
+                      'total_earnings': total_earnings,
+                      'today_earnings': today_earnings, 
+                      'today_checked_out_orders': today_checked_out_orders,
+                      'today_other_orders':today_other_orders,
+                      'monthly_chart_labels': first_chart_labels, 
+                      'monthly_chart_data': first_chart_data, 
+                      'second_chart_labels': second_chart_labels,
+                      'second_chart_labels0':second_chart_labels[0],
+                      'second_chart_labels1':second_chart_labels[1],
+                      'second_chart_labels2':second_chart_labels[2],
+                      'second_chart_labels3':second_chart_labels[3],
+                      'second_chart_labels4':second_chart_labels[4],
+                      'second_chart_data': second_chart_data, 
+                      'items_sales_percentage': items_sales_percentage,
+                      'peek_hour_chart': peek_hour_chart,
+                      }
+                  )
 
 def is_cashier(user):
     return user.is_admin
