@@ -3,14 +3,14 @@ from django.urls import path
 from django.conf import settings  
 from django.conf.urls.static import static  
 from . import views
-from .views import TestView, order_list_date, order_list_filter_status,  order_list_filter_table_number, order_list, order_detail
+from .views import  order_list_date, order_list_filter_status,  order_list_filter_table_number, order_list, order_detail
 
 
 urlpatterns = [
     path('add_item', views.add_items, name = 'add_item'),
     path("login/",views.login,name="login"),
     path("dashboard",views.dashboard,name="dashboard"),
-    path('add-category/', TestView.as_view(), name = 'add-category'),
+    path('add-category/', views.add_category, name = 'add-category'),
     path("register" , views.registerview.as_view(),name = "register"),
     path("verify" , views.UserRegisterVerifyCodeView.as_view(),name="verify_code"),
     path("table",views.table,name="table"),
