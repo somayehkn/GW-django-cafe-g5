@@ -10,7 +10,7 @@ from django.contrib.auth import authenticate,login as django_login,logout as dja
 from django.contrib import messages
 from django.urls import reverse
 from django.views import View
-from .forms import  Form_Category,UserRegister,VerifyCodeForm,LoginForm
+from .forms import  UserRegister,VerifyCodeForm,LoginForm
 import os
 from .models import User
 import random
@@ -64,6 +64,37 @@ def add_items(request):
     context = Category.objects.all()
     return render(request, 'staff/add_item.html',{'categories':context})
 
+@requires_csrf_token
+def add_category(request):
+    if request.method == 'POST':
+        image = request.FILES['file_input']
+        fs = FileSystemStorage()
+        file_name = fs.save(image.name, image)
+        old_media_url = f"uploads/{image}"
+        new_file_path = f"static/assets_menu_page/img/{image}"
+        shutil.copy(old_media_url, new_file_path)
+        os.remove(old_media_url)
+        new_file_path = f"assets_menu_page/img/{image}"
+        
+        category_name = request.POST.get('category_name')
+        category_info = request.POST.get('category_info')
+        image = new_file_path
+        
+        new_category = Category(
+            name=category_name,
+            description=category_info,
+            image = image
+        )
+        
+        new_category.save()
+    
+    return render(request, 'staff/add-category.html',{})
+
+
+
+
+
+
 
 # create view for login
 def login(request):
@@ -91,7 +122,7 @@ def logout(request):
     django_logout(request)
     return redirect(reverse("dashboard")) 
 
-class TestView(View):
+# class TestView(View):
     def get(self,request):
         form = Form_Category()
         previous_url = request.META.get('HTTP_REFERER',None)
