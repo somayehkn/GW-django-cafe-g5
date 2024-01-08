@@ -51,3 +51,26 @@ class OTPCODE(models.Model):
     def __str__(self) -> str:
         return f"{self.phone_number} - {self.code} - {self.created}"
 
+
+class SingletonModel(models.Model):
+    class Meta:
+        abstract = True
+
+    @classmethod
+    def load(cls):
+        return cls.objects.first()
+
+    def save(self, *args, **kwargs):
+        self.pk = 1
+        super(SingletonModel, self).save(*args, **kwargs)
+
+    def delete(self, *args, **kwargs):
+        raise NotImplementedError("Deleting instances of SingletonModel is not allowed")
+
+
+class CafeInfo(SingletonModel):
+    coffe_name = models.CharField(max_length=50)
+    phone = models.CharField(max_length=11)
+    address = models.CharField(max_length=200)
+    logo = models.ImageField()
+    

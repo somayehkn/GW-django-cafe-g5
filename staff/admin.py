@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import User, staff_user , OTPCODE
+from .models import User, staff_user , OTPCODE ,CafeInfo
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from .forms import UserCreationForm, UserChangeForm
 from django.contrib.auth.models import Group
@@ -33,3 +33,5 @@ class UserAdmin(BaseUserAdmin):
 admin.site.unregister(Group)
 admin.site.register(User, UserAdmin)
 admin.site.register(staff_user)
+admin.site.register(CafeInfo)
+
