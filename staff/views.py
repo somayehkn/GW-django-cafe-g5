@@ -50,7 +50,12 @@ def reports(request):
     orders = Customer_order.objects.filter(timestamp__gte=one_month_ago, is_deleted=False)
     daily_earnings = orders.filter(status='Checked Out').values('timestamp__date').annotate(earnings=Sum('total_price'))
     first_chart_labels = [entry['timestamp__date'].strftime('%d') for entry in daily_earnings]
-    first_chart_data = [entry['earnings'] if entry['earnings'] else 0 for entry in daily_earnings]
+    first_chart_data_fake = [entry['earnings'] if entry['earnings'] else 0 for entry in daily_earnings]
+    first_chart_data = []
+    for item in first_chart_data_fake:
+        first_chart_data.append(float(item))
+    
+    
     
     # second chart (top sales products)
     popular_items = Order_item.objects.values('item__name').annotate(total_orders=Count('item')).order_by('-total_orders')[:5]
@@ -94,7 +99,6 @@ def reports(request):
         }
     }
     peek_hour_chart = json.dumps(chart_data)
-    
     return render(request,'staff/report.html',
                   context={
                       'total_earnings': total_earnings,

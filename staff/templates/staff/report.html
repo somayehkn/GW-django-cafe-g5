@@ -139,7 +139,7 @@
                 <h3 class="text-dark mb-0">گزارشات</h3>
               </div>
               {% comment %} <div id="content_for_pdf"style="font-family: 'BTitrBold';@font-face {font-family: 'BTitrBold';src: url('static/BـTitrـBold_0.ttf') format('truetype');}"> {% endcomment %}
-              <div id="content_for_pdf"style="font-family: 'B-NAZANIN'; @font-face {font-family: 'B-NAZANIN';src: url('static/B-NAZANIN.TTF') format('truetype');}">
+              <div id="content_for_pdf"style="font-family: 'B-NAZANIN'; @font-face {font-family: 'B-NAZANIN';src: url('static/B-NAZANIN.TTF') format('truetype');unicode-range: U+0600-06FF;}">
                 <div class="row">
                   <div class="col-md-6 col-xl-3 mb-4">
                     <div class="card shadow border-start-primary py-2">
@@ -397,10 +397,10 @@
           var myChart = new Chart(ctx, {
             type: 'line',
             data: {
-              labels: ['04', '07'], // این قسمت را با labels از دیتابیس جایگزین کنید
+              labels: {{monthly_chart_labels | safe }}, 
               datasets: [{
                 label: 'Earnings',
-                data: [1200000.00, 2560000.00], // این قسمت را با data از دیتابیس جایگزین کنید
+                data: {{monthly_chart_data | safe}}, // این قسمت را با data از دیتابیس جایگزین کنید
                 backgroundColor: 'rgba(78, 115, 223, 0.05)',
                 borderColor: 'rgba(78, 115, 223, 1)',
                 borderWidth: 1
