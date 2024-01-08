@@ -18,10 +18,10 @@ urlpatterns = [
     path("reports",views.reports,name="reports"),
     path("delete_user/<int:pk>/",views.DeleteUser.as_view(),name="delete_user"),
     path("logout",views.logout,name="logout"),
-    path('status/', order_list, name='status'),
-    path('date/', order_list_date, name='date'),
-    path('filter-status/', order_list_filter_status, name='filter-status'),
-    path('filter-table/', order_list_filter_table_number, name='filter-table'),
+    path('status/', views.order_list, name='status'),
+    path('date/', views.order_list_date, name='date'),
+    path('filter-status/', views.order_list_filter_status, name='filter-status'),
+    path('filter-table/', views.order_list_filter_table_number, name='filter-table'),
     path('order_detail/<int:order_id>/', order_detail, name='order_detail'),
 ]
 

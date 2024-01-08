@@ -3,6 +3,7 @@ from django.http.response import HttpResponse as HttpResponse
 from django.core.files.storage import FileSystemStorage
 from django.db.models.functions import TruncHour,ExtractHour
 from django.db.models import Sum, Count
+from .models import OTPCODE,User
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.views.generic import DeleteView
 from django.contrib.messages.views import SuccessMessageMixin
@@ -16,7 +17,10 @@ from django.views import View
 from django.shortcuts import render,redirect, get_object_or_404
 from django.urls import reverse
 from django.views import View
+from utils import send_otp_code
 from .forms import  UserRegister,VerifyCodeForm,LoginForm
+from customer.models import *
+import shutil
 import os
 import random
 import json
@@ -352,7 +356,7 @@ def order_list(request):
 def order_list_date(request):
     timestamp = Customer_order.objects.all().order_by('timestamp')
     print(timestamp)
-    return render(request,'staff\date.html', { 'timestamp':timestamp})
+    return render(request,'staff/date.html', { 'timestamp':timestamp})
 
 
 
@@ -367,7 +371,7 @@ def order_list_filter_status(request):
       print(orders)
      
     context = {'orders': orders }
-    return render(request, 'staff/filter-status.html', context)
+    return render(request, 'staff/filter-status.html', context={"status":status})
 
 
 
