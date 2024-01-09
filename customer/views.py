@@ -33,7 +33,8 @@ def menu(request):
             session_data[item.name] = {
                 "item_unit_price": item.unitprice,
                 "item_quantity": 0,
-                "item_total_price": 0
+                "item_total_price": 0,
+                "item_image":item.image,
             }           
     return render(request, 'menu.html', {'category_items':category_items,
                                          'categories':records,
