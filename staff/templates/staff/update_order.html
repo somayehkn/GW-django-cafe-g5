@@ -8,12 +8,18 @@
       content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
     />
     <title>Dashboard - Brand</title>
-    <link rel="stylesheet" href="{% static 'assets_admin_add_item/bootstrap/css/bootstrap.min.css' %}" />
+    <link
+      rel="stylesheet"
+      href="{% static 'assest_admin_show_order/bootstrap/css/bootstrap.min.css'%}"
+    />
     <link
       rel="stylesheet"
       href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i&amp;display=swap"
     />
-    <link rel="stylesheet" href="{% static 'assets_admin_add_item/fonts/fontawesome-all.min.css' %}" />
+    <link
+      rel="stylesheet"
+      href="{% static 'assest_admin_show_order/fonts/fontawesome-all.min.css'%}"
+    />
   </head>
 
   <body id="page-top">
@@ -33,13 +39,25 @@
           </a>
           <hr class="sidebar-divider my-0" />
           <ul class="navbar-nav text-light" id="accordionSidebar">
-            <li class="nav-item dropdown"><a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown" href="#"><i class="fas fa-utensils"></i>سفارشات </a>
-              <div class="dropdown-menu"><a class="dropdown-item" href="http://127.0.0.1:8000/staff/dashboard">تمام سفارشات</a><a class="dropdown-item" href="#">Second Item</a><a class="dropdown-item" href="#">Third Item</a></div>
-          </li>
-            <li class="nav-item">
+            <li class="nav-item dropdown">
               <a
-                class="nav-link active"
-                href="http://127.0.0.1:8000/staff/add_item"
+                class="dropdown-toggle nav-link active"
+                aria-expanded="false"
+                data-bs-toggle="dropdown"
+                href="#"
+                ><i class="fas fa-utensils"></i>سفارشات
+              </a>
+              <div class="dropdown-menu">
+                <a
+                  class="dropdown-item"
+                  href="http://127.0.0.1:8000/staff/dashboard"
+                  >تمام سفارشات</a
+                ><a class="dropdown-item" href={% url "trash" %}>Trash</a
+                ><a class="dropdown-item" href={% url "checked_out" %}>checked out list>
+              </div>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="http://127.0.0.1:8000/staff/add_item"
                 ><i class="fas fa-plus"></i><span>افزودن ایتم</span></a
               >
             </li>
@@ -65,7 +83,6 @@
               >
             </li>
             {% endif %}
-            </li>
           </ul>
           <div class="text-center d-none d-md-inline">
             <button
@@ -329,7 +346,7 @@
                         >{{request.user.full_name}}</span
                       ><img
                         class="border rounded-circle img-profile"
-                        src="assets/img/avatars/avatar1.jpeg"
+                        src="{% static 'assets_admin_show_orders/img/avatars/avatar1.jpeg' %}"
                     /></a>
                     <div
                       class="dropdown-menu shadow dropdown-menu-end animated--grow-in"
@@ -363,154 +380,14 @@
               </ul>
             </div>
           </nav>
-          <div class="container-fluid">
-            <form
-            style="
-              width: 70%;
-              text-align: center;
-              margin-top: 10%;
-              
-              margin-right: auto;
-              margin-left: auto;
-              border-style: none;
-              border-color: rgb(139, 144, 149);
-              padding: 10px;
-            "
-            action="{% url 'add_item' %}"
-            method="post"
-            enctype="multipart/form-data">
-            {% csrf_token %}
-              <div class="row">
-                <div class="col text-center">
-                  <img
-                    id="item_image"
-                    name="item_image"
-                    src="{% static 'assets_admin_add_item/img/login-logo.svg'%}"
-                    style="
-                      width: 140px;
-                      height: auto;
-                      margin-right: auto;
-                      margin-left: auto;
-                    "
-                  />
-                  <input
-                    class="form-control"
-                    type="file"
-                    id="file_input"
-                    name="file_input"
-                    style="display: none;"
-                    onchange="displaySelectedImage(event)"
-                  /><button
-                    class="btn btn-primary"
-                    id="browse_pic"
-                    name="browse_pic"
-                    type="button"
-                    style="width: 100%; margin: 5px"
-                    onclick="document.getElementById('file_input').click()"
-                  >
-                    انتخاب عکس
-                  </button>
-                </div>
-                <div class="col">
-                  <input
-                    class="form-control"
-                    type="text"
-                    id="item_name"
-                    name="item_name"
-                    style="width: 100%; margin: 5px; text-align: right"
-                    placeholder="نام ایتم"
-                  /><input
-                    class="form-control"
-                    type="text"
-                    id="item_price"
-                    name="item_price"
-                    style="width: 100%; margin: 5px; text-align: right"
-                    placeholder="قیمت واحد"
-                  /><input
-                    class="form-control"
-                    type="text"
-                    id="item_info"
-                    name="item_info"
-                    style="width: 100%; margin: 5px; text-align: right"
-                    placeholder="توضیحات"
-                  />
-                  <div class="dropdown">
-                    <button
-                      class="btn btn-primary dropdown-toggle"
-                      aria-expanded="false"
-                      data-bs-toggle="dropdown"
-                      id="item_category"
-                      type="button"
-                      style="
-                        width: 100%;
-                        margin: 5px;
-                        background: var(--bs-btn-color);
-                        color: rgb(0, 0, 0);
-                        text-align: right;
-                      "
-                    >
-                    <span id="selectedItem">دسته بندی&nbsp;</span>
-                    </button>
-                    <div class="dropdown-menu">
-                      {% for item in categories %}
-                        <a
-                          class="dropdown-item"
-                          href="#"
-                          onclick="changeText('{{ item }}')"
-                          >{{item}}</a
-                        >
-                        {% endfor %}
-                        <input
-                          type="hidden"
-                          id="selected_category"
-                          name="selected_category"
-                          value=""
-                        />
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <button
-                class="btn btn-primary"
-                type="submit"
-                style="width: 100%; margin-top: 15px"
-              >
-                افزودن
-              </button>
-            </form>
-          </div>
-        </div>
-        <footer class="bg-white sticky-footer">
-          <div class="container my-auto">
-            <div class="text-center my-auto copyright">
-              <span>Copyright © Brand 2024</span>
-            </div>
-          </div>
-        </footer>
-      </div>
-      <a class="border rounded d-inline scroll-to-top" href="#page-top"
-        ><i class="fas fa-angle-up"></i
-      ></a>
-    </div>
-    <script>
-      function displaySelectedImage(event) {
-        const selectedFile = event.target.files[0];
-        const imgElement = document.getElementById("item_image");
-        imgElement.style.display = "block";
-
-        const reader = new FileReader();
-        reader.onload = function () {
-          imgElement.src = reader.result;
-        };
-        reader.readAsDataURL(selectedFile);
-        imgElement.style.width = "100%";
-      }
-      function changeText(selectedItem) {
-        document.getElementById("selectedItem").innerText = selectedItem;
-        document.getElementById("selected_category").value = selectedItem;
-      }
-    </script>
-    <script src="{% static 'assets_admin_add_item/bootstrap/js/bootstrap.min.js'%}"></script>
-    <script src="{% static 'assets_admin_add_item/js/theme.js'%}"></script>
-  </body>
-</html>
+            <h1>update order</h1>
+            <form action="" method=POST>
+                {% csrf_token %}
+                {{ form.as_p }}   
+                <br/>
+                <input type="submit" value="update"
+                class="btn btn_secondary">
+                <script src="{% static 'assest_admin_show_order/bootstrap/js/bootstrap.min.js'%}"></script>
+                <script src="{% static 'assest_admin_show_order/js/theme.js'%}"></script>
+              </body>
+            </html>

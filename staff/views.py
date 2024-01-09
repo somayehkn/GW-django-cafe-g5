@@ -1,5 +1,6 @@
 from django.http import HttpResponse
 from django.core.files.storage import FileSystemStorage
+from django.http import JsonResponse
 from customer.models import Category, Item, Customer_order, Order_item,Table
 import shutil
 from typing import Any
@@ -10,7 +11,7 @@ from django.contrib.auth import authenticate,login as django_login,logout as dja
 from django.contrib import messages
 from django.urls import reverse
 from django.views import View
-from .forms import  Form_Category,UserRegister,VerifyCodeForm,LoginForm
+from .forms import  Form_Category,UserRegister,VerifyCodeForm,LoginForm,order_table
 import os
 from .models import User
 import random
@@ -22,14 +23,15 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse_lazy
 from django.contrib.auth.decorators import user_passes_test
 from django.utils.decorators import method_decorator
+from django.views.generic import DetailView
+def is_cashier(user):
+    return user.is_admin
 
 def reports(request):
     earning_monthly = earning_annual = today_orders = pending_orders = 0
     sell_in_month_perday = {}
     return render(request,'staff/report.html',context={})
 
-def is_cashier(user):
-    return user.is_admin
 
 # Create your views here.
 @requires_csrf_token
@@ -82,11 +84,13 @@ def login(request):
             messages.add_message(request,messages.ERROR,f"user {username} was not found!")
     return render(request,'staff/login.html',context={"form":form})
 
+@login_required
 def dashboard(request):
     customer_orders = Customer_order.objects.all()
     
     return render(request,'staff/dashboard.html',context={'customer_orders': customer_orders})
-    
+
+@login_required    
 def logout(request):
     django_logout(request)
     return redirect(reverse("dashboard")) 
@@ -157,7 +161,8 @@ class registerview(View):
     @method_decorator(user_passes_test(is_cashier), name='dispatch')
     def get(self,request):
         form = self.form_class
-        return render(request,'staff/register.html',{'form':form})
+        list_roll=["seff","cashier","waiter"]
+        return render(request,'staff/register.html',{'form':form,"list_roll":list_roll})
     
     def post(self,request):
         form = self.form_class(request.POST)
@@ -179,6 +184,7 @@ class registerview(View):
   
 class UserRegisterVerifyCodeView(View):
     form_class = VerifyCodeForm
+
     def get(self,request):
         form = self.form_class
         return render(request , 'staff/verify.html' , {'form':form})
@@ -220,25 +226,26 @@ class DeleteUser(SuccessMessageMixin,DeleteView):
     success_url = reverse_lazy("dashboard")
 
 
-    
+@login_required    
 def order_detail(request, order_id):
     order = get_object_or_404(Customer_order, id=order_id)
     order_items = Order_item.objects.filter(customer_order=order)
     return render(request, 'staff/order_detail.html', {'order': order, 'order_items': order_items}) 
 
+@login_required
 def order_list(request):
     orders_status = Customer_order.objects.all().order_by('status')
     return render(request,'staff\status.html', {'orders_status': orders_status })
 
 
-    
+@login_required    
 def order_list_date(request):
     timestamp = Customer_order.objects.all().order_by('timestamp')
     print(timestamp)
     return render(request,'staff\date.html', { 'timestamp':timestamp})
 
 
-
+@login_required
 def order_list_filter_status(request):
     orders = []
     
@@ -254,7 +261,7 @@ def order_list_filter_status(request):
 
 
 
-
+@login_required
 def order_list_filter_table_number(request):
     orders = []
 
@@ -268,4 +275,59 @@ def order_list_filter_table_number(request):
     context = {'orders': orders}
     return render(request, 'staff/filter-table.html', context)
 
+def dashboard_deliverd(request):
+    customer_orders_deliverd = Customer_order.objects.filter(is_deleted = False,status = "Deliverd")
+    customer_orders_confirmed = Customer_order.objects.filter(is_deleted = False,status = "Confirmed")
+    customer_orders_cooking = Customer_order.objects.filter(is_deleted = False,status = "Cooking")
+    customer_orders_ready_delivery = Customer_order.objects.filter(is_deleted = False,status = "Ready delivery")
+    return render(request,'staff/dashboard.html',context={'customer_orders_confirmed': customer_orders_confirmed,'customer_orders_cooking': customer_orders_cooking,'customer_orders_deleverd': customer_orders_deliverd,'customer_orders_ready_delivery': customer_orders_ready_delivery})
 
+
+def update_model(request, item_id):
+        
+    if request.method == 'POST' and request.is_ajax():
+        selected_status = request.POST.get('selectedStatus')  # اطلاعات ارسالی از جاوااسکریپت
+       
+        # بروزرسانی مدل مورد نظر
+        try:
+            your_item = Customer_order.objects.get(id=item_id)
+            your_item.status = selected_status
+            your_item.save()
+
+            return JsonResponse({'success': True})
+        except Customer_order.DoesNotExist:
+            return JsonResponse({'success': False, 'error': 'آیتم مورد نظر یافت نشد'}, status=404)
+
+    render(request,'staff/dashboard.html',context={"your_item":your_item})
+    return JsonResponse({'success': False, 'error': 'درخواست نامعتبر'}, status=400)
+
+def update_order(request,order_id):
+    order=Customer_order.objects.get(pk=order_id)
+    form=order_table(request.POST or None , instance=order)
+    if form.is_valid():
+        form.save()
+        return redirect(reverse("dashboard"))
+    return render(request,"staff/update_order.html",context={"order":order,"form":form})
+
+
+def delete_order(request,del_id):
+    del_order = Customer_order.objects.filter(pk = del_id).update(is_deleted=True)
+    render(request,"staff/dashboard.html",context={"del_order":del_order})
+    return redirect(reverse("dashboard"))
+
+def trash(request):
+    customer_orders = Customer_order.objects.filter(is_deleted = True)
+    return render(request,'staff/trash.html',context={"customer_orders":customer_orders})
+
+def checked_out(request):
+    checked_out_orders = Customer_order.objects.filter(status = "Checked Out")
+    return render(request,'staff/checked_out.html',context={"checked_out_orders":checked_out_orders})
+    
+def back_delete(request,del_id):
+    del_order = Customer_order.objects.filter(pk = del_id).update(is_deleted=False)
+    render(request,"staff/trash.html",context={"del_order":del_order})
+    return redirect(reverse("trash"))
+
+def roll_list(request):
+    list_roll=["seff","cashier","waiter"]
+    return render(request,"staff/register.html",context={"list_roll":list_roll})

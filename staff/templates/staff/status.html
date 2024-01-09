@@ -51,16 +51,21 @@
               >
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="http://127.0.0.1:8000/staff/add-category"
-                ><i class="fas fa-plus"></i><span>افزودن دسته</span></a
-              >
-            </li>
-            <li class="nav-item"></li>
-            <li class="nav-item">
-              <a class="nav-link" href="http://127.0.0.1:8000/staff/list_user"
-                ><i class="fas fa-user-circle"></i
-                ><span>مدیریت پرسنل</span></a
-              >
+              {% if request.user.is_admin %}
+              <li class="nav-item"></li>
+              <li class="nav-item">
+                <a class="nav-link" href="http://127.0.0.1:8000/staff/list_user"
+                  ><i class="fas fa-user-circle"></i><span>مدیریت پرسنل</span></a
+                >
+              {% endif %}
+              </li>
+              {% if request.user.is_admin %}
+              <li class="nav-item">
+                <a class="nav-link" href="http://127.0.0.1:8000/staff/reports"
+                  ><i class="fas fa-tachometer-alt"></i> <span>گزارشات</span></a
+                >
+              </li>
+              {% endif %}
             </li>
           </ul>
           <div class="text-center d-none d-md-inline">
@@ -96,7 +101,7 @@
                       data-bs-toggle="dropdown"
                       href="#"
                       ><span class="d-none d-lg-inline me-2 text-gray-600 small"
-                        >Valerie Luna</span
+                        >{{request.user.full_name}}</span
                       ><img
                         class="border rounded-circle img-profile"
                         src="{%static 'assest_admin_show_order/img/avatars/avatar1.jpeg'%}"
@@ -105,7 +110,7 @@
                       class="dropdown-menu shadow dropdown-menu-end animated--grow-in"
                     >
                       
-                      <a class="dropdown-item" href="#"
+                      <a class="dropdown-item" href="{% url 'logout' %}"
                         ><i
                           class="fas fa-sign-out-alt fa-sm fa-fw me-2 text-gray-400"
                         ></i

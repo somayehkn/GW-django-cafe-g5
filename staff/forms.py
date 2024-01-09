@@ -1,5 +1,6 @@
 from django import forms
-
+from django.forms import ModelForm
+from customer.models import Customer_order
 from django import forms
 import django
 django.setup()
@@ -64,3 +65,7 @@ class Form_Category(forms.ModelForm):
         fields = ["name","description", "image"]
 
 
+class order_table(ModelForm):
+    class Meta:
+        model=Customer_order
+        fields = '__all__'

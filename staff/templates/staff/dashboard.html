@@ -52,8 +52,8 @@
                   class="dropdown-item"
                   href="http://127.0.0.1:8000/staff/dashboard"
                   >تمام سفارشات</a
-                ><a class="dropdown-item" href="#">Second Item</a
-                ><a class="dropdown-item" href="#">Third Item</a>
+                ><a class="dropdown-item" href={% url "trash" %}>Trash</a
+                ><a class="dropdown-item" href={% url "checked_out" %}>checked out list>
               </div>
             </li>
             <li class="nav-item">
@@ -68,17 +68,21 @@
                 ><i class="fas fa-plus"></i><span>افزودن دسته</span></a
               >
             </li>
+            {% if request.user.is_admin %}
             <li class="nav-item"></li>
             <li class="nav-item">
               <a class="nav-link" href="http://127.0.0.1:8000/staff/list_user"
                 ><i class="fas fa-user-circle"></i><span>مدیریت پرسنل</span></a
               >
+            {% endif %}
             </li>
+            {% if request.user.is_admin %}
             <li class="nav-item">
               <a class="nav-link" href="http://127.0.0.1:8000/staff/reports"
                 ><i class="fas fa-tachometer-alt"></i> <span>گزارشات</span></a
               >
             </li>
+            {% endif %}
           </ul>
           <div class="text-center d-none d-md-inline">
             <button
@@ -144,192 +148,7 @@
                     </form>
                   </div>
                 </li>
-                <li class="nav-item dropdown no-arrow mx-1">
-                  <div class="nav-item dropdown no-arrow">
-                    <a
-                      class="dropdown-toggle nav-link"
-                      aria-expanded="false"
-                      data-bs-toggle="dropdown"
-                      href="#"
-                      ><span class="badge bg-danger badge-counter">3+</span
-                      ><i class="fas fa-bell fa-fw"></i
-                    ></a>
-                    <div
-                      class="dropdown-menu dropdown-menu-end dropdown-list animated--grow-in"
-                    >
-                      <h6 class="dropdown-header">alerts center</h6>
-                      <a
-                        class="dropdown-item d-flex align-items-center"
-                        href="#"
-                      >
-                        <div class="me-3">
-                          <div class="bg-primary icon-circle">
-                            <i class="fas fa-file-alt text-white"></i>
-                          </div>
-                        </div>
-                        <div>
-                          <span class="small text-gray-500"
-                            >December 12, 2019</span
-                          >
-                          <p>A new monthly report is ready to download!</p>
-                        </div> </a
-                      ><a
-                        class="dropdown-item d-flex align-items-center"
-                        href="#"
-                      >
-                        <div class="me-3">
-                          <div class="bg-success icon-circle">
-                            <i class="fas fa-donate text-white"></i>
-                          </div>
-                        </div>
-                        <div>
-                          <span class="small text-gray-500"
-                            >December 7, 2019</span
-                          >
-                          <p>$290.29 has been deposited into your account!</p>
-                        </div> </a
-                      ><a
-                        class="dropdown-item d-flex align-items-center"
-                        href="#"
-                      >
-                        <div class="me-3">
-                          <div class="bg-warning icon-circle">
-                            <i
-                              class="fas fa-exclamation-triangle text-white"
-                            ></i>
-                          </div>
-                        </div>
-                        <div>
-                          <span class="small text-gray-500"
-                            >December 2, 2019</span
-                          >
-                          <p>
-                            Spending Alert: We've noticed unusually high
-                            spending for your account.
-                          </p>
-                        </div> </a
-                      ><a
-                        class="dropdown-item text-center small text-gray-500"
-                        href="#"
-                        >Show All Alerts</a
-                      >
-                    </div>
-                  </div>
-                </li>
-                <li class="nav-item dropdown no-arrow mx-1">
-                  <div class="nav-item dropdown no-arrow">
-                    <a
-                      class="dropdown-toggle nav-link"
-                      aria-expanded="false"
-                      data-bs-toggle="dropdown"
-                      href="#"
-                      ><span class="badge bg-danger badge-counter">7</span
-                      ><i class="fas fa-envelope fa-fw"></i
-                    ></a>
-                    <div
-                      class="dropdown-menu dropdown-menu-end dropdown-list animated--grow-in"
-                    >
-                      <h6 class="dropdown-header">alerts center</h6>
-                      <a
-                        class="dropdown-item d-flex align-items-center"
-                        href="#"
-                      >
-                        <div class="dropdown-list-image me-3">
-                          <img
-                            class="rounded-circle"
-                            src="assets/img/avatars/avatar4.jpeg"
-                          />
-                          <div class="bg-success status-indicator"></div>
-                        </div>
-                        <div class="fw-bold">
-                          <div class="text-truncate">
-                            <span
-                              >Hi there! I am wondering if you can help me with
-                              a problem I've been having.</span
-                            >
-                          </div>
-                          <p class="small text-gray-500 mb-0">
-                            Emily Fowler - 58m
-                          </p>
-                        </div> </a
-                      ><a
-                        class="dropdown-item d-flex align-items-center"
-                        href="#"
-                      >
-                        <div class="dropdown-list-image me-3">
-                          <img
-                            class="rounded-circle"
-                            src="assets/img/avatars/avatar2.jpeg"
-                          />
-                          <div class="status-indicator"></div>
-                        </div>
-                        <div class="fw-bold">
-                          <div class="text-truncate">
-                            <span
-                              >I have the photos that you ordered last
-                              month!</span
-                            >
-                          </div>
-                          <p class="small text-gray-500 mb-0">Jae Chun - 1d</p>
-                        </div> </a
-                      ><a
-                        class="dropdown-item d-flex align-items-center"
-                        href="#"
-                      >
-                        <div class="dropdown-list-image me-3">
-                          <img
-                            class="rounded-circle"
-                            src="assets/img/avatars/avatar3.jpeg"
-                          />
-                          <div class="bg-warning status-indicator"></div>
-                        </div>
-                        <div class="fw-bold">
-                          <div class="text-truncate">
-                            <span
-                              >Last month's report looks great, I am very happy
-                              with the progress so far, keep up the good
-                              work!</span
-                            >
-                          </div>
-                          <p class="small text-gray-500 mb-0">
-                            Morgan Alvarez - 2d
-                          </p>
-                        </div> </a
-                      ><a
-                        class="dropdown-item d-flex align-items-center"
-                        href="#"
-                      >
-                        <div class="dropdown-list-image me-3">
-                          <img
-                            class="rounded-circle"
-                            src="assets/img/avatars/avatar5.jpeg"
-                          />
-                          <div class="bg-success status-indicator"></div>
-                        </div>
-                        <div class="fw-bold">
-                          <div class="text-truncate">
-                            <span
-                              >Am I a good boy? The reason I ask is because
-                              someone told me that people say this to all dogs,
-                              even if they aren't good...</span
-                            >
-                          </div>
-                          <p class="small text-gray-500 mb-0">
-                            Chicken the Dog · 2w
-                          </p>
-                        </div> </a
-                      ><a
-                        class="dropdown-item text-center small text-gray-500"
-                        href="#"
-                        >Show All Alerts</a
-                      >
-                    </div>
-                  </div>
-                  <div
-                    class="shadow dropdown-list dropdown-menu dropdown-menu-end"
-                    aria-labelledby="alertsDropdown"
-                  ></div>
-                </li>
+              
                 <div class="d-none d-sm-block topbar-divider"></div>
                 <li class="nav-item dropdown no-arrow">
                   <div class="nav-item dropdown no-arrow">
@@ -339,7 +158,7 @@
                       data-bs-toggle="dropdown"
                       href="#"
                       ><span class="d-none d-lg-inline me-2 text-gray-600 small"
-                        >Valerie Luna</span
+                        >{{request.user.full_name}}</span
                       ><img
                         class="border rounded-circle img-profile"
                         src="{% static 'assets_admin_show_orders/img/avatars/avatar1.jpeg' %}"
@@ -364,7 +183,7 @@
                         >&nbsp;Activity log</a
                       >
                       <div class="dropdown-divider"></div>
-                      <a class="dropdown-item" href="#"
+                      <a class="dropdown-item" href="{% url 'logout' %}"
                         ><i
                           class="fas fa-sign-out-alt fa-sm fa-fw me-2 text-gray-400"
                         ></i
@@ -387,6 +206,7 @@
               تمام سفارشات
             </h1>
             <div id="confirmed_section" style="margin: 10px">
+              {% for item in customer_orders_deleverd %}
               <h1
                 style="
                   text-align: center;
@@ -455,7 +275,7 @@
                                 border-left-color: rgb(0, 0, 0);
                               "
                             >
-                              Cell 1
+                              {{item.timestamp}}
                             </td>
                             <td
                               class="border rounded-0"
@@ -468,7 +288,7 @@
                                 border-left-color: rgb(0, 0, 0);
                               "
                             >
-                              Cell 2
+                              {{item.description}}
                             </td>
                             <td
                               class="border rounded-0"
@@ -481,7 +301,7 @@
                                 border-left-color: rgb(0, 0, 0);
                               "
                             >
-                              Cell 2
+                              {{item.table_number.table_number}}
                             </td>
                           </tr>
                         </tbody>
@@ -530,72 +350,29 @@
                           </tr>
                         </thead>
                         <tbody>
+                          {% for order_item in item.order_item_set.all %}
                           <tr>
                             <td
                               class="border rounded-0"
                               style="text-align: center; width: 40%"
                             >
-                              Cell 1
+                              {{order_item.item.unitprice}}
                             </td>
                             <td
                               class="border rounded-0"
                               style="text-align: center; width: 20%"
                             >
-                              Cell 2
+                              {{order_item.count}}
                             </td>
                             <td
                               class="border rounded-0"
                               style="text-align: center; width: 40%"
                             >
-                              Cell 2
+                              {{order_item.item.name}}
                             </td>
                           </tr>
+                          {% endfor %}
                           <tr>
-                            <td
-                              class="border rounded-0"
-                              id="discount"
-                              style="
-                                text-align: center;
-                                background: rgba(227, 230, 240, 0);
-                                width: 40%;
-                              "
-                            >
-                              Cell 1
-                            </td>
-                            <td
-                              class="border rounded-0"
-                              style="
-                                text-align: center;
-                                background: rgba(227, 230, 240, 0.38);
-                                width: 20%;
-                              "
-                            >
-                              تخفیف
-                            </td>
-                          </tr>
-                          <tr>
-                            <td
-                              class="border rounded-0"
-                              id="sum_price"
-                              style="
-                                text-align: center;
-                                background: rgba(227, 230, 240, 0);
-                                width: 40%;
-                              "
-                            >
-                              Cell 1
-                            </td>
-                            <td
-                              class="border rounded-0"
-                              id="sum_count"
-                              style="
-                                text-align: center;
-                                background: rgba(227, 230, 240, 0);
-                                width: 20%;
-                              "
-                            >
-                              Cell 2
-                            </td>
                             <td
                               class="border rounded-0"
                               style="
@@ -606,13 +383,24 @@
                             >
                               جمع کل
                             </td>
+                            <th
+                            class="border rounded-0"
+                            id="discount"
+                            style="
+                              text-align: center;
+                              background: rgba(227, 230, 240, 0);
+                              width: 40%;
+                            "
+                          >
+                            {{item.total_price}}
+                          </th>
                           </tr>
                         </tbody>
                       </table>
                     </div>
                     <div class="row">
                       <div class="col" style="text-align: center">
-                        <button
+                        <a href={% url "delete_table" item.id %}><button
                           class="btn btn-primary"
                           id="delete_order_btn"
                           type="button"
@@ -622,10 +410,10 @@
                             class="fas fa-trash"
                             style="color: rgb(255, 255, 255); margin-left: 3px"
                           ></i>
-                        </button>
+                        </button></a>
                       </div>
                       <div class="col" style="text-align: center">
-                        <button
+                        <a href={% url "update_order" item.id %}><button
                           class="btn btn-primary"
                           id="edit_order_btn"
                           type="button"
@@ -634,7 +422,7 @@
                             class="fas fa-pencil-alt"
                             style="margin-left: 3px"
                           ></i>
-                        </button>
+                        </button></a>
                       </div>
                       <div class="col" style="text-align: center">
                         <div class="row">
@@ -671,15 +459,33 @@
                                 data-bs-toggle="dropdown"
                                 type="button"
                               >
-                                وضعیت سفارش 
-                              </button>
+                              <span id="selected_status_{{customer_order.id}}">وضعیت سفارش&nbsp;</span>
+                            </button>
                               <div class="dropdown-menu">
-                                <a class="dropdown-item" href="#">First Item</a
+                                <a class="dropdown-item" href="#"
+                                onclick="changeText4('{{customer_order.id}}', 'تایید شده')"
+                                >تایید شده</a
                                 ><a class="dropdown-item" href="#"
-                                  >Second Item</a
+                                onclick="changeText4('{{customer_order.id}}', 'در حال اماده سازی')"
+                                >در حال اماده سازی</a
                                 ><a class="dropdown-item" href="#"
-                                  >Third Item</a
+                                onclick="changeText4('{{customer_order.id}}', 'آماده تحویل')"
+                                >آماده تحویل</a
                                 >
+                                <a class="dropdown-item" href="#"
+                                onclick="changeText4('{{customer_order.id}}', 'سرو شده')"
+                                >سرو شده</a
+                                >
+                                <a class="dropdown-item" href="#"
+                                onclick="changeText4('Confirmed')"
+                                  >پرداخت شده</a
+                                >
+                                <input
+                                type="hidden"
+                                id="selectedstatus_{{customer_order.id}}"
+                                name="selected_status"
+                                value=""
+                              />
                               </div>
                             </div>
                           </div>
@@ -689,6 +495,7 @@
                   </div>
                 </div>
               </div>
+              {% endfor %}
             </div>
             <div id="confirmed_section-1">
               <h1
@@ -703,6 +510,7 @@
               >
                 سفارشات در حال آماده سازی
               </h1>
+              {% for customer_order in customer_orders_confirmed %}
               <div>
                 <div class="card">
                   <div class="card-body">
@@ -761,7 +569,7 @@
                                 border-left-color: rgb(0, 0, 0);
                               "
                             >
-                              Cell 1
+                              {{customer_order.timestamp}}
                             </td>
                             <td
                               class="border rounded-0"
@@ -774,7 +582,7 @@
                                 border-left-color: rgb(0, 0, 0);
                               "
                             >
-                              Cell 2
+                              {{customer_order.description}}
                             </td>
                             <td
                               class="border rounded-0"
@@ -787,7 +595,7 @@
                                 border-left-color: rgb(0, 0, 0);
                               "
                             >
-                              Cell 2
+                              {{customer_order.table_number.table_number}}
                             </td>
                           </tr>
                         </tbody>
@@ -836,72 +644,29 @@
                           </tr>
                         </thead>
                         <tbody>
+                          {% for order_item in customer_order.order_item_set.all %}
                           <tr>
                             <td
                               class="border rounded-0"
                               style="text-align: center; width: 40%"
                             >
-                              Cell 1
+                              {{order_item.item.unitprice}}
                             </td>
                             <td
                               class="border rounded-0"
                               style="text-align: center; width: 20%"
                             >
-                              Cell 2
+                              {{order_item.count}}
                             </td>
                             <td
                               class="border rounded-0"
                               style="text-align: center; width: 40%"
                             >
-                              Cell 2
+                              {{order_item.item.name}}
                             </td>
                           </tr>
+                          {% endfor %}
                           <tr>
-                            <td
-                              class="border rounded-0"
-                              id="discount-1"
-                              style="
-                                text-align: center;
-                                background: rgba(227, 230, 240, 0);
-                                width: 40%;
-                              "
-                            >
-                              Cell 1
-                            </td>
-                            <td
-                              class="border rounded-0"
-                              style="
-                                text-align: center;
-                                background: rgba(227, 230, 240, 0.38);
-                                width: 20%;
-                              "
-                            >
-                              تخفیف
-                            </td>
-                          </tr>
-                          <tr>
-                            <td
-                              class="border rounded-0"
-                              id="sum_price-1"
-                              style="
-                                text-align: center;
-                                background: rgba(227, 230, 240, 0);
-                                width: 40%;
-                              "
-                            >
-                              Cell 1
-                            </td>
-                            <td
-                              class="border rounded-0"
-                              id="sum_count-1"
-                              style="
-                                text-align: center;
-                                background: rgba(227, 230, 240, 0);
-                                width: 20%;
-                              "
-                            >
-                              Cell 2
-                            </td>
                             <td
                               class="border rounded-0"
                               style="
@@ -912,13 +677,24 @@
                             >
                               جمع کل
                             </td>
+                            <th
+                            class="border rounded-0"
+                            id="discount"
+                            style="
+                              text-align: center;
+                              background: rgba(227, 230, 240, 0);
+                              width: 40%;
+                            "
+                          >
+                            {{customer_order.total_price}}
+                          </th>
                           </tr>
                         </tbody>
                       </table>
                     </div>
                     <div class="row">
                       <div class="col" style="text-align: center">
-                        <button
+                        <a href={% url "delete_table" customer_order.id %}><<button
                           class="btn btn-primary"
                           id="delete_order_btn-1"
                           type="button"
@@ -931,10 +707,10 @@
                               margin-left: 3px;
                             "
                           ></i>
-                        </button>
+                        </button></a>
                       </div>
                       <div class="col" style="text-align: center">
-                        <button
+                        <a href={% url "update_order" customer_order.id %}><button
                           class="btn btn-primary"
                           id="edit_order_btn-1"
                           type="button"
@@ -943,7 +719,7 @@
                             class="fas fa-pencil-alt"
                             style="margin-left: 3px"
                           ></i>
-                        </button>
+                        </button></a>
                       </div>
                       <div class="col" style="text-align: center">
                         <div class="row">
@@ -980,15 +756,33 @@
                                 data-bs-toggle="dropdown"
                                 type="button"
                               >
-                                وضعیت سفارش 
-                              </button>
+                              <span id="selected_status_{{customer_order.id}}">وضعیت سفارش&nbsp;</span>
+                            </button>
                               <div class="dropdown-menu">
-                                <a class="dropdown-item" href="#">First Item</a
+                                <a class="dropdown-item" href="#"
+                                onclick="changeText4('{{customer_order.id}}', 'تایید شده')"
+                                >تایید شده</a
                                 ><a class="dropdown-item" href="#"
-                                  >Second Item</a
+                                onclick="changeText4('{{customer_order.id}}', 'در حال اماده سازی')"
+                                >در حال اماده سازی</a
                                 ><a class="dropdown-item" href="#"
-                                  >Third Item</a
+                                onclick="changeText4('{{customer_order.id}}', 'آماده تحویل')"
+                                >آماده تحویل</a
                                 >
+                                <a class="dropdown-item" href="#"
+                                onclick="changeText4('{{customer_order.id}}', 'سرو شده')"
+                                >سرو شده</a
+                                >
+                                <a class="dropdown-item" href="#"
+                                onclick="changeText4('Confirmed')"
+                                  >پرداخت شده</a
+                                >
+                                <input
+                                type="hidden"
+                                id="selectedstatus_{{customer_order.id}}"
+                                name="selected_status"
+                                value=""
+                              />
                               </div>
                             </div>
                           </div>
@@ -998,6 +792,7 @@
                   </div>
                 </div>
               </div>
+              {% endfor %}
             </div>
             <div id="confirmed_section-2">
               <h1
@@ -1012,6 +807,7 @@
               >
                 سفارشات آماده تحویل
               </h1>
+              {% for cooking in customer_orders_cooking %}
               <div>
                 <div class="card">
                   <div class="card-body">
@@ -1070,7 +866,7 @@
                                 border-left-color: rgb(0, 0, 0);
                               "
                             >
-                              Cell 1
+                              {{cooking.timestamp}}
                             </td>
                             <td
                               class="border rounded-0"
@@ -1083,7 +879,7 @@
                                 border-left-color: rgb(0, 0, 0);
                               "
                             >
-                              Cell 2
+                              {{cooking.description}}
                             </td>
                             <td
                               class="border rounded-0"
@@ -1096,7 +892,7 @@
                                 border-left-color: rgb(0, 0, 0);
                               "
                             >
-                              Cell 2
+                              {{cooking.table_number.table_number}}
                             </td>
                           </tr>
                         </tbody>
@@ -1145,72 +941,29 @@
                           </tr>
                         </thead>
                         <tbody>
+                          {% for order_item in cooking.order_item_set.all %}
                           <tr>
                             <td
                               class="border rounded-0"
                               style="text-align: center; width: 40%"
                             >
-                              Cell 1
+                              {{order_item.item.unitprice}}
                             </td>
                             <td
                               class="border rounded-0"
                               style="text-align: center; width: 20%"
                             >
-                              Cell 2
+                              {{order_item.count}}
                             </td>
                             <td
                               class="border rounded-0"
                               style="text-align: center; width: 40%"
                             >
-                              Cell 2
+                              {{order_item.item.name}}
                             </td>
                           </tr>
+                          {% endfor %}
                           <tr>
-                            <td
-                              class="border rounded-0"
-                              id="discount-2"
-                              style="
-                                text-align: center;
-                                background: rgba(227, 230, 240, 0);
-                                width: 40%;
-                              "
-                            >
-                              Cell 1
-                            </td>
-                            <td
-                              class="border rounded-0"
-                              style="
-                                text-align: center;
-                                background: rgba(227, 230, 240, 0.38);
-                                width: 20%;
-                              "
-                            >
-                              تخفیف
-                            </td>
-                          </tr>
-                          <tr>
-                            <td
-                              class="border rounded-0"
-                              id="sum_price-2"
-                              style="
-                                text-align: center;
-                                background: rgba(227, 230, 240, 0);
-                                width: 40%;
-                              "
-                            >
-                              Cell 1
-                            </td>
-                            <td
-                              class="border rounded-0"
-                              id="sum_count-2"
-                              style="
-                                text-align: center;
-                                background: rgba(227, 230, 240, 0);
-                                width: 20%;
-                              "
-                            >
-                              Cell 2
-                            </td>
                             <td
                               class="border rounded-0"
                               style="
@@ -1221,15 +974,26 @@
                             >
                               جمع کل
                             </td>
+                            <th
+                            class="border rounded-0"
+                            id="discount"
+                            style="
+                              text-align: center;
+                              background: rgba(227, 230, 240, 0);
+                              width: 40%;
+                            "
+                          >
+                            {{cooking.total_price}}
+                          </th>
                           </tr>
                         </tbody>
                       </table>
                     </div>
                     <div class="row">
                       <div class="col" style="text-align: center">
-                        <button
+                        <a href={% url "delete_table" cooking.id %}><button
                           class="btn btn-primary"
-                          id="delete_order_btn-2"
+                          id="delete_order_btn-1"
                           type="button"
                           style="background: #d81e05"
                         >
@@ -1240,19 +1004,19 @@
                               margin-left: 3px;
                             "
                           ></i>
-                        </button>
+                        </button></a>
                       </div>
                       <div class="col" style="text-align: center">
-                        <button
+                        <a href={% url "update_order" cooking.id %}><button
                           class="btn btn-primary"
-                          id="edit_order_btn-2"
+                          id="edit_order_btn-1"
                           type="button"
                         >
                           اصلاح<i
                             class="fas fa-pencil-alt"
                             style="margin-left: 3px"
                           ></i>
-                        </button>
+                        </button></a>
                       </div>
                       <div class="col" style="text-align: center">
                         <div class="row">
@@ -1289,15 +1053,33 @@
                                 data-bs-toggle="dropdown"
                                 type="button"
                               >
-                                وضعیت سفارش 
-                              </button>
+                              <span id="selected_status_{{customer_order.id}}">وضعیت سفارش&nbsp;</span>
+                            </button>
                               <div class="dropdown-menu">
-                                <a class="dropdown-item" href="#">First Item</a
+                                <a class="dropdown-item" href="#"
+                                onclick="changeText4('{{customer_order.id}}', 'تایید شده')"
+                                >تایید شده</a
                                 ><a class="dropdown-item" href="#"
-                                  >Second Item</a
+                                onclick="changeText4('{{customer_order.id}}', 'در حال اماده سازی')"
+                                >در حال اماده سازی</a
                                 ><a class="dropdown-item" href="#"
-                                  >Third Item</a
+                                onclick="changeText4('{{customer_order.id}}', 'آماده تحویل')"
+                                >آماده تحویل</a
                                 >
+                                <a class="dropdown-item" href="#"
+                                onclick="changeText4('{{customer_order.id}}', 'سرو شده')"
+                                >سرو شده</a
+                                >
+                                <a class="dropdown-item" href="#"
+                                onclick="changeText4('Confirmed')"
+                                  >پرداخت شده</a
+                                >
+                                <input
+                                type="hidden"
+                                id="selectedstatus_{{customer_order.id}}"
+                                name="selected_status"
+                                value=""
+                              />
                               </div>
                             </div>
                           </div>
@@ -1307,6 +1089,7 @@
                   </div>
                 </div>
               </div>
+              {% endfor %}
             </div>
             <div id="confirmed_section-3">
               <h1
@@ -1321,6 +1104,7 @@
               >
                 سفارشات سرو شده
               </h1>
+              {% for customer_order in customer_orders_ready_delivery %}
               <div>
                 <div class="card">
                   <div class="card-body">
@@ -1379,7 +1163,7 @@
                                 border-left-color: rgb(0, 0, 0);
                               "
                             >
-                              Cell 1
+                              {{customer_order.timestamp}}
                             </td>
                             <td
                               class="border rounded-0"
@@ -1392,7 +1176,7 @@
                                 border-left-color: rgb(0, 0, 0);
                               "
                             >
-                              Cell 2
+                              {{customer_order.description}}
                             </td>
                             <td
                               class="border rounded-0"
@@ -1405,7 +1189,7 @@
                                 border-left-color: rgb(0, 0, 0);
                               "
                             >
-                              Cell 2
+                              {{customer_order.table_number.table_number}}
                             </td>
                           </tr>
                         </tbody>
@@ -1454,72 +1238,29 @@
                           </tr>
                         </thead>
                         <tbody>
+                          {% for order_item in customer_order.order_item_set.all %}
                           <tr>
                             <td
                               class="border rounded-0"
                               style="text-align: center; width: 40%"
                             >
-                              Cell 1
+                              {{order_item.item.unitprice}}
                             </td>
                             <td
                               class="border rounded-0"
                               style="text-align: center; width: 20%"
                             >
-                              Cell 2
+                              {{order_item.count}}
                             </td>
                             <td
                               class="border rounded-0"
                               style="text-align: center; width: 40%"
                             >
-                              Cell 2
+                              {{order_item.item.name}}
                             </td>
                           </tr>
+                          {% endfor %}
                           <tr>
-                            <td
-                              class="border rounded-0"
-                              id="discount-3"
-                              style="
-                                text-align: center;
-                                background: rgba(227, 230, 240, 0);
-                                width: 40%;
-                              "
-                            >
-                              Cell 1
-                            </td>
-                            <td
-                              class="border rounded-0"
-                              style="
-                                text-align: center;
-                                background: rgba(227, 230, 240, 0.38);
-                                width: 20%;
-                              "
-                            >
-                              تخفیف
-                            </td>
-                          </tr>
-                          <tr>
-                            <td
-                              class="border rounded-0"
-                              id="sum_price-3"
-                              style="
-                                text-align: center;
-                                background: rgba(227, 230, 240, 0);
-                                width: 40%;
-                              "
-                            >
-                              Cell 1
-                            </td>
-                            <td
-                              class="border rounded-0"
-                              id="sum_count-3"
-                              style="
-                                text-align: center;
-                                background: rgba(227, 230, 240, 0);
-                                width: 20%;
-                              "
-                            >
-                              Cell 2
-                            </td>
                             <td
                               class="border rounded-0"
                               style="
@@ -1530,15 +1271,26 @@
                             >
                               جمع کل
                             </td>
+                            <th
+                            class="border rounded-0"
+                            id="discount"
+                            style="
+                              text-align: center;
+                              background: rgba(227, 230, 240, 0);
+                              width: 40%;
+                            "
+                          >
+                            {{customer_order.total_price}}
+                          </th>
                           </tr>
                         </tbody>
                       </table>
                     </div>
                     <div class="row">
                       <div class="col" style="text-align: center">
-                        <button
+                        <a href={% url "delete_table" customer_order.id %}><button
                           class="btn btn-primary"
-                          id="delete_order_btn-3"
+                          id="delete_order_btn-1"
                           type="button"
                           style="background: #d81e05"
                         >
@@ -1549,19 +1301,19 @@
                               margin-left: 3px;
                             "
                           ></i>
-                        </button>
+                        </button></a>
                       </div>
                       <div class="col" style="text-align: center">
-                        <button
+                        <a href={% url "update_order" customer_order.id %}><button
                           class="btn btn-primary"
-                          id="edit_order_btn-3"
+                          id="edit_order_btn-1"
                           type="button"
                         >
                           اصلاح<i
                             class="fas fa-pencil-alt"
                             style="margin-left: 3px"
                           ></i>
-                        </button>
+                        </button></a>
                       </div>
                       <div class="col" style="text-align: center">
                         <div class="row">
@@ -1573,20 +1325,24 @@
                               margin-bottom: auto;
                             "
                           >
-                            <button
-                              class="btn btn-primary"
-                              type="button"
-                              style="
-                                background: rgb(69, 201, 48);
-                                border-radius: 25px;
-                                width: 30px;
-                                height: 30px;
-                                padding-right: 0;
-                                padding-left: 0;
-                                padding-bottom: 0;
-                                padding-top: 0;
-                              "
-                            >
+                          <form method=POST>
+                            {% csrf_token %}
+                            <button 
+                                class="btn btn-primary"
+                                onclick="updateModel('{{ customer_order.id }}')"
+                                type="submit"
+                                style="
+                                  background: rgb(69, 201, 48);
+                                  border-radius: 25px;
+                                  width: 30px;
+                                  height: 30px;
+                                  padding-right: 0;
+                                  padding-left: 0;
+                                  padding-bottom: 0;
+                                  padding-top: 0;
+                                "
+                              >
+                          </form>
                               <i class="fas fa-check"></i>
                             </button>
                           </div>
@@ -1598,15 +1354,33 @@
                                 data-bs-toggle="dropdown"
                                 type="button"
                               >
-                                وضعیت سفارش 
-                              </button>
+                              <span id="selected_status_{{customer_order.id}}">وضعیت سفارش&nbsp;</span>
+                            </button>
                               <div class="dropdown-menu">
-                                <a class="dropdown-item" href="#">First Item</a
+                                <a class="dropdown-item" href="#"
+                                onclick="changeText4('{{customer_order.id}}', 'تایید شده')"
+                                >تایید شده</a
                                 ><a class="dropdown-item" href="#"
-                                  >Second Item</a
+                                onclick="changeText4('{{customer_order.id}}', 'در حال اماده سازی')"
+                                >در حال اماده سازی</a
                                 ><a class="dropdown-item" href="#"
-                                  >Third Item</a
+                                onclick="changeText4('{{customer_order.id}}', 'آماده تحویل')"
+                                >آماده تحویل</a
                                 >
+                                <a class="dropdown-item" href="#"
+                                onclick="changeText4('{{customer_order.id}}', 'سرو شده')"
+                                >سرو شده</a
+                                >
+                                <a class="dropdown-item" href="#"
+                                onclick="changeText4('Confirmed')"
+                                  >پرداخت شده</a
+                                >
+                                <input
+                                type="hidden"
+                                id="selectedstatus_{{customer_order.id}}"
+                                name="selected_status"
+                                value=""
+                              />
                               </div>
                             </div>
                           </div>
@@ -1616,13 +1390,11 @@
                   </div>
                 </div>
               </div>
+              {% endfor %}
             </div>
-          </div>
-        </div>
         <footer class="bg-white sticky-footer">
           <div class="container my-auto">
             <div class="text-center my-auto copyright">
-              <span>Copyright © Brand 2024</span>
             </div>
           </div>
         </footer>
@@ -1630,7 +1402,34 @@
       <a class="border rounded d-inline scroll-to-top" href="#page-top"
         ><i class="fas fa-angle-up"></i
       ></a>
-    </div>
+    </div> 
+    <script>
+      function updateModel(itemId) {
+        var selectedStatus = document.getElementById('selected_status_' + itemId).innerText;
+       
+        // ارسال اطلاعات به سرور با استفاده از AJAX
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', 'staff/update_model/' + itemId, true);
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.onreadystatechange = function() {
+          if (xhr.readyState === XMLHttpRequest.DONE) {
+            if (xhr.status === 200) {
+              // بروزرسانی UI یا هر عملیات دیگر پس از موفقیت‌آمیز بودن درخواست
+              // مثلاً:
+              alert('با موفقیت بروزرسانی شد!');
+            } else {
+              alert('خطا در بروزرسانی!');
+            }
+          }
+        };
+        xhr.send(JSON.stringify({ selectedStatus: selectedStatus }));
+      }
+
+        function changeText4(itemId, newText) {
+        document.getElementById('selected_status_' + itemId).innerText = newText;
+        document.getElementById('selectedstatus_' + itemId).innerText = newText;
+        }
+    </script>
     <script src="{% static 'assest_admin_show_order/bootstrap/js/bootstrap.min.js'%}"></script>
     <script src="{% static 'assest_admin_show_order/js/theme.js'%}"></script>
   </body>
