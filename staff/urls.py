@@ -3,7 +3,7 @@ from django.urls import path
 from django.conf import settings  
 from django.conf.urls.static import static  
 from . import views
-from .views import  order_list_date, order_list_filter_status,  order_list_filter_table_number, order_list, order_detail
+from .views import  order_list_date, order_list_filter_status,  order_list_filter_table_number, order_detail
 
 
 urlpatterns = [
@@ -18,7 +18,6 @@ urlpatterns = [
     path("reports",views.reports,name="reports"),
     path("delete_user/<int:pk>/",views.DeleteUser.as_view(),name="delete_user"),
     path("logout",views.logout,name="logout"),
-    path('status/', views.order_list, name='status'),
     path('date/', views.order_list_date, name='date'),
     path('filter-status/', views.order_list_filter_status, name='filter-status'),
     path('filter-table/', views.order_list_filter_table_number, name='filter-table'),
