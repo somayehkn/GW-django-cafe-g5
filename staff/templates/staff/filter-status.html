@@ -117,17 +117,18 @@
             </div>
           </nav>
      
-      <form method="get" >
-          <label for="status">انتخاب وضعیت سفارش:</label>
-          <select name="status" id="status">
-              <option value="" {% if not selected_status %}selected{% endif %}>همه</option>
-              <option value="Deliverd" {% if selected_status == 'Deliverd' %}selected{% endif %}>تحویل داده شده</option>
-              <option value="Confirmed" {% if selected_status == 'Confirmed' %}selected{% endif %}>تایید شده</option>
-              <option value="Cooking" {% if selected_status == 'Cooking' %}selected{% endif %}>در حال پخت</option>
-              <option value="Ready_delivery" {% if selected_status == 'Ready_delivery' %}selected{% endif %}>آماده تحویل</option>
-        </select>
-        <button type="submit">اعمال فیلتر</button>
-    </form>
+          <form method="get">
+            <label for="status">انتخاب وضعیت سفارش:</label>
+            <select name="status" id="status">
+                <option value="" {% if not selected_status %}selected{% endif %}></option>
+                <option value="Deliverd" {% if selected_status == 'Deliverd' %}selected{% endif %}>تحویل داده شده</option>
+                <option value="Confirmed" {% if selected_status == 'Confirmed' %}selected{% endif %}>تایید شده</option>
+                <option value="Cooking" {% if selected_status == 'Cooking' %}selected{% endif %}>در حال پخت</option>
+                <option value="Ready delivery" {% if selected_status == 'Ready delivery' %}selected{% endif %}>آماده تحویل</option>
+                <option value="Checked Out" {% if selected_status == 'Checked Out' %}selected{% endif %}>پرداخت شده</option>
+            </select>
+            <button type="submit">اعمال فیلتر</button>
+        </form>
     <style>
         table {
           width: 100%;

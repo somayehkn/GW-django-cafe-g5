@@ -45,7 +45,7 @@ class Customer_order(models.Model):
         ('Deliverd','Deliverd'),
         ('Confirmed', 'Confirmed'),
         ('Cooking', 'Cooking'),
-        ('Ready Delivery', 'Ready Delivery'),
+        ('Ready delivery', 'Ready delivery'),
         ('Checked Out', 'Checked Out')
      ]
     timestamp = models.DateTimeField()

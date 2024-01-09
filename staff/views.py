@@ -349,7 +349,7 @@ def order_detail(request, order_id):
 
 def order_list(request):
     orders_status = Customer_order.objects.all().order_by('status')
-    return render(request,'staff\status.html', {'orders_status': orders_status })
+    return render(request,'staff/status.html', {'orders_status': orders_status })
 
 
     
@@ -370,8 +370,9 @@ def order_list_filter_status(request):
       orders = Customer_order.objects.filter(status= status)
       print(orders)
      
-    context = {'orders': orders }
-    return render(request, 'staff/filter-status.html', context={"status":status})
+    context = {'orders': orders}
+   
+    return render(request, 'staff/filter-status.html', context)
 
 
 
