@@ -1,5 +1,5 @@
 
-function redirect(url) {
+function redirect( url , param) {
     let redirectURL = url;
     window.location.href = redirectURL;
 }
@@ -21,7 +21,7 @@ async function SendToServer(jsonData){
         body: JSON.stringify(jsonData) 
     };
     let is_empty;
-    await fetch('save-items-to-sesion', requestOptions)
+    await fetch('save-menu-items-to-sesion', requestOptions)
         .then(response => response.json()) 
         .then(data => {
             if (data["empty"] == true){

@@ -1,0 +1,60 @@
+{% extends "customer/base.html" %}
+{% load static %}
+  {% block links %}
+  <title>Categories</title>
+    <link rel="stylesheet" href="{% static 'assets_home_menu_page/bootstrap/css/bootstrap.min.css' %}" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Allan&amp;display=swap"
+    />
+  {% endblock links %}
+
+  {% block navbar %}
+  <div class="container"><a class="navbar-brand d-flex align-items-center" href="{% url 'home' %}"><span style="margin-right: -92px;"><a class="navbar-brand" href="{% url 'home' %}" style="font-family: Allan, serif;font-size: 36px;margin-right: 123px;color: #8b2323;text-shadow: -5px 3px rgba(139,35,35,0.17);">Cafe Project</a></span></a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+    <div class="collapse navbar-collapse" id="navcol-1">
+        <ul class="navbar-nav me-auto">
+          <li class="nav-item"><a class="nav-link" href="{% url 'home' %}">Home</a></li>
+            <li class="nav-item"><a class="nav-link active" href="{% url 'categories' %}">Menu</a></li>
+  {% endblock navbar %}
+    
+  {% block content %}
+  {% for items in data_from_db %}
+      <div class="d-flex" style="margin-bottom: 14px">
+      {% for item in items %}
+        <button
+        onclick="location.href = '{% url 'menu' item.name %}'"
+        class="btn btn-primary d-flex justify-content-between"
+        type="button"
+        style="
+          background: #fff1cf;
+          color: rgb(0, 0, 0);
+          width: 50%;
+          margin-left: 10px;
+          border-radius: 15px;
+          margin-right: 5px;
+          padding-right: 50px;
+        "
+      >
+        <img
+          src="{% static  item.image  %}"
+          style="height: 150px; width: auto"
+        /><label
+          class="form-label"
+          style="
+            margin-top: auto;
+            margin-bottom: auto;
+            font-weight: bold;
+            font-size: 36px;
+            text-shadow: -6px 2px rgba(0, 0, 0, 0.13);
+          "
+          >{{ item.name }}</label
+        >
+      </button>
+      {% endfor %}
+    </div>
+      {% endfor %}
+  
+    <script src="{% static 'assets_home_menu_page/bootstrap/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'assets_home_menu_page/js/menu.js' %}"></script>
+  {% endblock content %}
+      
