@@ -24,6 +24,13 @@ import shutil
 import os
 import random
 import json
+from django import template
+
+register = template.Library()
+
+@register.simple_tag()
+def multiply(qty, unit_price, *args, **kwargs):
+    return qty * unit_price
 
 def reports(request):
     # get all orders
@@ -212,49 +219,6 @@ def logout(request):
     django_logout(request)
     return redirect(reverse("dashboard")) 
 
-# class TestView(View):
-    def get(self,request):
-        form = Form_Category()
-        previous_url = request.META.get('HTTP_REFERER',None)
-        return render(request,"staff/add-category.html",{"form":form , 'previous_url':previous_url})
-
-    def post(self,request):
-        category_name= request.POST.get("category_name")
-        description = request.POST.get("description")
-
-
-        image = request.FILES.get("category_img")
-            
-        
-
-        form = Form_Category(data=request.POST,files=request.FILES)
-        if form.is_valid():
-            image = form.cleaned_data['image']
-            fs = FileSystemStorage()
-            # save the image on MEDIA_ROOT folder
-            file_name = fs.save(image.name, image)
-            # get file url with respect to `MEDIA_URL`
-            file_url = f"uploads/{image}"
-       
-            # shutil.copy(file_url, destination_path)
-            old_media_url = file_url
-    
-            
-            # انجام عملیات کپی و حذف و بازگرداندن ادرس فایل جدید
-            new_media_url = move_and_delete_media_url(old_media_url)
-            print(new_media_url)
-            instance = form.save(commit=False)
-            instance.image = new_media_url 
-            instance.save()
-
-        
-
-        #redirect to the previous page using request.META.get('HTTP_REFERER')
-        previous_url = request.META.get('HTTP_REFERER',None)
-        
-        
-        return render(request,"staff/add-category.html",{"form":form, 'previous_url':previous_url})
-
 def move_and_delete_media_url(old_file_path):
     img_name = (old_file_path.split("/"))[-1]
     new_file_path = f"static/assets_home_page/img/{img_name}"
@@ -346,46 +310,34 @@ def order_detail(request, order_id):
     order = get_object_or_404(Customer_order, id=order_id)
     order_items = Order_item.objects.filter(customer_order=order)
     return render(request, 'staff/order_detail.html', {'order': order, 'order_items': order_items}) 
-
-def order_list(request):
-    orders_status = Customer_order.objects.all().order_by('status')
-    return render(request,'staff/status.html', {'orders_status': orders_status })
-
-
     
 def order_list_date(request):
-    timestamp = Customer_order.objects.all().order_by('timestamp')
-    print(timestamp)
+    timestamp = Customer_order.objects.all().exclude(is_deleted=True).order_by('timestamp')
     return render(request,'staff/date.html', { 'timestamp':timestamp})
-
-
 
 def order_list_filter_status(request):
     orders = []
     
     status = request.GET.get('status', '')
-    print(status)
     
     if status:
-      orders = Customer_order.objects.filter(status= status)
-      print(orders)
+        orders = Customer_order.objects.filter(status= status).exclude(is_deleted=True)
+    else:
+        orders = Customer_order.objects.all().exclude(is_deleted=True).order_by('status','timestamp')
      
     context = {'orders': orders}
    
     return render(request, 'staff/filter-status.html', context)
 
-
-
-
 def order_list_filter_table_number(request):
     orders = []
 
     table_number = request.GET.get('table_number', '')
-    print(table_number)
 
     if table_number:
-        orders = Customer_order.objects.filter(table_number = table_number)
-        print(orders)
+        orders = Customer_order.objects.filter(table_number = table_number).exclude(is_deleted=True)
+    else:
+        orders = Customer_order.objects.all().exclude(is_deleted=True).order_by('table_number','timestamp')
 
     context = {'orders': orders}
     return render(request, 'staff/filter-table.html', context)
