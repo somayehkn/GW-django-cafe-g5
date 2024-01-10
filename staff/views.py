@@ -275,11 +275,19 @@ def order_list_filter_table_number(request):
     context = {'orders': orders}
     return render(request, 'staff/filter-table.html', context)
 
-def dashboard_deliverd(request):
-    customer_orders_deliverd = Customer_order.objects.filter(is_deleted = False,status = "Deliverd")
+def dashboard(request):
+    if request.method == 'POST':
+        customer_order_id = request.POST.get('customer_order_id')
+        customer_order_status = request.POST.get('customer_order_status')
+        
+        Customer_order.objects.filter(pk=customer_order_id).update(status=customer_order_status)
+        # customer_order = get_object_or_404(Customer_order, pk=customer_order_id).update(status = customer_order_status)
+        # customer_order.status = customer_order_status
+        # customer_order.save()
     customer_orders_confirmed = Customer_order.objects.filter(is_deleted = False,status = "Confirmed")
     customer_orders_cooking = Customer_order.objects.filter(is_deleted = False,status = "Cooking")
     customer_orders_ready_delivery = Customer_order.objects.filter(is_deleted = False,status = "Ready Delivery")
+    customer_orders_deliverd = Customer_order.objects.filter(is_deleted = False,status = "Deliverd")
     return render(request,'staff/dashboard.html',context={'customer_orders_confirmed': customer_orders_confirmed,'customer_orders_cooking': customer_orders_cooking,'customer_orders_deleverd': customer_orders_deliverd,'customer_orders_ready_delivery': customer_orders_ready_delivery})
 
 

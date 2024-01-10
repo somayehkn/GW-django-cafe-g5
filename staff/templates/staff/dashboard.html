@@ -205,9 +205,7 @@
             >
               تمام سفارشات
             </h1>
-            <div id="confirmed_section" style="margin: 10px">
-              {% for item in customer_orders_deleverd %}
-              <h1
+            <h1
                 style="
                   text-align: center;
                   font-size: 24px;
@@ -217,6 +215,10 @@
               >
                 سفارشات تایید شده
               </h1>
+            <div id="confirmed_section" style="margin: 10px">
+              {% for item in customer_orders_confirmed %}
+              <form method="post" action="{% url 'dashboard' %}">
+                {% csrf_token %}
               <div>
                 <div class="card">
                   <div class="card-body">
@@ -433,9 +435,11 @@
                               margin-bottom: auto;
                             "
                           >
-                            <button
+                          <button 
+                              type="submit" 
+                              name="submit_button" 
+                              value="{{ item.id }}"
                               class="btn btn-primary"
-                              type="button"
                               style="
                                 background: rgb(69, 201, 48);
                                 border-radius: 25px;
@@ -458,34 +462,39 @@
                                 data-bs-toggle="dropdown"
                                 type="button"
                               >
-                              <span id="selected_status_{{customer_order.id}}">وضعیت سفارش&nbsp;</span>
+                              <span id="selected_status_{{item.id}}">وضعیت سفارش&nbsp;</span>
                             </button>
                               <div class="dropdown-menu">
                                 <a class="dropdown-item" href="#"
-                                onclick="changeText4('{{customer_order.id}}', 'تایید شده')"
+                                onclick="changeText4('{{item.id}}', 'تایید شده','Confirmed')"
                                 >تایید شده</a
                                 ><a class="dropdown-item" href="#"
-                                onclick="changeText4('{{customer_order.id}}', 'در حال اماده سازی')"
+                                onclick="changeText4('{{item.id}}', 'در حال اماده سازی', 'Cooking')"
                                 >در حال اماده سازی</a
                                 ><a class="dropdown-item" href="#"
-                                onclick="changeText4('{{customer_order.id}}', 'آماده تحویل')"
+                                onclick="changeText4('{{item.id}}', 'آماده تحویل', 'Ready Delivery')"
                                 >آماده تحویل</a
                                 >
                                 <a class="dropdown-item" href="#"
-                                onclick="changeText4('{{customer_order.id}}', 'سرو شده')"
+                                onclick="changeText4('{{item.id}}', 'سرو شده', 'Deliverd')"
                                 >سرو شده</a
                                 >
                                 <a class="dropdown-item" href="#"
-                                onclick="changeText4('Confirmed')"
+                                onclick="changeText4('{{item.id}}','پرداخت شده','Checked Out')"
                                   >پرداخت شده</a
                                 >
-                                <input
-                                type="hidden"
-                                id="selectedstatus_{{customer_order.id}}"
-                                name="selected_status"
-                                value=""
-                              />
+                                
+                              <input 
+                              type="hidden" 
+                              name="customer_order_id" 
+                              value="{{ item.id }}">
+                              <input 
+                              type="hidden" 
+                              id="selectedstatus_{{item.id}}"
+                              name="customer_order_status" 
+                              value="">
                               </div>
+                              
                             </div>
                           </div>
                         </div>
@@ -494,6 +503,7 @@
                   </div>
                 </div>
               </div>
+            </form>
               {% endfor %}
             </div>
             <div id="confirmed_section-1">
@@ -509,7 +519,9 @@
               >
                 سفارشات در حال آماده سازی
               </h1>
-              {% for customer_order in customer_orders_confirmed %}
+              {% for customer_order in customer_orders_cooking %}
+              <form method="post" action="{% url 'dashboard' %}">
+                {% csrf_token %}
               <div>
                 <div class="card">
                   <div class="card-body">
@@ -730,9 +742,11 @@
                               margin-bottom: auto;
                             "
                           >
-                            <button
+                          <button 
+                              type="submit" 
+                              name="submit_button" 
+                              value="{{ customer_order.id }}"
                               class="btn btn-primary"
-                              type="button"
                               style="
                                 background: rgb(69, 201, 48);
                                 border-radius: 25px;
@@ -759,30 +773,35 @@
                             </button>
                               <div class="dropdown-menu">
                                 <a class="dropdown-item" href="#"
-                                onclick="changeText4('{{customer_order.id}}', 'تایید شده')"
+                                onclick="changeText4('{{customer_order.id}}', 'تایید شده','Confirmed')"
                                 >تایید شده</a
                                 ><a class="dropdown-item" href="#"
-                                onclick="changeText4('{{customer_order.id}}', 'در حال اماده سازی')"
+                                onclick="changeText4('{{customer_order.id}}', 'در حال اماده سازی', 'Cooking')"
                                 >در حال اماده سازی</a
                                 ><a class="dropdown-item" href="#"
-                                onclick="changeText4('{{customer_order.id}}', 'آماده تحویل')"
+                                onclick="changeText4('{{customer_order.id}}', 'آماده تحویل', 'Ready Delivery')"
                                 >آماده تحویل</a
                                 >
                                 <a class="dropdown-item" href="#"
-                                onclick="changeText4('{{customer_order.id}}', 'سرو شده')"
+                                onclick="changeText4('{{customer_order.id}}', 'سرو شده', 'Deliverd')"
                                 >سرو شده</a
                                 >
                                 <a class="dropdown-item" href="#"
-                                onclick="changeText4('Confirmed')"
+                                onclick="changeText4('{{customer_order.id}}','پرداخت شده','Checked Out')"
                                   >پرداخت شده</a
                                 >
-                                <input
-                                type="hidden"
-                                id="selectedstatus_{{customer_order.id}}"
-                                name="selected_status"
-                                value=""
-                              />
+                                
+                              <input 
+                              type="hidden" 
+                              name="customer_order_id" 
+                              value="{{ customer_order.id }}">
+                              <input 
+                              type="hidden" 
+                              id="selectedstatus_{{customer_order.id}}"
+                              name="customer_order_status" 
+                              value="">
                               </div>
+                              
                             </div>
                           </div>
                         </div>
@@ -791,6 +810,7 @@
                   </div>
                 </div>
               </div>
+            </form>
               {% endfor %}
             </div>
             <div id="confirmed_section-2">
@@ -806,304 +826,9 @@
               >
                 سفارشات آماده تحویل
               </h1>
-              {% for cooking in customer_orders_cooking %}
-              <div>
-                <div class="card">
-                  <div class="card-body">
-                    <div class="table-responsive" style="width: 100%">
-                      <table class="table">
-                        <thead>
-                          <tr>
-                            <th
-                              class="border rounded-0 border-dark"
-                              style="
-                                text-align: center;
-                                width: 40%;
-                                border-color: var(--bs-black);
-                                background: var(--bs-card-border-color);
-                              "
-                            >
-                              زمان ثبت سفارش
-                            </th>
-                            <th
-                              class="border rounded-0 border-dark"
-                              style="
-                                text-align: center;
-                                width: 50%;
-                                background: var(--bs-card-border-color);
-                                border-style: solid;
-                                border-color: var(
-                                  --bs-black
-                                ); /*border-right-style: solid;*/ /*border-left-style: solid;*/
-                              "
-                            >
-                              توضیحات
-                            </th>
-                            <th
-                              class="border rounded-0 border-dark"
-                              style="
-                                text-align: center;
-                                width: 10%;
-                                border-color: var(--bs-black);
-                                background: var(--bs-card-border-color);
-                              "
-                            >
-                              شماره میز
-                            </th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr>
-                            <td
-                              class="border rounded-0"
-                              style="
-                                text-align: center;
-                                width: 40%;
-                                border-style: solid;
-                                border-color: rgb(0, 0, 0);
-                                border-left-style: solid;
-                                border-left-color: rgb(0, 0, 0);
-                              "
-                            >
-                              {{cooking.timestamp}}
-                            </td>
-                            <td
-                              class="border rounded-0"
-                              style="
-                                text-align: center;
-                                width: 50%;
-                                border-style: solid;
-                                border-color: rgb(0, 0, 0);
-                                border-left-style: solid;
-                                border-left-color: rgb(0, 0, 0);
-                              "
-                            >
-                              {{cooking.description}}
-                            </td>
-                            <td
-                              class="border rounded-0"
-                              style="
-                                text-align: center;
-                                width: 10%;
-                                border-style: solid;
-                                border-color: rgb(0, 0, 0);
-                                border-left-style: solid;
-                                border-left-color: rgb(0, 0, 0);
-                              "
-                            >
-                              {{cooking.table_number.table_number}}
-                            </td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                    <div class="table-responsive">
-                      <table class="table">
-                        <thead>
-                          <tr>
-                            <th
-                              class="border rounded-0 border-dark"
-                              style="
-                                background: var(--bs-card-border-color);
-                                border-style: solid;
-                                border-color: var(--bs-black);
-                                text-align: center;
-                                width: 40%;
-                              "
-                            >
-                              قیمت واحد
-                            </th>
-                            <th
-                              class="border rounded-0 border-dark"
-                              style="
-                                background: var(--bs-card-border-color);
-                                border-style: solid;
-                                border-color: var(--bs-black);
-                                text-align: center;
-                                width: 20%;
-                              "
-                            >
-                              تعداد
-                            </th>
-                            <th
-                              class="border rounded-0 border-dark"
-                              style="
-                                background: var(--bs-card-border-color);
-                                border-style: solid;
-                                border-color: var(--bs-black);
-                                text-align: center;
-                                width: 40%;
-                              "
-                            >
-                              عنوان
-                            </th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {% for order_item in cooking.order_item_set.all %}
-                          <tr>
-                            <td
-                              class="border rounded-0"
-                              style="text-align: center; width: 40%"
-                            >
-                              {{order_item.item.unitprice}}
-                            </td>
-                            <td
-                              class="border rounded-0"
-                              style="text-align: center; width: 20%"
-                            >
-                              {{order_item.count}}
-                            </td>
-                            <td
-                              class="border rounded-0"
-                              style="text-align: center; width: 40%"
-                            >
-                              {{order_item.item.name}}
-                            </td>
-                          </tr>
-                          {% endfor %}
-                          <tr>
-                            <td
-                              class="border rounded-0"
-                              style="
-                                text-align: center;
-                                background: rgba(227, 230, 240, 0.38);
-                                width: 40%;
-                              "
-                            >
-                              جمع کل
-                            </td>
-                            <th
-                            class="border rounded-0"
-                            id="discount"
-                            style="
-                              text-align: center;
-                              background: rgba(227, 230, 240, 0);
-                              width: 40%;
-                            "
-                          >
-                            {{cooking.total_price}}
-                          </th>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                    <div class="row">
-                      <div class="col" style="text-align: center">
-                        <a href={% url "delete_table" cooking.id %}><button
-                          class="btn btn-primary"
-                          id="delete_order_btn-1"
-                          type="button"
-                          style="background: #d81e05"
-                        >
-                          حذف<i
-                            class="fas fa-trash"
-                            style="
-                              color: rgba(79, 79, 79, 0.74);
-                              margin-left: 3px;
-                            "
-                          ></i>
-                        </button></a>
-                      </div>
-                      <div class="col" style="text-align: center">
-                        <a href={% url "update_order" cooking.id %}><button
-                          class="btn btn-primary"
-                          id="edit_order_btn-1"
-                          type="button"
-                        >
-                          اصلاح<i
-                            class="fas fa-pencil-alt"
-                            style="margin-left: 3px"
-                          ></i>
-                        </button></a>
-                      </div>
-                      <div class="col" style="text-align: center">
-                        <div class="row">
-                          <div
-                            class="col"
-                            style="
-                              width: 15.672px;
-                              margin-top: auto;
-                              margin-bottom: auto;
-                            "
-                          >
-                            <button
-                              class="btn btn-primary"
-                              type="button"
-                              style="
-                                background: rgb(69, 201, 48);
-                                border-radius: 25px;
-                                width: 30px;
-                                height: 30px;
-                                padding-right: 0;
-                                padding-left: 0;
-                                padding-bottom: 0;
-                                padding-top: 0;
-                              "
-                            >
-                              <i class="fas fa-check"></i>
-                            </button>
-                          </div>
-                          <div class="col">
-                            <div class="dropdown">
-                              <button
-                                class="btn btn-primary dropdown-toggle"
-                                aria-expanded="false"
-                                data-bs-toggle="dropdown"
-                                type="button"
-                              >
-                              <span id="selected_status_{{customer_order.id}}">وضعیت سفارش&nbsp;</span>
-                            </button>
-                              <div class="dropdown-menu">
-                                <a class="dropdown-item" href="#"
-                                onclick="changeText4('{{customer_order.id}}', 'تایید شده')"
-                                >تایید شده</a
-                                ><a class="dropdown-item" href="#"
-                                onclick="changeText4('{{customer_order.id}}', 'در حال اماده سازی')"
-                                >در حال اماده سازی</a
-                                ><a class="dropdown-item" href="#"
-                                onclick="changeText4('{{customer_order.id}}', 'آماده تحویل')"
-                                >آماده تحویل</a
-                                >
-                                <a class="dropdown-item" href="#"
-                                onclick="changeText4('{{customer_order.id}}', 'سرو شده')"
-                                >سرو شده</a
-                                >
-                                <a class="dropdown-item" href="#"
-                                onclick="changeText4('Confirmed')"
-                                  >پرداخت شده</a
-                                >
-                                <input
-                                type="hidden"
-                                id="selectedstatus_{{customer_order.id}}"
-                                name="selected_status"
-                                value=""
-                              />
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              {% endfor %}
-            </div>
-            <div id="confirmed_section-3">
-              <h1
-                style="
-                  text-align: center;
-                  font-size: 24px;
-                  padding: 5px;
-                  color: rgb(255, 255, 255);
-                  background: #007c59;
-                  border-radius: 25px;
-                "
-              >
-                سفارشات سرو شده
-              </h1>
               {% for customer_order in customer_orders_ready_delivery %}
+              <form method="post" action="{% url 'dashboard' %}">
+                {% csrf_token %}
               <div>
                 <div class="card">
                   <div class="card-body">
@@ -1324,24 +1049,22 @@
                               margin-bottom: auto;
                             "
                           >
-                          <form method=POST>
-                            {% csrf_token %}
-                            <button 
-                                class="btn btn-primary"
-                                onclick="updateModel('{{ customer_order.id }}')"
-                                type="submit"
-                                style="
-                                  background: rgb(69, 201, 48);
-                                  border-radius: 25px;
-                                  width: 30px;
-                                  height: 30px;
-                                  padding-right: 0;
-                                  padding-left: 0;
-                                  padding-bottom: 0;
-                                  padding-top: 0;
-                                "
-                              >
-                          </form>
+                          <button 
+                              type="submit" 
+                              name="submit_button" 
+                              value="{{ customer_order.id }}"
+                              class="btn btn-primary"
+                              style="
+                                background: rgb(69, 201, 48);
+                                border-radius: 25px;
+                                width: 30px;
+                                height: 30px;
+                                padding-right: 0;
+                                padding-left: 0;
+                                padding-bottom: 0;
+                                padding-top: 0;
+                              "
+                            >
                               <i class="fas fa-check"></i>
                             </button>
                           </div>
@@ -1357,30 +1080,35 @@
                             </button>
                               <div class="dropdown-menu">
                                 <a class="dropdown-item" href="#"
-                                onclick="changeText4('{{customer_order.id}}', 'تایید شده')"
+                                onclick="changeText4('{{customer_order.id}}', 'تایید شده','Confirmed')"
                                 >تایید شده</a
                                 ><a class="dropdown-item" href="#"
-                                onclick="changeText4('{{customer_order.id}}', 'در حال اماده سازی')"
+                                onclick="changeText4('{{customer_order.id}}', 'در حال اماده سازی', 'Cooking')"
                                 >در حال اماده سازی</a
                                 ><a class="dropdown-item" href="#"
-                                onclick="changeText4('{{customer_order.id}}', 'آماده تحویل')"
+                                onclick="changeText4('{{customer_order.id}}', 'آماده تحویل', 'Ready Delivery')"
                                 >آماده تحویل</a
                                 >
                                 <a class="dropdown-item" href="#"
-                                onclick="changeText4('{{customer_order.id}}', 'سرو شده')"
+                                onclick="changeText4('{{customer_order.id}}', 'سرو شده', 'Deliverd')"
                                 >سرو شده</a
                                 >
                                 <a class="dropdown-item" href="#"
-                                onclick="changeText4('Confirmed')"
+                                onclick="changeText4('{{customer_order.id}}','پرداخت شده','Checked Out')"
                                   >پرداخت شده</a
                                 >
-                                <input
-                                type="hidden"
-                                id="selectedstatus_{{customer_order.id}}"
-                                name="selected_status"
-                                value=""
-                              />
+                                
+                              <input 
+                              type="hidden" 
+                              name="customer_order_id" 
+                              value="{{ customer_order.id }}">
+                              <input 
+                              type="hidden" 
+                              id="selectedstatus_{{customer_order.id}}"
+                              name="customer_order_status" 
+                              value="">
                               </div>
+                              
                             </div>
                           </div>
                         </div>
@@ -1389,6 +1117,314 @@
                   </div>
                 </div>
               </div>
+            </form>
+              {% endfor %}
+            </div>
+            <div id="confirmed_section-3">
+              <h1
+                style="
+                  text-align: center;
+                  font-size: 24px;
+                  padding: 5px;
+                  color: rgb(255, 255, 255);
+                  background: #007c59;
+                  border-radius: 25px;
+                "
+              >
+                سفارشات سرو شده
+              </h1>
+              {% for customer_order in customer_orders_deleverd %}
+              <form method="post" action="{% url 'dashboard' %}">
+                {% csrf_token %}
+              <div>
+                <div class="card">
+                  <div class="card-body">
+                    <div class="table-responsive" style="width: 100%">
+                      <table class="table">
+                        <thead>
+                          <tr>
+                            <th
+                              class="border rounded-0 border-dark"
+                              style="
+                                text-align: center;
+                                width: 40%;
+                                border-color: var(--bs-black);
+                                background: var(--bs-card-border-color);
+                              "
+                            >
+                              زمان ثبت سفارش
+                            </th>
+                            <th
+                              class="border rounded-0 border-dark"
+                              style="
+                                text-align: center;
+                                width: 50%;
+                                background: var(--bs-card-border-color);
+                                border-style: solid;
+                                border-color: var(
+                                  --bs-black
+                                ); /*border-right-style: solid;*/ /*border-left-style: solid;*/
+                              "
+                            >
+                              توضیحات
+                            </th>
+                            <th
+                              class="border rounded-0 border-dark"
+                              style="
+                                text-align: center;
+                                width: 10%;
+                                border-color: var(--bs-black);
+                                background: var(--bs-card-border-color);
+                              "
+                            >
+                              شماره میز
+                            </th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td
+                              class="border rounded-0"
+                              style="
+                                text-align: center;
+                                width: 40%;
+                                border-style: solid;
+                                border-color: rgb(0, 0, 0);
+                                border-left-style: solid;
+                                border-left-color: rgb(0, 0, 0);
+                              "
+                            >
+                              {{customer_order.timestamp}}
+                            </td>
+                            <td
+                              class="border rounded-0"
+                              style="
+                                text-align: center;
+                                width: 50%;
+                                border-style: solid;
+                                border-color: rgb(0, 0, 0);
+                                border-left-style: solid;
+                                border-left-color: rgb(0, 0, 0);
+                              "
+                            >
+                              {{customer_order.description}}
+                            </td>
+                            <td
+                              class="border rounded-0"
+                              style="
+                                text-align: center;
+                                width: 10%;
+                                border-style: solid;
+                                border-color: rgb(0, 0, 0);
+                                border-left-style: solid;
+                                border-left-color: rgb(0, 0, 0);
+                              "
+                            >
+                              {{customer_order.table_number.table_number}}
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    <div class="table-responsive">
+                      <table class="table">
+                        <thead>
+                          <tr>
+                            <th
+                              class="border rounded-0 border-dark"
+                              style="
+                                background: var(--bs-card-border-color);
+                                border-style: solid;
+                                border-color: var(--bs-black);
+                                text-align: center;
+                                width: 40%;
+                              "
+                            >
+                              قیمت واحد
+                            </th>
+                            <th
+                              class="border rounded-0 border-dark"
+                              style="
+                                background: var(--bs-card-border-color);
+                                border-style: solid;
+                                border-color: var(--bs-black);
+                                text-align: center;
+                                width: 20%;
+                              "
+                            >
+                              تعداد
+                            </th>
+                            <th
+                              class="border rounded-0 border-dark"
+                              style="
+                                background: var(--bs-card-border-color);
+                                border-style: solid;
+                                border-color: var(--bs-black);
+                                text-align: center;
+                                width: 40%;
+                              "
+                            >
+                              عنوان
+                            </th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {% for order_item in customer_order.order_item_set.all %}
+                          <tr>
+                            <td
+                              class="border rounded-0"
+                              style="text-align: center; width: 40%"
+                            >
+                              {{order_item.item.unitprice}}
+                            </td>
+                            <td
+                              class="border rounded-0"
+                              style="text-align: center; width: 20%"
+                            >
+                              {{order_item.count}}
+                            </td>
+                            <td
+                              class="border rounded-0"
+                              style="text-align: center; width: 40%"
+                            >
+                              {{order_item.item.name}}
+                            </td>
+                          </tr>
+                          {% endfor %}
+                          <tr>
+                            <td
+                              class="border rounded-0"
+                              style="
+                                text-align: center;
+                                background: rgba(227, 230, 240, 0.38);
+                                width: 40%;
+                              "
+                            >
+                              جمع کل
+                            </td>
+                            <th
+                            class="border rounded-0"
+                            id="discount"
+                            style="
+                              text-align: center;
+                              background: rgba(227, 230, 240, 0);
+                              width: 40%;
+                            "
+                          >
+                            {{customer_order.total_price}}
+                          </th>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    <div class="row">
+                      <div class="col" style="text-align: center">
+                        <a href={% url "delete_table" customer_order.id %}><button
+                          class="btn btn-primary"
+                          id="delete_order_btn-1"
+                          type="button"
+                          style="background: #d81e05"
+                        >
+                          حذف<i
+                            class="fas fa-trash"
+                            style="
+                              color: rgba(79, 79, 79, 0.74);
+                              margin-left: 3px;
+                            "
+                          ></i>
+                        </button></a>
+                      </div>
+                      <div class="col" style="text-align: center">
+                        <a href={% url "update_order" customer_order.id %}><button
+                          class="btn btn-primary"
+                          id="edit_order_btn-1"
+                          type="button"
+                        >
+                          اصلاح<i
+                            class="fas fa-pencil-alt"
+                            style="margin-left: 3px"
+                          ></i>
+                        </button></a>
+                      </div>
+                      <div class="col" style="text-align: center">
+                        <div class="row">
+                          <div
+                            class="col"
+                            style="
+                              width: 15.672px;
+                              margin-top: auto;
+                              margin-bottom: auto;
+                            "
+                          >
+                          <button 
+                              type="submit" 
+                              name="submit_button" 
+                              value="{{ customer_order.id }}"
+                              class="btn btn-primary"
+                              style="
+                                background: rgb(69, 201, 48);
+                                border-radius: 25px;
+                                width: 30px;
+                                height: 30px;
+                                padding-right: 0;
+                                padding-left: 0;
+                                padding-bottom: 0;
+                                padding-top: 0;
+                              "
+                            >
+                              <i class="fas fa-check"></i>
+                            </button>
+                          </div>
+                          <div class="col">
+                            <div class="dropdown">
+                              <button
+                                class="btn btn-primary dropdown-toggle"
+                                aria-expanded="false"
+                                data-bs-toggle="dropdown"
+                                type="button"
+                              >
+                              <span id="selected_status_{{customer_order.id}}">وضعیت سفارش&nbsp;</span>
+                            </button>
+                              <div class="dropdown-menu">
+                                <a class="dropdown-item" href="#"
+                                onclick="changeText4('{{customer_order.id}}', 'تایید شده','Confirmed')"
+                                >تایید شده</a
+                                ><a class="dropdown-item" href="#"
+                                onclick="changeText4('{{customer_order.id}}', 'در حال اماده سازی', 'Cooking')"
+                                >در حال اماده سازی</a
+                                ><a class="dropdown-item" href="#"
+                                onclick="changeText4('{{customer_order.id}}', 'آماده تحویل', 'Ready Delivery')"
+                                >آماده تحویل</a
+                                >
+                                <a class="dropdown-item" href="#"
+                                onclick="changeText4('{{customer_order.id}}', 'سرو شده', 'Deliverd')"
+                                >سرو شده</a
+                                >
+                                <a class="dropdown-item" href="#"
+                                onclick="changeText4('{{customer_order.id}}','پرداخت شده','Checked Out')"
+                                  >پرداخت شده</a
+                                >
+                                
+                              <input 
+                              type="hidden" 
+                              name="customer_order_id" 
+                              value="{{ customer_order.id }}">
+                              <input 
+                              type="hidden" 
+                              id="selectedstatus_{{customer_order.id}}"
+                              name="customer_order_status" 
+                              value="">
+                              </div>
+                              
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </form>
               {% endfor %}
             </div>
         <footer class="bg-white sticky-footer">
@@ -1424,9 +1460,10 @@
         xhr.send(JSON.stringify({ selectedStatus: selectedStatus }));
       }
     
-      function changeText4(itemId, newText) {
+      function changeText4(itemId, newText,value) {
       document.getElementById('selected_status_' + itemId).innerText = newText;
-      document.getElementById('selectedstatus_' + itemId).innerText = newText;
+      document.getElementById('selectedstatus_' + itemId).innerText = value;
+      document.getElementById('selectedstatus_' + itemId).value = value;
       }
     </script>
     <script src="{% static 'assest_admin_show_order/bootstrap/js/bootstrap.min.js'%}"></script>

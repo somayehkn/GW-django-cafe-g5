@@ -9,7 +9,7 @@ from .views import TestView, order_list_date, order_list_filter_status,  order_l
 urlpatterns = [
     path('add_item', views.add_items, name = 'add_item'),
     path("login/",views.login,name="login"),
-    path("dashboard",views.dashboard_deliverd,name="dashboard"),
+    path("dashboard",views.dashboard,name="dashboard"),
     path('add-category/', TestView.as_view(), name = 'add-category'),
     path("register" , views.registerview.as_view(),name = "register"),
     path("verify" , views.UserRegisterVerifyCodeView.as_view(),name="verify_code"),
@@ -28,7 +28,7 @@ urlpatterns = [
     path("trash",views.trash,name="trash"),
     path("checked_out",views.checked_out,name="checked_out"),
     path("back_delete/<del_id>",views.back_delete,name="back_delete"),
-    path("update_model/<item_id>",views.update_model,name="update_model"),
+    path('update_model/<int:item_id>/', views.update_model, name='update_model'),
 
 ]
 
