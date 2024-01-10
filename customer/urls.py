@@ -22,19 +22,18 @@ from django.conf.urls.static import static
 from . import views
 
 urlpatterns = [
+    
     path('', views.home, name='home'),
-    path('home', views.home, name='home'),
-    path('menu', views.menu, name='menu'),
-    path('save-items-to-sesion', views.save_items_to_session, name='save-items-to-sesion'),
-    path("shoping-cart",views.shoping_cart, name="shoping-cart"),
-    path("table-rigester",views.table_rigester, name="table-rigester"),
-    path('checkout_page', views.checkout_page, name='checkout_page'),
-    path('register-order', views.register_order, name='register_order'),
+    path('categories/', views.categories, name='categories'),
+    path('menu/<str:foo>/', views.menu, name='menu'),
+    path('save-menu-items-to-sesion/', views.save_menu_items_to_session, name='save_menu_items_to_session'),
+    path('save-cart-items-to-sesion/', views.save_cart_items_to_session, name='save_cart_items_to_session'),
+    path("shoping-cart/",views.shoping_cart, name="shoping-cart"),
+    path("table-rigester/",views.table_rigester, name="table-rigester"),
+    path('checkout-page/', views.checkout_page, name='checkout-page'),
+    path('register-order/', views.register_order, name='register_order'),
 
     
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-
-
-
