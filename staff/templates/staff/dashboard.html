@@ -1409,7 +1409,7 @@
        
         // ارسال اطلاعات به سرور با استفاده از AJAX
         var xhr = new XMLHttpRequest();
-        xhr.open('POST', 'staff/update_model/' + itemId, true);
+        xhr.open('POST', '/update_model/' + itemId, true);
         xhr.setRequestHeader('Content-Type', 'application/json');
         xhr.onreadystatechange = function() {
           if (xhr.readyState === XMLHttpRequest.DONE) {
@@ -1424,11 +1424,11 @@
         };
         xhr.send(JSON.stringify({ selectedStatus: selectedStatus }));
       }
-
-        function changeText4(itemId, newText) {
-        document.getElementById('selected_status_' + itemId).innerText = newText;
-        document.getElementById('selectedstatus_' + itemId).innerText = newText;
-        }
+    
+      function changeText4(itemId, newText) {
+      document.getElementById('selected_status_' + itemId).innerText = newText;
+      document.getElementById('selectedstatus_' + itemId).innerText = newText;
+      }
     </script>
     <script src="{% static 'assest_admin_show_order/bootstrap/js/bootstrap.min.js'%}"></script>
     <script src="{% static 'assest_admin_show_order/js/theme.js'%}"></script>

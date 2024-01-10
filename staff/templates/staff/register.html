@@ -1,4 +1,5 @@
 {% load static %}
+{% load widget_tweaks %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -408,8 +409,15 @@
                         <div class="text-center">
                           <h4 class="text-dark mb-4">Create an Account!</h4>
                         </div>
-                        <form class="user" action="{% url 'register' %}" method="post">
-                          <div class="row mb-3">{% csrf_token %} {{form.as_p}}</div>
+                        <form class="user" action="{% url 'register' %}" method="post" >
+                          <div class="row mb-3">{% csrf_token %}
+                            {% render_field form.roll class="form-control form-control-user" placeholder="roll" %}
+                            {% render_field form.email class="form-control form-control-user" placeholder="email" %}
+                            {% render_field form.full_name class="form-control form-control-user" placeholder="full anme" %}
+                            {% render_field form.phone class="form-control form-control-user" placeholder="phone" %}
+                            {% render_field form.password class="form-control form-control-user" placeholder="password" %}
+
+                          </div>
                           <button
                             class="btn btn-primary d-block btn-user w-100"
                             type="submit"

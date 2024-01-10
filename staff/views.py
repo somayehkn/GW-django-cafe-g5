@@ -279,12 +279,11 @@ def dashboard_deliverd(request):
     customer_orders_deliverd = Customer_order.objects.filter(is_deleted = False,status = "Deliverd")
     customer_orders_confirmed = Customer_order.objects.filter(is_deleted = False,status = "Confirmed")
     customer_orders_cooking = Customer_order.objects.filter(is_deleted = False,status = "Cooking")
-    customer_orders_ready_delivery = Customer_order.objects.filter(is_deleted = False,status = "Ready delivery")
+    customer_orders_ready_delivery = Customer_order.objects.filter(is_deleted = False,status = "Ready Delivery")
     return render(request,'staff/dashboard.html',context={'customer_orders_confirmed': customer_orders_confirmed,'customer_orders_cooking': customer_orders_cooking,'customer_orders_deleverd': customer_orders_deliverd,'customer_orders_ready_delivery': customer_orders_ready_delivery})
 
 
 def update_model(request, item_id):
-        
     if request.method == 'POST' and request.is_ajax():
         selected_status = request.POST.get('selectedStatus')  # اطلاعات ارسالی از جاوااسکریپت
        
@@ -293,14 +292,11 @@ def update_model(request, item_id):
             your_item = Customer_order.objects.get(id=item_id)
             your_item.status = selected_status
             your_item.save()
-
             return JsonResponse({'success': True})
         except Customer_order.DoesNotExist:
             return JsonResponse({'success': False, 'error': 'آیتم مورد نظر یافت نشد'}, status=404)
 
-    render(request,'staff/dashboard.html',context={"your_item":your_item})
     return JsonResponse({'success': False, 'error': 'درخواست نامعتبر'}, status=400)
-
 def update_order(request,order_id):
     order=Customer_order.objects.get(pk=order_id)
     form=order_table(request.POST or None , instance=order)

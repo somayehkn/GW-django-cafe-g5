@@ -1,4 +1,6 @@
 {% load static %}
+{% load widget_tweaks %}
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -383,7 +385,7 @@
             <h1>update order</h1>
             <form action="" method=POST>
                 {% csrf_token %}
-                {{ form.as_p }}   
+                {{ form.as_p}}   
                 <br/>
                 <input type="submit" value="update"
                 class="btn btn_secondary">
@@ -391,3 +393,10 @@
                 <script src="{% static 'assest_admin_show_order/js/theme.js'%}"></script>
               </body>
             </html>
+{% comment %} 
+            timestamp = models.DateTimeField()
+            description = models.TextField(null=True)
+            table_number = models.ForeignKey(Table, null=True, on_delete=models.CASCADE)
+            total_price = models.DecimalField(max_digits=12, decimal_places=2)
+            is_deleted = models.BooleanField(default=False)
+            status = models.CharField(max_length=20, choices=STATUS_CHOICES) {% endcomment %}
