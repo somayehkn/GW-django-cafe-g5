@@ -1,98 +1,84 @@
+{% extends "customer/base.html" %}
 {% load static %}
-<!DOCTYPE html>
-<html data-bs-theme="light" lang="en">
-
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>checkout_page</title>
+{% block links %}
+<title>checkout_page</title>
     <link rel="stylesheet" href="{% static 'assests_checkout_page/bootstrap/css/bootstrap.min.css' %}" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Allan&amp;display=swap" />
-</head>
+{% endblock links %}
+    
 
-<body class="text-center d-flex flex-column" style="margin-top: 0px;background: linear-gradient(0deg, black 0%, rgb(64,16,16) 13%, rgb(97,24,24) 37%, rgb(124,31,31) 82%, #8b2323 100%), #8b2323;border-style: none;border-color: #c4d8e2;border-radius: 0;transform-style: preserve-3d;transition: ease;margin-right: 0px;margin-bottom: 0px;">
-    <header style="background: #e2d3d6;transform: translate(0px);border-radius: 26px;border-bottom-right-radius: 25px;border-bottom-left-radius: 25px;color: rgb(255,255,255);border-top-left-radius: 0;border-top-right-radius: 0;margin-bottom: 70px;">
-        <nav class="navbar navbar-light navbar-expand-md d-flex float-start flex-row flex-fill justify-content-end align-items-end" style="width: 95%;color: rgb(255, 255, 255);padding-left: 17px;">
-            <div class="container-fluid">
-                <button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1">
-                    <span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span>
-                </button>
-                <a class="navbar-brand" href="#" style="font-family: Allan, serif;font-size: 36px;margin-right: 123px;color: #8b2323;text-shadow: -5px 3px rgba(139,35,35,0.17);">Cafe Project</a>
-                <div class="collapse navbar-collapse" id="navcol-1">
-                    <ul class="navbar-nav d-flex flex-fill justify-content-end">
-                        <li class="nav-item text-center">
-                            <label class="form-label" style="color: rgb(0,0,0);margin-right: 30px;margin-top: 5px;"></label>
-                        </li>
-                        <li class="nav-item text-center">
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </header>
-    <div class="table-responsive" style="margin-right: auto; margin-top: 5%; margin-bottom:9%; margin-left: auto; width: 50%;">
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th colspan="5" class="text-center fs-4">فاکتور نهایی</th>
-                </tr>
-                <tr>
-                    <th style="font-family:IranNastaliq; font-size: 30px;pading-top:10px;">کافه ایرانی</th>
-                    <th>عنوان</th>
-                    <th>قیمت</th>
-                    <th>تعداد</th>
-                    <th>جمع</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td rowspan="{{ context|length|default_if_none:"0"|add:"1" }}">
-                        <img class="img-fluid" height="50%" id="checkout_img" src="{% static 'assests_checkout_page/img/images.jpg' %}" style="width:auto;height:25%;" width="auto">
-                    </td>
-                 {% for key, value in context.items %}
-                    <tr >
-                        <td class="text-center" id="checkout_item_name">{{ key }}</td>
-                        <td class="text-center" id="checkout_price">{{ value.item_unit_price }}</td>
-                        <td class="text-center" id="checkout_quantity">{{ value.item_quantity }}</td>
-                        <td id="checkout_total_price_item">{{ value.item_total_price }}</td>
+{% block navbar %}
+      <div class="container"><a class="navbar-brand d-flex align-items-center" href="{% url 'home' %}"><span style="margin-right: -92px;"><a class="navbar-brand" href="{% url 'home' %}" style="font-family: Allan, serif;font-size: 36px;margin-right: 123px;color: #8b2323;text-shadow: -5px 3px rgba(139,35,35,0.17);">Cafe Project</a></span></a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse" id="navcol-1">
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item"><a class="nav-link" href="{% url 'home' %}">Home</a></li>
+                <li class="nav-item"><a class="nav-link active" href="{% url 'categories' %}">Menu</a></li>
+{% endblock navbar %}
+
+{% block content %}
+    <div>
+        <div class="table-responsive" style="border-radius: 5px; margin-right: auto; margin-top: 5%; margin-bottom:9%; margin-left: auto; width: 80%;">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th colspan="5" class="text-center fs-4">Factor</th>
                     </tr>
-                    {% comment %} <tr>
-                        <td colspan="4"></td>
-                    </tr> {% endcomment %}
-                 {% endfor %} 
-                </tr>
-
-            </tbody>
-        </table>
+                    <tr>
+                        <th style=" font-size: 30px;pading-top:10px;">Cafe Project</th>
+                        <th>Title</th>
+                        <th>Price</th>
+                        <th>Count</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td rowspan="100%">
+                            <img class="img-fluid" height="50%" id="checkout_img" src="{% static 'assests_checkout_page/img/images.jpg' %}" style="width:auto;height:25%;" width="auto">
+                        </td>
+                     {% for key, value in context.items %}
+                        <tr>
+                            <td class="text-center" id="checkout_item_name">{{ key }}</td>
+                            <td class="text-center" id="checkout_price">{{ value.item_unit_price }}</td>
+                            <td class="text-center" id="checkout_quantity">{{ value.item_quantity }}</td>
+                            <td id="checkout_total_price_item">{{ value.item_total_price }}</td>
+                        </tr>
+                     {% endfor %} 
+                    </tr>
+    
+                </tbody>
+            </table>
+        </div>
+        <div class="table-responsive" style="margin-top: -10%; margin-right: auto; margin-bottom: 10%; margin-left: auto; padding-top: 0; padding-right: inherit; padding-bottom: 0; padding-left: inherit; width: 80%;">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        {% comment %} <th id="checkout_discount" style="text-align: center;">تخفیف</th> {% endcomment %}
+                        <th style="text-align: center;">Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td colspan="2"><span id="checkout_total_price"></span> T</td>
+                    </tr>
+                    <tr>
+                        {% comment %} <td>
+                            <button onclick="location.href = 'shoping_cart.html?cat={{ item.name }}'" class="btn btn-primary btn-lg fs-5 text-center" style="background-color:rgb(122, 30, 30)" type="button">بازگشت</button>
+                        </td> {% endcomment %}
+                        <td style="text-align: center;">
+                            
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <button onclick="redirect('/table-rigester/')" class="btn btn-lg fs-5" style="background: #FFF1CF; width:100%; font-weight: bold" type="button">Register Order</button>
+        </div>
     </div>
-    <div class="table-responsive" style="margin-top: -10%; margin-right: auto; margin-bottom: 10%; margin-left: auto; padding-top: 0; padding-right: inherit; padding-bottom: 0; padding-left: inherit; width: 50%;">
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th id="checkout_discount" style="text-align: center;">تخفیف</th>
-                    <th id="checkout_total_price" style="text-align: center;">جمع کل</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td colspan="2"></td>
-                </tr>
-                <tr>
-                    <td>
-                        <button onclick="location.href = 'shoping_cart.html?cat={{ item.name }}'" class="btn btn-primary btn-lg fs-5 text-center" style="background-color:rgb(122, 30, 30)" type="button">بازگشت</button>
-                    </td>
-                    <td style="text-align: center;">
-                        <button onclick="redirect('table-rigester')" class="btn btn-primary btn-lg fs-5" style="background-color:rgb(122, 30, 30)" type="button">ثبت نهایی</button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-        
-    </div>
+    
     
     <script src="{% static 'assests_checkout_page/bootstrap/css/bootstrap.min.css'%}"></script>
     <script src="{% static 'commonFunctions.js' %}"></script>
-    
-</body>
+    <script src="{% static 'assests_checkout_page/bootstrap/js/checkoutPage.js' %}"></script>
+    <script src="{% static 'assets_home_menu_page/js/menu.js' %}"></script>
+{% endblock content %}
 
-</html>

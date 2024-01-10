@@ -57,11 +57,10 @@
 
 
 body {
-  margin-top: 20px;
   background: #eee;
 }
 .ui-w-40 {
-  width: 20px !important;
+  width: 40px !important;
   height: auto;
 }
 

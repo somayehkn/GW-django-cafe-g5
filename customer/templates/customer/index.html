@@ -1,0 +1,80 @@
+{% extends "customer/base.html" %}
+{% load static %}
+    {% block links %}
+    <title>Home</title>
+    <link rel="stylesheet" href="{% static 'assets_home_menu_page/bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Allan&amp;display=swap">
+    <link rel="stylesheet" href="{% static 'assets_home_menu_page/css/Font%20Awesome%205%20Brands.css' %}">
+    <link rel="stylesheet" href="{% static 'assets_home_menu_page/css/Font%20Awesome%205%20Free.css' %}">
+    <link rel="stylesheet" href="{% static 'assets_home_menu_page/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets_home_menu_page/css/Articles-Cards-images.css' %}">
+    <link rel="stylesheet" href="{% static 'assets_home_menu_page/css/Navbar-With-Button-icons.css' %}">
+    {% endblock links %}
+
+    {% block navbar %}
+    <div class="container"><a class="navbar-brand d-flex align-items-center" href="{% url 'home' %}"><span style="margin-right: -92px;"><a class="navbar-brand" href="{% url 'home' %}" style="font-family: Allan, serif;font-size: 36px;margin-right: 123px;color: #8b2323;text-shadow: -5px 3px rgba(139,35,35,0.17);">Cafe Project</a></span></a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse" id="navcol-1">
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item"><a class="nav-link active" href="{% url 'home' %}">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'categories' %}">Menu</a></li>
+    {% endblock navbar %}
+    
+    {% block content %}
+    <section class="py-4 py-xl-5" >
+        <div class="container">
+            <div class="bg-dark border rounded border-0 border-dark overflow-hidden">
+                <div class="row g-0">
+                    <div class="col-md-6" style="background: #471f0e;">
+                        <div class="text-white p-4 p-md-5">
+                            <h2 class="fw-bold text-white mb-3"><strong><span style="background-color: rgba(33, 37, 41, 0);">Enjoy Our</span></strong><br><strong><span style="background-color: rgba(33, 37, 41, 0);">Delicious Meal</span></strong></h2>
+                            <p class="mb-4">Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit. Aliqu diam amet diam et eos. Clita erat ipsum et lorem et sit, sed stet lorem sit clita duo justo magna dolore erat amet</p>
+                            <div class="my-3"><a class="btn btn-primary btn-lg me-2" role="button" href="{% url 'categories' %}" style="background: #FFF1CF;width: 136.2812px;height: 69px;font-size: 30px;border-color: var(--bs-border-color-translucent);position: relative;"><strong><span style="color: rgb(0, 0, 0);">order</span></strong></a></div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 order-first order-md-last" style="min-height: 250px;"><img class="w-100 h-100 fit-cover" src="{% static 'assets_home_menu_page/img/coffee_baner.jpg' %}"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <h2 style="color: var(--bs-white);font-weight: bold;">Servises</h2>
+    <div class="container py-4 py-xl-5">
+        <div class="row">
+            <div class="col-md-8 col-xl-6 mx-auto p-4" style="background: #fff1cf;">
+                <div class="d-flex align-items-center align-items-md-start align-items-xl-center">
+                    <div class="bs-icon-xl bs-icon-circle bs-icon-primary d-flex flex-shrink-0 justify-content-center align-items-center me-4 d-inline-block bs-icon" style="background: #892222;"><svg class="bi bi-person" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 16 16">
+                            <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"></path>
+                        </svg></div>
+                    <div>
+                        <h4>Master Chefs</h4>
+                        <p>Erat netus est hendrerit, nullam et quis ad cras porttitor iaculis. Bibendum vulputate cras aenean.</p>
+                    </div>
+                </div>
+                <hr class="my-5" />
+                <div class="d-flex align-items-center align-items-md-start align-items-xl-center">
+                    <div class="bs-icon-xl bs-icon-circle bs-icon-primary d-flex flex-shrink-0 justify-content-center align-items-center order-last ms-4 d-inline-block bs-icon" style="background: #892222;"><svg class="bi bi-check-circle" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 16 16">
+                            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
+                            <path d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z"></path>
+                        </svg></div>
+                    <div>
+                        <h4>Quality Food</h4>
+                        <p>Erat netus est hendrerit, nullam et quis ad cras porttitor iaculis. Bibendum vulputate cras aenean.</p>
+                    </div>
+                </div>
+                <hr class="my-5" />
+                <div class="d-flex align-items-center align-items-md-start align-items-xl-center">
+                    <div class="bs-icon-xl bs-icon-circle bs-icon-primary d-flex flex-shrink-0 justify-content-center align-items-center me-4 d-inline-block bs-icon" style="background: #892222;"><svg class="bi bi-headset" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 16 16">
+                            <path d="M8 1a5 5 0 0 0-5 5v1h1a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V6a6 6 0 1 1 12 0v6a2.5 2.5 0 0 1-2.5 2.5H9.366a1 1 0 0 1-.866.5h-1a1 1 0 1 1 0-2h1a1 1 0 0 1 .866.5H11.5A1.5 1.5 0 0 0 13 12h-1a1 1 0 0 1-1-1V8a1 1 0 0 1 1-1h1V6a5 5 0 0 0-5-5z"></path>
+                        </svg></div>
+                    <div>
+                        <h4>24/7 Service</h4>
+                        <p>Erat netus est hendrerit, nullam et quis ad cras porttitor iaculis. Bibendum vulputate cras aenean.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="{% static 'assets_home_menu_page/bootstrap/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'assets_home_menu_page/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'assets_home_menu_page/js/menu.js' %}"></script>
+    {% endblock content %}
+    
