@@ -79,11 +79,19 @@ def reports(request):
     
     # fourth chart (work peek hours)
     orders_by_hour = Customer_order.objects.filter(is_deleted=False).annotate(hour=ExtractHour('timestamp')).values('hour').annotate(order_count=Count('id')).order_by('hour')
-    labels = [f"{hour} - {hour + 1}" for hour in range(9, 23)]
-    data = [0] * 14
+    data_dict = {hour: 0 for hour in range(9, 23)}
 
     for order in orders_by_hour:
-        data[order['hour'] - 9] = order['order_count']
+        data_dict[order['hour']] = order['order_count']
+
+    labels = [f"{hour} - {hour + 1}" for hour in range(9, 23)]
+    data = list(data_dict.values())
+    # labels = [f"{hour} - {hour + 1}" for hour in range(9, 23)]
+    # data = [0] * 14
+
+    # for order in orders_by_hour:
+    #     print(order['hour'] - 9)
+    #     data[order['hour'] - 9] = order['order_count']
 
     chart_data = {
         "type": "bar",
