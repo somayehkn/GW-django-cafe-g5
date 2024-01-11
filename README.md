@@ -35,23 +35,15 @@ Meet the brilliant minds behind MenuOnlineCafe:
 - [Mahdi Alimohammadlou](https://github.com/MahdiAlimohammadlou)
 - [Hesam Shadmehri](https://github.com/hesam835)
 - [Somaye Khalilnejad](https://github.com/somayehkn)
-- [Yazdan Gheitasi](https://github.com/yazdangheytasi)
+- [Yazdan Gheytasi](https://github.com/yazdangheytasi)
 
-## Contact the Team
+## Contact Us
 
 If you have any questions, suggestions, or feedback, please feel free to reach out to our team members:
 
-- **John Doe**
-  - **Email**: johndoe@gmail.com
-  - **Telegram**: [@johndoe](https://t.me/johndoe)
-
-- **Jane Smith**
-  - **Email**: janesmith@gmail.com
-  - **Telegram**: [@janesmith](https://t.me/janesmith)
-
-- **Ali Mohammadlou**
+- **Mahdi Alimohammadlou**
   - **Email**: alimohammadloumahdi@gmail.com
   - **Telegram**: [@mahdialimohammadlou](https://t.me/mahdialimohammadlou)
-
+    
 We highly value your feedback. Thank you for choosing MenuOnlineCafe!
 
