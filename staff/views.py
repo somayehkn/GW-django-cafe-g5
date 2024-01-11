@@ -35,6 +35,7 @@ def reports(request):
 
 # Create your views here.
 @requires_csrf_token
+@login_required
 def add_items(request):
     if request.method == 'POST':
         image = request.FILES['file_input']
@@ -240,7 +241,7 @@ def order_list_date(request):
     return render(request,'staff\date.html', { 'timestamp':timestamp})
 
 
-@login_required(redirect_field_name="login")
+@login_required
 def order_list_filter_status(request):
     orders = []
     
@@ -301,6 +302,8 @@ def update_model(request, item_id):
             return JsonResponse({'success': False, 'error': 'آیتم مورد نظر یافت نشد'}, status=404)
 
     return JsonResponse({'success': False, 'error': 'درخواست نامعتبر'}, status=400)
+
+@login_required
 def update_order(request,order_id):
     order=Customer_order.objects.get(pk=order_id)
     form=order_table(request.POST or None , instance=order)
@@ -309,17 +312,18 @@ def update_order(request,order_id):
         return redirect(reverse("dashboard"))
     return render(request,"staff/update_order.html",context={"order":order,"form":form})
 
-
+@login_required
 def delete_order(request,del_id):
     del_order = Customer_order.objects.filter(pk = del_id).update(is_deleted=True)
     render(request,"staff/dashboard.html",context={"del_order":del_order})
     return redirect(reverse("dashboard"))
 
-@login_required(redirect_field_name="login")
+@login_required
 def trash(request):
     customer_orders = Customer_order.objects.filter(is_deleted = True)
     return render(request,'staff/trash.html',context={"customer_orders":customer_orders})
 
+@login_required
 def checked_out(request):
     checked_out_orders = Customer_order.objects.filter(status = "Checked Out")
     return render(request,'staff/checked_out.html',context={"checked_out_orders":checked_out_orders})
