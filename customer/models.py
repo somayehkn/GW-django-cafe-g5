@@ -68,3 +68,6 @@ class Order_item(models.Model):
     customer_order: Customer_order = models.ForeignKey(Customer_order, on_delete=models.CASCADE)
 
 
+    # def __str__(self):
+    #         return f'{self.count}x {self.item.name}'
+
