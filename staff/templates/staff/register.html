@@ -1,4 +1,6 @@
 {% load static %}
+{% load widget_tweaks %}
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -7,7 +9,7 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
     />
-    <title>Register - Brand</title>
+    <title>Login - Brand</title>
     <link
       rel="stylesheet"
       href="{% static 'assets/bootstrap/css/bootstrap.min.css' %}"
@@ -24,46 +26,75 @@
 
   <body class="bg-gradient-primary">
     <div class="container">
-      <div class="card shadow-lg o-hidden border-0 my-5">
-        <div class="card-body p-0">
-          <div class="row">
-            <div class="col-lg-5 d-none d-lg-flex">
-              <div
-                class="flex-grow-1 bg-register-image"
-                style="background-image: url('assets/img/dogs/image2.jpeg')"
-              ></div>
-            </div>
-            <div class="col-lg-7">
-              <div class="p-5">
-                <div class="text-center">
-                  <h4 class="text-dark mb-4">Create an Account!</h4>
+      <div class="row justify-content-center">
+        <div class="col-md-9 col-lg-12 col-xl-10">
+          <div class="card shadow-lg o-hidden border-0 my-5">
+            <div class="card-body p-0">
+              <div class="row">
+                <div class="col-lg-6 d-none d-lg-flex">
+                  <div
+                    class="flex-grow-1 bg-login-image"
+                    style="background-image: url('static/assets/img/dogs/image3.jpeg')"
+                    <img src="{% static 'assets/img/dogs/image3.jpeg' %}">
+                  ></div>
                 </div>
-                <form class="user" action="{% url 'register' %}" method="post">
-                  <div class="row mb-3">{% csrf_token %} {{form.as_p}}</div>
-                  <button
-                    class="btn btn-primary d-block btn-user w-100"
-                    type="submit"
-                  >
-                    Register Account
-                  </button>
-                  <hr />
-                  
-                  <a
-                    class="btn btn-primary d-block btn-google btn-user w-100 mb-2"
-                    role="button" href={% url 'index' %}
-                    ><i class="fab fa-google"></i>&nbsp; Back</a
-                  >
-                  <hr />
-                </form>
-                <div class="text-center">
-                  {% comment %} <a class="small" href="{% static 'forgot-password.html' %}"
-                    >Forgot Password?</a
-                  > {% endcomment %}
-                </div>
-                <div class="text-center">
-                  {% comment %} <a class="small" href="{% static 'login.html' %}"
-                    >Already have an account? Login!</a
-                  > {% endcomment %}
+                <div class="col-lg-6">
+                  <div class="p-5">
+                    <div class="text-center">
+                      <h4 class="text-dark mb-4">Welcome Back!</h4>
+                    </div>
+                    <form class="user" cation="" method="post">
+                      {% csrf_token %} 
+                      {{form.phone|add_class:"mb-3"}}
+                      {{form.password|add_class:"mb-3"}}                      
+                      <div class="mb-3">
+                        <div class="custom-control custom-checkbox small">
+                          <div class="form-check">
+                            <input
+                              class="form-check-input custom-control-input"
+                              type="checkbox"
+                              id="formCheck-1"
+                            /><label
+                              class="form-check-label custom-control-label"
+                              for="formCheck-1"
+                              >Remember Me</label
+                            >
+                          </div>
+                        </div>
+                      </div>
+                      <button
+                        class="btn btn-primary d-block btn-user w-100"
+                        type="submit"
+                      >
+                        Login
+                      </button>
+                      {% comment %} <hr />
+                      <a
+                        class="btn btn-primary d-block btn-google btn-user w-100 mb-2"
+                        role="button"
+                        ><i class="fab fa-google"></i>&nbsp; Login with
+                        Google</a
+                      ><a
+                        class="btn btn-primary d-block btn-facebook btn-user w-100"
+                        role="button"
+                        ><i class="fab fa-facebook-f"></i>&nbsp; Login with
+                        Facebook</a
+                      >
+                      <hr /> {% endcomment %}
+                    </form>
+                    <div class="text-center">
+                      {% comment %} <a
+                        class="small"
+                        href="{% static 'forgot-password.html' %}"
+                        >Forgot Password?</a
+                      >
+                    </div>
+                    <div class="text-center">
+                      <a class="small" href="{% static 'register.html' %}"
+                        >Create an Account!</a
+                      > {% endcomment %}
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>

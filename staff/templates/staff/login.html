@@ -1,4 +1,6 @@
 {% load static %}
+{% load widget_tweaks %}
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -32,7 +34,8 @@
                 <div class="col-lg-6 d-none d-lg-flex">
                   <div
                     class="flex-grow-1 bg-login-image"
-                    style="background-image: url('assets/img/dogs/image3.jpeg')"
+                    style="background-image: url('static/assets/img/dogs/image3.jpeg')"
+                    <img src="{% static 'assets/img/dogs/image3.jpeg' %}">
                   ></div>
                 </div>
                 <div class="col-lg-6">
@@ -41,7 +44,9 @@
                       <h4 class="text-dark mb-4">Welcome Back!</h4>
                     </div>
                     <form class="user" cation="" method="post">
-                      {% csrf_token %} {{form.as_p}}
+                      {% csrf_token %} 
+                      {{form.phone}}
+                      {{form.password}}                      
                       <div class="mb-3">
                         <div class="custom-control custom-checkbox small">
                           <div class="form-check">
@@ -63,7 +68,7 @@
                       >
                         Login
                       </button>
-                      <hr />
+                      {% comment %} <hr />
                       <a
                         class="btn btn-primary d-block btn-google btn-user w-100 mb-2"
                         role="button"
@@ -75,10 +80,10 @@
                         ><i class="fab fa-facebook-f"></i>&nbsp; Login with
                         Facebook</a
                       >
-                      <hr />
+                      <hr /> {% endcomment %}
                     </form>
                     <div class="text-center">
-                      <a
+                      {% comment %} <a
                         class="small"
                         href="{% static 'forgot-password.html' %}"
                         >Forgot Password?</a
@@ -87,7 +92,7 @@
                     <div class="text-center">
                       <a class="small" href="{% static 'register.html' %}"
                         >Create an Account!</a
-                      >
+                      > {% endcomment %}
                     </div>
                   </div>
                 </div>

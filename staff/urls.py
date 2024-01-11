@@ -22,6 +22,13 @@ urlpatterns = [
     path('filter-status/', views.order_list_filter_status, name='filter-status'),
     path('filter-table/', views.order_list_filter_table_number, name='filter-table'),
     path('order_detail/<int:order_id>/', order_detail, name='order_detail'),
+    path('update_model/<int:item_id>/', views.update_model, name='update_model'),
+    path("back_delete/<del_id>",views.back_delete,name="back_delete"),
+    path("checked_out",views.checked_out,name="checked_out"),
+    path("trash",views.trash,name="trash"),
+    path("delete_table/<del_id>",views.delete_order,name="delete_table"),
+    path("update_order/<order_id>",views.update_order,name="update_order"),
+
 ]
 
     

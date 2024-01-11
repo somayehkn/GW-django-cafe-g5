@@ -34,7 +34,8 @@
           <hr class="sidebar-divider my-0" />
           <ul class="navbar-nav text-light" id="accordionSidebar">
             <li class="nav-item dropdown"><a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown" href="#"><i class="fas fa-utensils"></i>سفارشات </a>
-              <div class="dropdown-menu"><a class="dropdown-item" href="http://127.0.0.1:8000/staff/dashboard">تمام سفارشات</a><a class="dropdown-item" href="http://127.0.0.1:8000/staff/date">مرتب سازی براساس تاریخ</a><a class="dropdown-item" href="http://127.0.0.1:8000/staff/filter-status">فیلتر براساس وضعیت سفارش</a><a class="dropdown-item" href="http://127.0.0.1:8000/staff/filter-table">فیلتر بر اساس شماره میز</a></div>
+              <div class="dropdown-menu"><a class="dropdown-item" href="http://127.0.0.1:8000/staff/dashboard">تمام سفارشات</a><a class="dropdown-item" href="http://127.0.0.1:8000/staff/date">مرتب سازی براساس تاریخ</a><a class="dropdown-item" href="http://127.0.0.1:8000/staff/filter-status">فیلتر براساس وضعیت سفارش</a><a class="dropdown-item" href="http://127.0.0.1:8000/staff/filter-table">فیلتر بر اساس شماره میز</a><a class="dropdown-item" href={% url "trash" %}>سفارشات پاک شده</a><a class="dropdown-item" href={% url "checked_out" %}>سفارشات پرداخت شده</a>
+              </div>
           </li>
             <li class="nav-item">
               <a
@@ -348,7 +349,7 @@
                         >&nbsp;Activity log</a
                       >
                       <div class="dropdown-divider"></div>
-                      <a class="dropdown-item" href="#"
+                      <a class="dropdown-item" href="{% url 'logout' %}"
                         ><i
                           class="fas fa-sign-out-alt fa-sm fa-fw me-2 text-gray-400"
                         ></i

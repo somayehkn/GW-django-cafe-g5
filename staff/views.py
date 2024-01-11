@@ -1,4 +1,4 @@
-from django.http import HttpResponse
+from django.http import HttpResponse,JsonResponse
 from django.http.response import HttpResponse as HttpResponse
 from django.core.files.storage import FileSystemStorage
 from django.db.models.functions import TruncHour,ExtractHour
@@ -18,7 +18,7 @@ from django.shortcuts import render,redirect, get_object_or_404
 from django.urls import reverse
 from django.views import View
 from utils import send_otp_code
-from .forms import  UserRegister,VerifyCodeForm,LoginForm
+from .forms import  UserRegister,VerifyCodeForm,LoginForm,order_table
 from customer.models import *
 import shutil
 import os
@@ -32,6 +32,24 @@ register = template.Library()
 def multiply(qty, unit_price, *args, **kwargs):
     return qty * unit_price
 
+def dashboard(request):
+    if request.method == 'POST':
+        customer_order_id = request.POST.get('customer_order_id')
+        customer_order_status = request.POST.get('customer_order_status')
+        
+        Customer_order.objects.filter(pk=customer_order_id).update(status=customer_order_status)
+        # customer_order = get_object_or_404(Customer_order, pk=customer_order_id).update(status = customer_order_status)
+        # customer_order.status = customer_order_status
+        # customer_order.save()
+    customer_orders_confirmed = Customer_order.objects.filter(is_deleted = False,status = "Confirmed")
+    customer_orders_cooking = Customer_order.objects.filter(is_deleted = False,status = "Cooking")
+    customer_orders_ready_delivery = Customer_order.objects.filter(is_deleted = False,status = "Ready Delivery")
+    customer_orders_deliverd = Customer_order.objects.filter(is_deleted = False,status = "Deliverd")
+    return render(request,'staff/dashboard.html',context={'customer_orders_confirmed': customer_orders_confirmed,'customer_orders_cooking': customer_orders_cooking,'customer_orders_deleverd': customer_orders_deliverd,'customer_orders_ready_delivery': customer_orders_ready_delivery})
+
+
+
+@login_required
 def reports(request):
     # get all orders
     all_orders = Customer_order.objects.filter(is_deleted=False)
@@ -218,14 +236,7 @@ def login(request):
             messages.add_message(request,messages.ERROR,f"user {username} was not found!")
     return render(request,'staff/login.html',context={"form":form})
 
-def dashboard(request):
-    customer_orders = Customer_order.objects.all()
-    
-    return render(request,'staff/dashboard.html',context={'customer_orders': customer_orders})
-    
-def logout(request):
-    django_logout(request)
-    return redirect(reverse("dashboard")) 
+   
 
 def move_and_delete_media_url(old_file_path):
     img_name = (old_file_path.split("/"))[-1]
@@ -313,16 +324,18 @@ class DeleteUser(SuccessMessageMixin,DeleteView):
     success_url = reverse_lazy("dashboard")
 
 
-    
+@login_required    
 def order_detail(request, order_id):
     order = get_object_or_404(Customer_order, id=order_id)
     order_items = Order_item.objects.filter(customer_order=order)
     return render(request, 'staff/order_detail.html', {'order': order, 'order_items': order_items}) 
     
+@login_required
 def order_list_date(request):
     timestamp = Customer_order.objects.all().exclude(is_deleted=True).order_by('timestamp')
     return render(request,'staff/date.html', { 'timestamp':timestamp})
 
+@login_required
 def order_list_filter_status(request):
     orders = []
     
@@ -337,6 +350,7 @@ def order_list_filter_status(request):
    
     return render(request, 'staff/filter-status.html', context)
 
+@login_required
 def order_list_filter_table_number(request):
     orders = []
 
@@ -349,5 +363,55 @@ def order_list_filter_table_number(request):
 
     context = {'orders': orders}
     return render(request, 'staff/filter-table.html', context)
+
+
+def update_model(request, item_id):
+    if request.method == 'POST' and request.is_ajax():
+        selected_status = request.POST.get('selectedStatus')  # اطلاعات ارسالی از جاوااسکریپت
+       
+        # بروزرسانی مدل مورد نظر
+        try:
+            your_item = Customer_order.objects.get(id=item_id)
+            your_item.status = selected_status
+            your_item.save()
+            return JsonResponse({'success': True})
+        except Customer_order.DoesNotExist:
+            return JsonResponse({'success': False, 'error': 'آیتم مورد نظر یافت نشد'}, status=404)
+
+    return JsonResponse({'success': False, 'error': 'درخواست نامعتبر'}, status=400)
+
+@login_required
+def update_order(request,order_id):
+    order=Customer_order.objects.get(pk=order_id)
+    form=order_table(request.POST or None , instance=order)
+    if form.is_valid():
+        form.save()
+        return redirect(reverse("dashboard"))
+    return render(request,"staff/update_order.html",context={"order":order,"form":form})
+
+@login_required
+def delete_order(request,del_id):
+    del_order = Customer_order.objects.filter(pk = del_id).update(is_deleted=True)
+    render(request,"staff/dashboard.html",context={"del_order":del_order})
+    return redirect(reverse("dashboard"))
+
+@login_required
+def trash(request):
+    customer_orders = Customer_order.objects.filter(is_deleted = True)
+    return render(request,'staff/trash.html',context={"customer_orders":customer_orders})
+
+@login_required
+def checked_out(request):
+    checked_out_orders = Customer_order.objects.filter(status = "Checked Out")
+    return render(request,'staff/checked_out.html',context={"checked_out_orders":checked_out_orders})
+    
+def back_delete(request,del_id):
+    del_order = Customer_order.objects.filter(pk = del_id).update(is_deleted=False)
+    render(request,"staff/trash.html",context={"del_order":del_order})
+    return redirect(reverse("trash"))
+
+def roll_list(request):
+    list_roll=["seff","cashier","waiter"]
+    return render(request,"staff/register.html",context={"list_roll":list_roll})
 
 

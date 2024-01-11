@@ -74,6 +74,8 @@
                   href="http://127.0.0.1:8000/staff/filter-table"
                   >فیلتر بر اساس شماره میز</a
                 >
+                <a class="dropdown-item" href={% url "trash" %}>سفارشات پاک شده</a>
+                <a class="dropdown-item" href={% url "checked_out" %}>سفارشات پرداخت شده</a>
               </div>
             </li>
 
@@ -360,7 +362,7 @@
                       data-bs-toggle="dropdown"
                       href="#"
                       ><span class="d-none d-lg-inline me-2 text-gray-600 small"
-                        >Valerie Luna</span
+                        >{{request.user.full_name}}</span
                       ><img
                         class="border rounded-circle img-profile"
                         src="{% static 'assets_admin_show_orders/img/avatars/avatar1.jpeg' %}"
@@ -385,7 +387,7 @@
                         >&nbsp;Activity log</a
                       >
                       <div class="dropdown-divider"></div>
-                      <a class="dropdown-item" href="#"
+                      <a class="dropdown-item" href="{% url 'logout' %}"
                         ><i
                           class="fas fa-sign-out-alt fa-sm fa-fw me-2 text-gray-400"
                         ></i
