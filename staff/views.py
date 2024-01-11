@@ -84,11 +84,6 @@ def login(request):
             messages.add_message(request,messages.ERROR,f"user {username} was not found!")
     return render(request,'staff/login.html',context={"form":form})
 
-@login_required
-def dashboard(request):
-    customer_orders = Customer_order.objects.all()
-    
-    return render(request,'staff/dashboard.html',context={'customer_orders': customer_orders})
 
 @login_required    
 def logout(request):
@@ -245,7 +240,7 @@ def order_list_date(request):
     return render(request,'staff\date.html', { 'timestamp':timestamp})
 
 
-@login_required
+@login_required(redirect_field_name="login")
 def order_list_filter_status(request):
     orders = []
     
@@ -275,6 +270,7 @@ def order_list_filter_table_number(request):
     context = {'orders': orders}
     return render(request, 'staff/filter-table.html', context)
 
+@login_required
 def dashboard(request):
     if request.method == 'POST':
         customer_order_id = request.POST.get('customer_order_id')
@@ -319,6 +315,7 @@ def delete_order(request,del_id):
     render(request,"staff/dashboard.html",context={"del_order":del_order})
     return redirect(reverse("dashboard"))
 
+@login_required(redirect_field_name="login")
 def trash(request):
     customer_orders = Customer_order.objects.filter(is_deleted = True)
     return render(request,'staff/trash.html',context={"customer_orders":customer_orders})

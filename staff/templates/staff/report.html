@@ -46,8 +46,8 @@
                     class="dropdown-item"
                     href="http://127.0.0.1:8000/staff/dashboard"
                     >تمام سفارشات</a
-                  ><a class="dropdown-item" href="#">Second Item</a
-                  ><a class="dropdown-item" href="#">Third Item</a>
+                  ><a class="dropdown-item" href={% url "trash" %}>سفارشات پاک شده</a
+                  ><a class="dropdown-item" href={% url "checked_out" %}>سفارشات پرداخت شده</a>
                 </div>
               </li>
 
