@@ -32,6 +32,7 @@ register = template.Library()
 def multiply(qty, unit_price, *args, **kwargs):
     return qty * unit_price
 
+@login_required
 def dashboard(request):
     if request.method == 'POST':
         customer_order_id = request.POST.get('customer_order_id')
@@ -232,7 +233,7 @@ def login(request):
             if user is not None:
                 django_login(request,user)
                 messages.add_message(request,messages.SUCCESS,f"welcome{username}")
-                return redirect(reverse("dashboard"))
+                return redirect("dashboard")
             messages.add_message(request,messages.ERROR,f"user {username} was not found!")
     return render(request,'staff/login.html',context={"form":form})
 

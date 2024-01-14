@@ -5,7 +5,6 @@ from django.conf.urls.static import static
 from . import views
 from .views import  order_list_date, order_list_filter_status,  order_list_filter_table_number, order_detail, add_items
 
-app_name = 'staff'
 urlpatterns = [
     path('add_item', views.add_items, name = 'add_item'),
     path("login/",views.login,name="login"),
