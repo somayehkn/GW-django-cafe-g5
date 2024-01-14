@@ -4,9 +4,10 @@ from django import forms
 import django
 django.setup()
 from .models import User
+from django.forms import ModelForm
 from django.core.exceptions import ValidationError
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
-from customer.models import Category
+from customer.models import Category,Customer_order
 
 
 class UserCreationForm(forms.ModelForm):
@@ -64,3 +65,7 @@ class LoginForm(forms.Form):
 #         fields = ["name","description", "image"]
 
 
+class order_table(ModelForm):
+    class Meta:
+        model=Customer_order
+        fields = '__all__'

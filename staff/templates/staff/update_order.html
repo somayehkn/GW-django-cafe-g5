@@ -1,0 +1,112 @@
+{% load static %}
+{% load widget_tweaks %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+      <meta charset="utf-8" />
+      <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
+      />
+      <title>Dashboard - Brand</title>
+      <link rel="stylesheet" href="{% static 'assest_admin_report/bootstrap/css/bootstrap.min.css' %}" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i&amp;display=swap"
+    />
+    <link rel="stylesheet" href="{% static 'assest_admin_report/fonts/fontawesome-all.min.css' %}" />
+    </head>
+
+    <body id="page-top">
+      <div id="wrapper">
+        <nav
+          class="navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0"
+        >
+          <div class="container-fluid d-flex flex-column p-0">
+            <a
+              class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0"
+              href="#"
+            >
+              <div class="sidebar-brand-icon rotate-n-15">
+                <i class="fas fa-coffee"></i>
+              </div>
+              <div class="sidebar-brand-text mx-3"><span>پنل مدیریت</span></div>
+            </a>
+            <hr class="sidebar-divider my-0" />
+            <ul class="navbar-nav text-light" id="accordionSidebar">
+              <li class="nav-item dropdown">
+                <a
+                  class="dropdown-toggle nav-link"
+                  aria-expanded="false"
+                  data-bs-toggle="dropdown"
+                  href="#"
+                  ><i class="fas fa-utensils"></i>سفارشات
+                </a>
+                <div class="dropdown-menu">
+                  <a
+                    class="dropdown-item"
+                    href="http://127.0.0.1:8000/staff/dashboard"
+                    >تمام سفارشات</a
+                  ><a class="dropdown-item" href={% url "trash" %}>سفارشات پاک شده</a
+                  ><a class="dropdown-item" href={% url "checked_out" %}>سفارشات پرداخت شده</a>
+                  <a class="dropdown-item" href="http://127.0.0.1:8000/staff/date">مرتب سازی براساس تاریخ</a><a class="dropdown-item" href="http://127.0.0.1:8000/staff/filter-status">فیلتر براساس وضعیت سفارش</a><a class="dropdown-item" href="http://127.0.0.1:8000/staff/filter-table">فیلتر بر اساس شماره میز</a>
+                </div>
+              </li>
+
+              <li class="nav-item">
+                <a class="nav-link" href="http://127.0.0.1:8000/staff/add_item"
+                  ><i class="fas fa-plus"></i><span>افزودن ایتم</span></a
+                >
+              </li>
+              <li class="nav-item">
+                <a
+                  class="nav-link"
+                  href="http://127.0.0.1:8000/staff/add-category"
+                  ><i class="fas fa-plus"></i><span>افزودن دسته</span></a
+                >
+              </li>
+              <li class="nav-item">
+                {% if request.user.is_admin %}
+                <li class="nav-item"></li>
+                <li class="nav-item">
+                  <a class="nav-link" href="http://127.0.0.1:8000/staff/list_user"
+                    ><i class="fas fa-user-circle"></i><span>مدیریت پرسنل</span></a
+                  >
+                {% endif %}
+                </li>
+                {% if request.user.is_admin %}
+                <li class="nav-item">
+                  <a class="nav-link" href="http://127.0.0.1:8000/staff/reports"
+                    ><i class="fas fa-tachometer-alt"></i> <span>گزارشات</span></a
+                  >
+                </li>
+                {% endif %}
+              </li>
+            </ul>
+            <div class="text-center d-none d-md-inline">
+              <button
+                class="btn rounded-circle border-0"
+                id="sidebarToggle"
+                type="button"
+              ></button>
+            </div>
+          </div>
+        </nav>
+            <h1>update order</h1>
+            <form action="" method=POST>
+                {% csrf_token %}
+                {{ form.as_p}}   
+                <br/>
+                <input type="submit" value="update"
+                class="btn btn_secondary">
+                <script src="{% static 'assest_admin_show_order/bootstrap/js/bootstrap.min.js'%}"></script>
+                <script src="{% static 'assest_admin_show_order/js/theme.js'%}"></script>
+              </body>
+            </html>
+{% comment %} 
+            timestamp = models.DateTimeField()
+            description = models.TextField(null=True)
+            table_number = models.ForeignKey(Table, null=True, on_delete=models.CASCADE)
+            total_price = models.DecimalField(max_digits=12, decimal_places=2)
+            is_deleted = models.BooleanField(default=False)
+            status = models.CharField(max_length=20, choices=STATUS_CHOICES) {% endcomment %}

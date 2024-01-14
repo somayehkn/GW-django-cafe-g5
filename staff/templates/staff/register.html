@@ -1,77 +1,198 @@
 {% load static %}
+{% load widget_tweaks %}
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
-    />
-    <title>Register - Brand</title>
-    <link
-      rel="stylesheet"
-      href="{% static 'assets/bootstrap/css/bootstrap.min.css' %}"
-    />
+    <head>
+      <meta charset="utf-8" />
+      <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
+      />
+      <title>Dashboard - Brand</title>
+      <link rel="stylesheet" href="{% static 'assest_admin_report/bootstrap/css/bootstrap.min.css' %}" />
     <link
       rel="stylesheet"
       href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i&amp;display=swap"
     />
-    <link
-      rel="stylesheet"
-      href="{% static 'assets/fonts/fontawesome-all.min.css' %}"
-    />
-  </head>
+    <link rel="stylesheet" href="{% static 'assest_admin_report/fonts/fontawesome-all.min.css' %}" />
+    </head>
 
-  <body class="bg-gradient-primary">
-    <div class="container">
-      <div class="card shadow-lg o-hidden border-0 my-5">
-        <div class="card-body p-0">
-          <div class="row">
-            <div class="col-lg-5 d-none d-lg-flex">
-              <div
-                class="flex-grow-1 bg-register-image"
-                style="background-image: url('assets/img/dogs/image2.jpeg')"
-              ></div>
-            </div>
-            <div class="col-lg-7">
-              <div class="p-5">
-                <div class="text-center">
-                  <h4 class="text-dark mb-4">Create an Account!</h4>
-                </div>
-                <form class="user" action="{% url 'register' %}" method="post">
-                  <div class="row mb-3">{% csrf_token %} {{form.as_p}}</div>
-                  <button
-                    class="btn btn-primary d-block btn-user w-100"
-                    type="submit"
-                  >
-                    Register Account
-                  </button>
-                  <hr />
-                  
+    <body id="page-top">
+      <div id="wrapper">
+        <nav
+          class="navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0"
+        >
+          <div class="container-fluid d-flex flex-column p-0">
+            <a
+              class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0"
+              href="#"
+            >
+              <div class="sidebar-brand-icon rotate-n-15">
+                <i class="fas fa-coffee"></i>
+              </div>
+              <div class="sidebar-brand-text mx-3"><span>پنل مدیریت</span></div>
+            </a>
+            <hr class="sidebar-divider my-0" />
+            <ul class="navbar-nav text-light" id="accordionSidebar">
+              <li class="nav-item dropdown">
+                <a
+                  class="dropdown-toggle nav-link"
+                  aria-expanded="false"
+                  data-bs-toggle="dropdown"
+                  href="#"
+                  ><i class="fas fa-utensils"></i>سفارشات
+                </a>
+                <div class="dropdown-menu">
                   <a
-                    class="btn btn-primary d-block btn-google btn-user w-100 mb-2"
-                    role="button" href={% url 'index' %}
-                    ><i class="fab fa-google"></i>&nbsp; Back</a
-                  >
-                  <hr />
-                </form>
-                <div class="text-center">
-                  {% comment %} <a class="small" href="{% static 'forgot-password.html' %}"
-                    >Forgot Password?</a
-                  > {% endcomment %}
+                    class="dropdown-item"
+                    href="http://127.0.0.1:8000/staff/dashboard"
+                    >تمام سفارشات</a
+                  ><a class="dropdown-item" href={% url "trash" %}>سفارشات پاک شده</a
+                  ><a class="dropdown-item" href={% url "checked_out" %}>سفارشات پرداخت شده</a>
                 </div>
-                <div class="text-center">
-                  {% comment %} <a class="small" href="{% static 'login.html' %}"
-                    >Already have an account? Login!</a
-                  > {% endcomment %}
+              </li>
+
+              <li class="nav-item">
+                <a class="nav-link" href="http://127.0.0.1:8000/staff/add_item"
+                  ><i class="fas fa-plus"></i><span>افزودن ایتم</span></a
+                >
+              </li>
+              <li class="nav-item">
+                <a
+                  class="nav-link"
+                  href="http://127.0.0.1:8000/staff/add-category"
+                  ><i class="fas fa-plus"></i><span>افزودن دسته</span></a
+                >
+              </li>
+              <li class="nav-item">
+                {% if request.user.is_admin %}
+                <li class="nav-item"></li>
+                <li class="nav-item">
+                  <a class="nav-link" href="http://127.0.0.1:8000/staff/list_user"
+                    ><i class="fas fa-user-circle"></i><span>مدیریت پرسنل</span></a
+                  >
+                {% endif %}
+                </li>
+                {% if request.user.is_admin %}
+                <li class="nav-item">
+                  <a class="nav-link" href="http://127.0.0.1:8000/staff/reports"
+                    ><i class="fas fa-tachometer-alt"></i> <span>گزارشات</span></a
+                  >
+                </li>
+                {% endif %}
+              </li>
+            </ul>
+            <div class="text-center d-none d-md-inline">
+              <button
+                class="btn rounded-circle border-0"
+                id="sidebarToggle"
+                type="button"
+              ></button>
+            </div>
+          </div>
+        </nav>
+        <div class="d-flex flex-column" id="content-wrapper">
+          <div id="content">
+            <nav
+              class="navbar navbar-light navbar-expand bg-white shadow mb-4 topbar static-top"
+            >
+              <div class="container-fluid">
+                <button
+                  class="btn btn-link d-md-none rounded-circle me-3"
+                  id="sidebarToggleTop"
+                  type="button"
+                >
+                  <i class="fas fa-bars"></i>
+                </button>
+
+                <ul class="navbar-nav flex-nowrap ms-auto">
+                  <div class="d-none d-sm-block topbar-divider"></div>
+                  <li class="nav-item dropdown no-arrow">
+                    <div class="nav-item dropdown no-arrow">
+                      <a
+                        class="dropdown-toggle nav-link"
+                        aria-expanded="false"
+                        data-bs-toggle="dropdown"
+                        href="#"
+                        ><span
+                          class="d-none d-lg-inline me-2 text-gray-600 small"
+                          >{{request.user.full_name}}</span
+                        ><img
+                          class="border rounded-circle img-profile"
+                          src="{%static 'assest_admin_show_order/img/avatars/avatar1.jpeg'%}"
+                      /></a>
+                      <div
+                        class="dropdown-menu shadow dropdown-menu-end animated--grow-in"
+                      >
+                        <a class="dropdown-item" href="{% url 'logout' %}"
+                          ><i
+                            class="fas fa-sign-out-alt fa-sm fa-fw me-2 text-gray-400"
+                          ></i
+                          >&nbsp;Logout</a
+                        >
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </nav>
+          <body class="bg-gradient-primary">
+            <div class="container">
+              <div class="card shadow-lg o-hidden border-0 my-5">
+                <div class="card-body p-0">
+                  <div class="row">
+                    <div class="col-lg-7">
+                      <div class="p-5">
+                        <div class="text-center">
+                          <h4 class="text-dark mb-4">Create an Account!</h4>
+                        </div>
+                        <form class="user" action="{% url 'register' %}" method="post" >
+                          <div class="row mb-3">{% csrf_token %}
+                            {% render_field form.roll class="form-control form-control-user" placeholder="roll" %}
+                            {% render_field form.email class="form-control form-control-user" placeholder="email" %}
+                            {% render_field form.full_name class="form-control form-control-user" placeholder="full anme" %}
+                            {% render_field form.phone class="form-control form-control-user" placeholder="phone" %}
+                            {% render_field form.password class="form-control form-control-user" placeholder="password" %}
+
+                          </div>
+                          <button
+                            class="btn btn-primary d-block btn-user w-100"
+                            type="submit"
+                          >
+                            Register Account
+                          </button>
+                          <hr />
+                          
+                          <a
+                            class="btn btn-primary d-block btn-google btn-user w-100 mb-2"
+                            role="button" href={% url 'list_user' %}
+                            ><i class="fab fa-google"></i>&nbsp; Back</a
+                          >
+                          <hr />
+                        </form>
+                        <div class="text-center">
+                          {% comment %} <a class="small" href="{% static 'forgot-password.html' %}"
+                            >Forgot Password?</a
+                          > {% endcomment %}
+                        </div>
+                        <div class="text-center">
+                          {% comment %} <a class="small" href="{% static 'login.html' %}"
+                            >Already have an account? Login!</a
+                          > {% endcomment %}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
-    <script src="assets/js/theme.js"></script>
-  </body>
-</html>
+            <script>
+              function changeText(selectedItem) {
+                document.getElementById("selectedstatus2").innerText = selectedItem;
+                document.getElementById("selected_category").value = selectedItem;
+              }
+            </script>
+            <script src="{% static 'assets/bootstrap/js/bootstrap.min.js'%}"></script>
+            <script src="{% static 'assets/js/theme.js' %}"></script>
+          </body>
+        </html>
